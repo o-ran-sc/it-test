@@ -1,0 +1,7 @@
+#!/bin/bash
+
+virtualenv flask
+
+flask/bin/pip install flask
+
+./a1med.py

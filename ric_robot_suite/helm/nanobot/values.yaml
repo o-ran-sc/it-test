@@ -1,0 +1,97 @@
+#   Copyright (c) 2019 AT&T Intellectual Property.
+#   Copyright (c) 2019 Nokia.
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+images:
+ ric:
+  robot:
+   job:
+    init:
+     name: alpine
+     # tag: latest
+    run:
+     repository: snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com:10001
+     name: test/nanobot
+     tag: latest
+     # note: the helm chart does not create repository credential secrets.
+     # If your repository requires authentication, create a docker-registry 
+     # secret with
+     #
+     #   kubectl create secret docker-registry --namespace <robot-job-namespace> ...
+     #
+     # and fill in secret-name below.  Only one secret should be created per
+     # registry. The chart will take care of producing a unique  list of
+     # imagePullSecrets.
+     repositoryCred: azure-secret
+ric:
+ cluster:
+  # The kubernetes cluster name.  To find this, do:
+  # $ grep cluster: ${KUBECONFIG}
+  name: kubernetes
+  # the DNS domain for k8s services, typically "cluster.local"
+  domain: cluster.local
+ platform:
+  # RIC installation details.  The values
+  # for these can typically be found in
+  # the ricplt/ric_env.sh file from the ric
+  # platform source tree
+  namespace: ricplt
+  releaseName: r0
+  components:
+   appmgr:
+    user: test
+    password: test
+   rtmgr:
+    user: test
+    password: test
+   dbaas:
+    port: "6379"
+   e2mgr:
+    user: test
+    password: test
+   e2term:
+ xapp:
+  namespace: ricxapp
+ robot:
+  #
+  # host filesystem path where robot
+  # output will be stored
+  log: /opt/ric/robot/log
+  #
+  # Active testsuites can be chosen by
+  # tag, testuite names, or both.  leaving
+  # either unspecified will cause all to run.
+  testsuites:
+  # - ricdeployment
+  # - healthcheck
+  tags:
+  # - etetests
+  # - k8stests
+  #
+  job:
+   # set this to a true value to cause
+   # the job to fail (and, typically, be resubmitted)
+   # when tests fail
+   failOnTestFail: false
+   serviceAccount:
+    # by default, the job will create
+    # a temporary serviceaccount and
+    # role to allow it to access the
+    # xapp and platform namespaces.
+    # to use an existing serviceaccount,
+    # set this to false...
+    create: true
+    # ... and specify the serviceaccount here:
+    # name: nanobot
+    

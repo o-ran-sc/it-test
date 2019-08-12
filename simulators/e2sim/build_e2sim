@@ -1,0 +1,151 @@
+#!/bin/bash
+#
+#
+# Copyright 2019 AT&T Intellectual Property
+# Copyright 2019 Nokia
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# build utility for E2 Agent
+
+set -e
+
+E2SIM_DIR=$PWD
+ASN1_C_DIR=$E2SIM_DIR/build/CMakeFiles/ASN1
+
+source $E2SIM_DIR/tools/build_helper.bash
+
+print_help()
+{
+  echo "
+    This program installs E2 Simulator
+    You should have ubuntu 14.xx, updated, and the Linux kernel >= 3.14
+    The program is run by default with no option
+
+    Options
+    --clean
+       Erase all files to make a rebuild from start
+    -h
+       Print this help
+    "
+}
+
+generate_asn1c_codes()
+{
+  X2AP_RELEASE="R14"
+  X2AP_ASN_FILES="x2ap-14.6.0.asn1"
+  ASN_SOURCE_X2AP=$E2SIM_DIR/src/X2AP/MESSAGES/ASN1/${X2AP_RELEASE}/${X2AP_ASN_FILES}
+
+  ASN_SOURCE_Pendulum=$E2SIM_DIR/src/ONS2019/pendulum.asn1
+
+  done_flag="$ASN1_C_DIR"/done
+
+  #-ot = older than, -nt = newer than
+
+  if [ "$done_flag" -ot $ASN_SOURCE_X2AP ] ; then
+    echo_info "Generate C codes for from source file"
+    #echo_info $ASN_SOURCE
+
+    rm -f "$ASN1_C_DIR"/*.c "$ASN1_C_DIR"/*.h
+    mkdir -p $ASN1_C_DIR
+    asn1c -pdu=all -fcompound-names -gen-PER -no-gen-OER -no-gen-example \
+                -fno-include-deps -D $ASN1_C_DIR $ASN_SOURCE_X2AP  \
+                |& egrep -v "^Copied|^Compiled" | sort -u
+
+    asn1c -pdu=all -fcompound-names -gen-PER -no-gen-OER -no-gen-example \
+                -fno-include-deps -D $ASN1_C_DIR $ASN_SOURCE_Pendulum  \
+                |& egrep -v "^Copied|^Compiled" | sort -u
+
+    echo_success "ASN1 C codes generated at: $ASN1_C_DIR"
+  fi
+  touch $done_flag
+}
+
+install_rmr()
+{
+  echo_info "Will install rmr library"
+  /bin/bash rmr_interface/rmr_install.sh
+}
+
+compile_asn_api_lib()
+{
+  echo_info "Will complie ASN1_API library"
+  # rm -rf build/libASN1_API.a
+  # rm -rf build/asn_x2ap.o
+  # rm -rf build/asn_e2ap.o
+
+  g++ -O3  -std=c++14 -Wall \
+    -I./src/ASN1/ -I./src/ASN1/asn/ -I./src/ASN1/generated/  \
+    -c src/ASN1/lib/asn_e2ap.cpp \
+    -o build/asn_e2ap.o
+    ar -crv build/libASN1_API.a build/asn_e2ap.o
+
+  g++ -O3  -std=c++14 -Wall \
+    -I./src/ASN1/ -I./src/ASN1/asn/ -I./src/ASN1/generated/  \
+    -c src/ASN1/lib/asn_x2ap.cpp \
+    -o build/asn_x2ap.o
+    ar -crv build/libASN1_API.a build/asn_x2ap.o
+}
+
+function main()
+{
+
+  case "$1" in
+    --clean)
+      echo_info "Will clean all previously producted files under build/"
+      rm -rf $E2SIM_DIR/build
+      echo_success "Clean Done"
+      exit
+      ;;
+
+    "")
+      ;;
+
+    --rmr)
+      install_rmr
+      exit
+      ;;
+
+    --lib)
+      compile_asn_api_lib
+      exit
+      ;;
+
+    -h)
+      print_help
+      exit 1;;
+
+    *)
+      echo_error "Unknown option $1"
+      exit
+  esac
+
+  BUILD_DIR=$E2SIM_DIR/build
+  mkdir -p $BUILD_DIR
+  mkdir -p $BUILD_DIR/log
+
+  # generate_asn1c_codes #X2AP, pendulum
+
+  compile_asn_api_lib
+
+  echo_info "Will build e2sim"
+  cd $BUILD_DIR
+  rm -rf CMakeCache.txt
+  cmake ..
+  make -j`nproc`
+
+  echo_success "e2sim compiled"
+
+}
+
+main "$@"

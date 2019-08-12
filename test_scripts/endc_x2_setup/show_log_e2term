@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#kubectl -n ricplt logs r0-e2term-6d8776978f-zf6br | grep -E --color 'gnb|10.2.0.22|successfulOutcome|initiatingMessage|e2agent|'
+
+#kubectl -n ricplt logs r0-e2term-74d595d7f7-b8dmc 
+
+kubectl -n ricplt logs $(kubectl -n ricplt get pods | grep -o 'deployment-r0-e2term[^ ]*') $1

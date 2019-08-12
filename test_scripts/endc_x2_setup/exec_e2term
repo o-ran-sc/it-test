@@ -1,0 +1,1 @@
+kubectl -n ricplt exec -it r0-e2term-5d8bc97f84-sfpgd  -- /bin/bash 

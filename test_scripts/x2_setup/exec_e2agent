@@ -1,0 +1,1 @@
+docker run --rm --net host -it e2agent 

@@ -1,0 +1,1 @@
+kubectl -n ricplt exec -it r0-e2mgr-84b4649cdd-4xj2q -- /bin/bash

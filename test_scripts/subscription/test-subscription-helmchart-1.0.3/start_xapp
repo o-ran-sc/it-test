@@ -1,0 +1,7 @@
+#!/bin/bash
+
+helm install --name r0-adm-xapp --namespace ricplt ./
+
+#sleep 3
+
+#kubectl -n ricplt exec -it $(kubectl -n ricplt get pods | grep -o 'adm-ctrl-xapp[^ ]*') -- /bin/bash

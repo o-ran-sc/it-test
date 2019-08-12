@@ -1,0 +1,3 @@
+#!/bin/bash
+
+kubectl -n ricplt logs r0-e2term-69dcfc8958-mk8ln

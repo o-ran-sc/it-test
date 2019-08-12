@@ -1,0 +1,5 @@
+#!/bin/bash
+curl --header "Content-Type: application/json" \
+  --request PUT \
+  --data '{"load": 130}' \
+  http://localhost:10080/a1ric/load
