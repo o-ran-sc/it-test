@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#kubectl -n ricplt logs ric-full-e2mgr-586bc79896-sgw2h | grep -E --color 'gnb|135.207.143.102|successfulOutcome|e2agent|135.207.143.117|'
+
+kubectl -n ricplt logs r0-e2mgr-766fc459cb-595dm
+

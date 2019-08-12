@@ -1,0 +1,9 @@
+build/
+rmr/
+temp/
+.tags
+.tags1
+tools/asn1c
+build_and_run_e2sim
+test_e2_termination
+upload_to_demo_laptop

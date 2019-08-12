@@ -1,0 +1,1 @@
+docker run --rm --net host -it e2agent sh -c "./build/e2agent 10.2.0.28 36455"  

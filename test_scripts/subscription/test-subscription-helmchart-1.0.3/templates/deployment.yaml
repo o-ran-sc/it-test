@@ -1,0 +1,106 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adm-ctrl-xapp 
+  labels:
+    app: adm-ctrl-xapp
+    app.kubernetes.io/name: adm-ctrl-xapp 
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    #app.kubernetes.io/managed-by: {{ .Release.Service }}
+    #helm.sh/chart: {{ include "adm-ctrl-xapp.chart" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+       app: adm-ctrl-xapp
+  #    app.kubernetes.io/name: {{ include "adm-ctrl-xapp.name" . }}
+  #    app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: adm-ctrl-xapp
+        #app.kubernetes.io/name: {{ include "adm-ctrl-xapp.name" . }}
+        #app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      hostname: adm-ctrl-xapp
+      imagePullSecrets:
+        - name: {{ .Values.imageCredentials.name }}
+      containers:
+        - name: sub-client
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          restartPolicy: Never
+          ports:
+            - name: xapp-port
+              containerPort: {{ .Values.service.xapp_port}}
+              protocol: TCP
+            - name: rmr-port
+              containerPort: {{ .Values.service.rmr_port}}
+              protocol: TCP
+
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          #command: ["{{ .Values.xapp.env.run_command }}"]
+          #args: ["-p", "{{ .Values.service.xapp_port}}", "-g", "{{ .Values.xapp.env.gNodeB}}" , "-r", "{{ .Values.xapp.env.start_request_id }}", "-x", "{{ .Values.xapp.env.requests }}", "-t", "{{ .Values.xapp.env.interval }}"]
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          env:
+            - name: "RMR_RTG_SVC"
+              value: "127.0.0.1:9995"
+            - name: "THREADS"
+              value: "{{ .Values.xapp.env.threads}}"
+            - name: "RMR_SEED_RT"
+              value: {{ printf "%s/%s" .Values.xapp.env.route_path .Values.xapp.env.route_file }}
+            - name: "DELETE_MODE"
+              value: "{{ .Values.xapp.env.deleteMode}}"
+            - name: "RAN_FUNCTION_ID"
+              value: "{{ .Values.xapp.env.ranFunctionId}}"
+            - name: "ACTION_ID"
+              value: "{{ .Values.xapp.env.actionId }}"
+            - name: "ACTION_TYPE"
+              value: "{{ .Values.xapp.env.actionType }}"
+            - name: "TRIGGER_DEF"
+              value: "{{ .Values.xapp.env.triggerDef }}"
+
+          volumeMounts:
+              - name : rmr-route-info
+                mountPath: {{ .Values.xapp.env.route_path }} 
+
+      volumes:
+           - name: rmr-route-info 
+             configMap:
+                 name: rmr-configmap-xapp
+                 items:
+                     - key : {{ .Values.xapp.env.route_file }} 
+                       path: {{ .Values.xapp.env.route_file }}
+            
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

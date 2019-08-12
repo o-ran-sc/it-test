@@ -1,0 +1,2 @@
+#!/bin/bash
+curl http://localhost:10080/a1ric/load

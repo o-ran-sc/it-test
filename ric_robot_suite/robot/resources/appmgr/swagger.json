@@ -1,0 +1,509 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "This is a draft API for RIC xapp-manager",
+      "version": "0.0.6",
+      "title": "RIC xapp-manager"
+    },
+    "host": "hostname",
+    "basePath": "/ric/v1/xapps",
+    "schemes": [
+      "https",
+      "http"
+    ],
+    "paths": {
+      "/ric/v1/xapps": {
+        "post": {
+          "description": "Deploy a xapp",
+          "operationId": "deployXapp",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "description": "xApp information",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "xAppName"
+                ],
+                "properties": {
+                  "xAppName": {
+                    "type":"string",
+                    "description":"Name of the xApp",
+                    "example": "xapp-dummy"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "xApp successfully created",
+              "schema": {
+                "$ref": "#/definitions/Xapp"
+              }
+            },
+            "400": {
+              "description": "Invalid input"
+            },
+            "500": {
+              "description": "Internal error"
+            }
+          }
+        },
+        "get": {
+          "description": "Returns the status of all xapps",
+          "operationId": "getAllXapps",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "successful query of xApps",
+              "schema": {
+                "$ref": "#/definitions/AllXapps"
+              }
+            },
+            "500": {
+              "description": "Internal error"
+            }
+          }
+        }
+      },
+      "/ric/v1/xapps/{xAppName}": {
+        "get": {
+          "description": "Returns the status of a given xapp",
+          "operationId": "getXappByName",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "xAppName",
+              "in": "path",
+              "description": "Name of xApp",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/Xapp"
+              }
+            },
+            "400": {
+              "description": "Invalid ID supplied"
+            },
+            "404": {
+              "description": "Xapp not found"
+            },
+            "500": {
+              "description": "Internal error"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Undeploy an existing xapp",
+          "description": "",
+          "operationId": "undeployXapp",
+          "parameters": [
+            {
+              "name": "xAppName",
+              "in": "path",
+              "description": "Xapp to be undeployed",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Successful deletion of xApp"
+            },
+            "400": {
+              "description": "Invalid xApp name supplied"
+            },
+            "500": {
+              "description": "Internal error"
+            }
+          }
+        }
+      },
+      "/ric/v1/xapps/{xAppName}/instances/{xAppInstanceName}": {
+        "get": {
+          "description": "Returns the status of a given xapp",
+          "operationId": "getXappInstanceByName",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "xAppName",
+              "in": "path",
+              "description": "Name of xApp",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "xAppInstanceName",
+              "in": "path",
+              "description": "Name of xApp instance to get information",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/XappInstance"
+              }
+            },
+            "400": {
+              "description": "Invalid name supplied"
+            },
+            "404": {
+              "description": "Xapp not found"
+            },
+            "500": {
+              "description": "Internal error"
+            }
+          }
+        }
+      },
+      "/ric/v1/subscriptions": {
+        "post": {
+          "description": "Subscribe event",
+          "operationId": "addSubscription",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "New subscription",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/subscriptionRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Subscription successful",
+              "schema": {
+                "$ref": "#/definitions/subscription"
+              }
+            },
+            "400": {
+              "description": "Invalid input"
+            }
+          }
+        },
+        "get": {
+          "description": "Returns all subscriptions",
+          "operationId": "getSubscriptions",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "successful query of subscriptions",
+              "schema": {
+                "$ref": "#/definitions/allSubscriptions"
+              }
+            }
+          }
+        }
+      },
+      "/ric/v1/subscriptions/{subscriptionId}": {
+        "get": {
+          "description": "Returns the information of subscription",
+          "operationId": "getSubscriptionById",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "subscriptionId",
+              "in": "path",
+              "description": "ID of subscription",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/subscription"
+              }
+            },
+            "400": {
+              "description": "Invalid ID supplied"
+            },
+            "404": {
+              "description": "Subscription not found"
+            }
+          }
+        },
+        "put": {
+          "description": "Subscribe event",
+          "operationId": "modifySubscription",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "subscriptionId",
+              "in": "path",
+              "description": "ID of subscription",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "New subscription",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/subscriptionRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Subscription successful",
+              "schema": {
+                "$ref": "#/definitions/subscription"
+              }
+            },
+            "400": {
+              "description": "Invalid input"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Unsubscribe event",
+          "description": "",
+          "operationId": "deleteSubscription",
+          "parameters": [
+            {
+              "name": "subscriptionId",
+              "in": "path",
+              "description": "ID of subscription",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Successful deletion of subscription"
+            },
+            "400": {
+              "description": "Invalid subscription supplied"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "AllXapps": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Xapp"
+        }
+      },
+      "Xapp": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "xapp-dummy"
+          },
+          "status": {
+            "type": "string",
+            "description": "xapp status in the RIC",
+            "enum": [
+              "unknown",
+              "deployed",
+              "deleted",
+              "superseded",
+              "failed",
+              "deleting"
+            ]
+          },
+          "version": {
+            "type": "string",
+            "example": "1.2.3"
+          },
+          "instances": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/XappInstance"
+            }
+          }
+        }
+      },
+      "XappInstance": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "xapp-dummy-6cd577d9-4v255"
+          },
+          "status": {
+            "type": "string",
+            "description": "xapp instance status",
+            "enum": [
+              "pending",
+              "running",
+              "succeeded",
+              "failed",
+              "unknown",
+              "completed",
+              "crashLoopBackOff"
+            ]
+          },
+          "ip": {
+            "type": "string",
+            "example": "192.168.0.1"
+          },
+          "port": {
+            "type": "integer",
+            "example": 32300
+          },
+          "txMessages" : {
+            "type": "array",
+            "items": {
+              "type" : "string",
+              "example" : "ControlIndication"
+            }
+          },
+          "rxMessages" : {
+            "type": "array",
+            "items": {
+              "type" : "string",
+              "example" : "LoadIndication"
+            }
+          }
+        }
+      },
+      "subscriptionRequest": {
+        "type": "object",
+        "required": [
+          "targetUrl",
+          "eventType",
+          "maxRetry",
+          "retryTimer"
+        ],
+        "properties": {
+          "targetUrl": {
+            "type": "string",
+            "example": "http://localhost:11111/apps/webhook/"
+          },
+          "eventType": {
+            "type": "string",
+            "description": "Event which is subscribed",
+            "enum": [
+              "created",
+              "deleted",
+              "all"
+            ]
+          },
+          "maxRetry": {
+            "type": "integer",
+            "description": "Maximum number of retries",
+            "example": 11
+          },
+          "retryTimer": {
+            "type": "integer",
+            "description": "Time in seconds to wait before next retry",
+            "example": 22
+          }
+        }
+      },
+      "allSubscriptions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/subscription"
+        }
+      },
+      "subscription": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "1ILBltYYzEGzWRrVPZKmuUmhwcc"
+          },
+          "targetUrl": {
+            "type": "string",
+            "example": "http://localhost:11111/apps/webhook/"
+          },
+          "eventType": {
+            "type": "string",
+            "description": "Event which is subscribed",
+            "enum": [
+              "created",
+              "deleted",
+              "all"
+            ]
+          },
+          "maxRetry": {
+            "type": "integer",
+            "description": "Maximum number of retries",
+            "example": 11
+          },
+          "retryTimer": {
+            "type": "integer",
+            "description": "Time in seconds to wait before next retry",
+            "example": 22
+          }
+        }
+      },
+      "subscriptionNotification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "1ILBltYYzEGzWRrVPZKmuUmhwcc"
+          },
+          "version": {
+            "type": "integer",
+            "example": 2
+          },
+          "eventType": {
+            "type": "string",
+            "description": "Event to be notified",
+            "enum": [
+              "created",
+              "deleted"
+            ]
+          },
+          "xApps": {
+            "$ref": "#/definitions/AllXapps"
+          }
+        }
+      }
+    }
+}

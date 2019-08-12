@@ -1,0 +1,3 @@
+#kubectl -n ricplt logs $(kubectl -n ricplt get pods | grep -o 'adm-ctrl-xapp[^ ]*') $1
+
+/usr/local/bin/e2e-test-client -x 1 -g AAAA000006 -p 4560

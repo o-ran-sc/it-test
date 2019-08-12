@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: adm-ctrl-xapp 
+  labels:
+    app: adm-ctrl-xapp
+    #app.kubernetes.io/instance: {{ .Release.Name }}
+    #app.kubernetes.io/name: {{ include "adm-ctrl-xapp.name" . }}
+    #helm.sh/chart: {{ include "adm-ctrl-xapp.chart" . }}
+    #app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  #clusterIP: None
+  ports:
+    - name : xapp-port
+      port: {{ .Values.service.xapp_port }}
+      targetPort: {{ .Values.service.xapp_port }} 
+      protocol: TCP
+
+    - name : rmr-port
+      port: {{ .Values.service.rmr_port }}
+      targetPort: {{ .Values.service.rmr_port }} 
+      protocol: TCP
+
+  selector:
+    app: adm-ctrl-xapp
+    #app.kubernetes.io/name: {{ include "adm-ctrl-xapp.name" . }}
+    #app.kubernetes.io/instance: {{ .Release.Name }}

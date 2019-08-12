@@ -1,0 +1,82 @@
+# Copyright © 2019 AT&T Intellectual Property. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ include "ric-robot.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "ric-robot.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+    spec:
+      containers:
+      - name: {{ include "ric-robot.name" . }}
+        image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          - name: RICPLT_NAMESPACE
+            value:  {{ .Release.Namespace }}
+          - name: RICPLT_RELEASE_NAME
+            value:  {{ .Values.Release.HelmReleaseName }}
+          - name: RICPLT_COMPONENTS
+            value: {{ keys .Values.ric.platform.components | join " " }}
+        ports:
+           - containerPort: {{ .Values.service.port }}
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.service.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.service.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        volumeMounts:
+        - name: dshm
+          mountPath: /dev/shm
+        - name: localtime
+          mountPath: /etc/localtime
+          readOnly: true
+        - name: robot-eteshare
+          mountPath: /share/config
+        - name: robot-logs
+          mountPath: /share/logs
+        resources:
+      volumes:
+      - name: dshm
+        emptyDir:
+          medium: Memory
+      - name: localtime
+        hostPath:
+          path: /etc/localtime
+      - name: robot-eteshare
+        configMap:
+          name: {{ include "ric-robot.fullname" . }}-eteshare-configmap
+          defaultMode: 0755
+      - name: robot-logs
+        emptyDir: {}
+      imagePullSecrets:
+        - name: {{ .Values.image.repositoryCred }}
+

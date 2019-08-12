@@ -1,0 +1,2 @@
+kubectl -n ricplt exec -it $(kubectl -n ricplt get pods | grep -o 'adm-ctrl-xapp[^ ]*') -- /bin/bash
+
