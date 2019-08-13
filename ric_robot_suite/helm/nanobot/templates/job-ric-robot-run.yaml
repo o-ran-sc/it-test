@@ -1,0 +1,220 @@
+{{/*
+   Copyright (c) 2019 AT&T Intellectual Property.
+   Copyright (c) 2019 Nokia.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/}}
+{{- $platformNamespace := default .Release.Namespace .Values.ric.platform.namespace }}
+{{- $xappNamespace := default $platformNamespace .Values.ric.xapp.namespace }}
+{{- $releaseName := default "ric-full" .Values.ric.platform.releaseName }}
+{{- $jobName :=  printf "%s-%s" .Release.Name $releaseName }}
+{{- $acctName := randAlpha 6 | lower | printf "%s-%s" $jobName }}
+{{- $serviceAccountName := default $acctName .Values.ric.robot.job.serviceAccount.name }}
+{{- if .Values.ric.robot.job.serviceAccount.create }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ $serviceAccountName }}
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: {{ $serviceAccountName }}-{{ $releaseName }}-ricplatform-access
+  namespace: {{ $platformNamespace }}
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services"]
+  verbs: ["get", "list"]
+- apiGroups: ["apps"]
+  resources: ["daemonsets", "replicasets", "statefulsets"]
+  verbs: ["get", "list"]
+- apiGroups: ["extensions"]
+  resources: ["daemonsets", "replicasets"]
+  verbs: ["get", "list"]
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "patch"]
+- apiGroups: ["extensions"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: {{ $serviceAccountName }}-{{ $releaseName }}-ricplatform-access
+  namespace: {{ $platformNamespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ $serviceAccountName }}-{{ $releaseName }}-ricplatform-access
+subjects:
+  - kind: ServiceAccount
+    name: {{ $serviceAccountName }}
+    namespace: {{ .Release.Namespace }}
+{{- if ne $xappNamespace $platformNamespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: {{ $serviceAccountName }}-{{ $releaseName }}-xapp-access
+  namespace: {{ $xappNamespace }}
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services"]
+  verbs: ["get", "list"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "daemonsets", "replicasets", "statefulsets"]
+  verbs: ["get", "list"]
+- apiGroups: ["extensions"]
+  resources: ["deployments", "daemonsets", "replicasets"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: {{ $serviceAccountName }}-{{ $releaseName }}-xapp-access
+  namespace: {{ $xappNamespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ $serviceAccountName }}-{{ $releaseName }}-xapp-access
+subjects:
+  - kind: ServiceAccount
+    name: {{ $serviceAccountName }}
+    namespace: {{ .Release.Namespace }}
+{{- end }}
+{{- end }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $jobName }}-ric-robot-run
+  namespace: {{ .Release.Namespace }}
+spec:
+  template:
+    spec:
+      serviceAccountName: {{ $serviceAccountName }}
+      restartPolicy: Never
+      initContainers:
+        - name: {{ $jobName }}-generate-robot-kubeconfig
+          {{ with .Values.images.ric.robot.job.init }}
+          image: {{ if .repository }}{{- .repository -}} / {{- end -}}{{- .name -}}{{- if .tag -}} : {{- .tag -}} {{- end }}
+          imagePullPolicy: {{ default "IfNotPresent" .pullPolicy }}
+          {{- end }}
+          env:
+            - name: SVCACCT_NAME
+              value: {{ $serviceAccountName }}
+            - name: CLUSTER_NAME
+              value: {{ default "kubernetes" .Values.ric.cluster.name }}
+            - name: KUBECONFIG
+              value: /robot/etc/ric-robot-kubeconfig.conf
+            - name: K8S_API_HOST
+              value: "kubernetes.default.svc.{{ default "cluster.local" .Values.ric.cluster.domain }}"
+          command: ["/robot/bin/svcacct-to-kubeconfig.sh"]
+          volumeMounts:
+            - name: robot-etc
+              mountPath: /robot/etc
+              readOnly: false
+            - name: robot-log
+              mountPath: /robot/log
+              readOnly: false
+            - name: robot-bin
+              mountPath: /robot/bin
+              readOnly: true
+      {{- $secrets := dict }}   
+      {{- range $index, $container := .Values.images.ric.robot.job }}
+      {{- if index $container "repositoryCred" }}
+      {{- $_ := set $secrets $container.repositoryCred (dict "name" $container.repositoryCred) }}
+      {{- end }}
+      {{- end }}
+      {{- if keys $secrets }}
+      imagePullSecrets:
+      {{- values $secrets | toYaml |nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ $jobName }}-ric-robot
+          {{ with .Values.images.ric.robot.job.run -}}
+          image: {{ if .repository }}{{- .repository -}} / {{- end -}}{{- .name -}}{{- if .tag -}} : {{- .tag -}} {{- end }}
+          imagePullPolicy: {{ default "IfNotPresent" .pullPolicy }}
+          {{- end }}
+          env:
+            - name: RICPLT_NAMESPACE
+              value: {{ $platformNamespace }}
+            - name: RICPLT_RELEASE_NAME
+              value: {{ $releaseName }}
+            - name: RICPLT_COMPONENTS
+              value: {{ keys .Values.ric.platform.components | join " " }}
+            - name: RICXAPP_NAMESPACE
+              value: {{ $xappNamespace }}
+            - name: KUBECONFIG
+              value: /robot/etc/ric-robot-kubeconfig.conf
+          command: ["robot"]
+          args:
+            - "-T"
+            {{- if not .Values.ric.robot.job.failOnTestFail }}
+            - "--NoStatusRC"
+            {{- end }}
+            - "-d"
+            - "/robot/log"
+            - "--console"
+            - "verbose"
+            - "-C"
+            - "off"
+            {{- if .Values.ric.robot.tags }}
+            {{- range .Values.ric.robot.tags }}
+            - "-i"
+            - "{{.}}"
+            {{- end }}
+            {{- end }}
+            {{- if .Values.ric.robot.testsuites }}
+            {{- range .Values.ric.robot.testsuites }}
+            - "/robot/testsuites/{{.}}.robot"
+            {{- end }}
+            {{- else }}
+            - "/robot/testsuites"
+            {{- end }}
+          volumeMounts:
+            - name: robot-testsuites
+              mountPath: /robot/testsuites
+              readOnly: true
+            - name: robot-etc
+              mountPath: /robot/etc
+              readOnly: true
+            - name: robot-log
+              mountPath: /robot/log
+              readOnly: false
+            - name: robot-properties
+              mountPath: /robot/resources/global_properties.robot
+              subPath: global_properties.robot
+              readOnly: true
+      volumes:
+        - name: robot-etc
+          emptyDir: {}
+        - name: robot-log
+          hostPath:
+           path: {{ default "/opt/ric/robot/log"  .Values.ric.robot.log }}
+           type: DirectoryOrCreate
+        - name: robot-bin
+          configMap:
+           name: robot-bin
+           defaultMode: 0755
+        - name: robot-testsuites
+          configMap:
+           name: robot-testsuites
+           defaultMode: 0644
+        - name: robot-properties
+          configMap:
+           name: robot-properties
+           defaultMode: 0644

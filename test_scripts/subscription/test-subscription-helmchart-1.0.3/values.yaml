@@ -1,0 +1,82 @@
+# Default values for adm-ctrl-xapp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  #repository: localhost:5000/ric-app-admin
+  #tag: 0.0.2 
+  #repository: nexus3.o-ran-sc.org:10004/ric-app-admin
+  #tag: latest
+  repository: snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com:10001/e2e-xapp
+  tag: 1.0.0
+  pullPolicy: IfNotPresent
+
+imageCredentials:
+    name: lf-docker-nexus-xapp
+    #registry: nexus3.o-ran-sc.org:10004
+    registry: snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com:10001
+    username: docker
+    password: docker
+
+
+xapp:
+    env:
+      rtmgr: "ric-full-rtmgr.ricplatform"
+      threads: "1"
+      route_path: "/tmp/test"
+      route_file: "uta_rtg.test"
+      run_command: "/usr/local/bin/e2e-test-client"
+      gNodeB: "NYC1234" # Change to reflect sctp connection ID
+      deleteMode: "TRUE" # Change to FALSE if xapp should NOT send a subscription delete request
+      ranFunctionId: "0"
+      actionType: "0"
+      actionIdD: "1"
+      triggerDef: "E2ETest"
+      interval : "5"
+      start_request_id: "100"
+      requests: "1"  # 1 means send a request and then wait till we get a response 
+                     # -1 means keep sending requests continously 
+                     # > 1 means send specific number of requests and then stop
+  
+
+nameOverride: "adm-ctrl-xapp"
+fullnameOverride: "adm-ctrl-xapp"
+
+service:
+  type: ClusterIP
+  xapp_port: 4560
+  rmr_port : 4561
+
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  paths: []
+  hosts:
+    - chart-example.local
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

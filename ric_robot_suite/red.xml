@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<projectConfiguration>
+    <configVersion>1.0</configVersion>
+    <relativeTo>PROJECT</relativeTo>
+    <referencedLibrary type="PYTHON" name="RequestsLibrary" path="testsuite/robot/library"/>
+    <referencedLibrary type="PYTHON" name="UUID" path="testsuite/robot/library/eteutils"/>
+    <referencedLibrary type="PYTHON" name="Selenium2Library" path="testsuite/robot/library"/>
+    <referencedLibrary type="PYTHON" name="ExtendedSelenium2Library" path="testsuite/robot/library"/>
+    <referencedLibrary type="PYTHON" name="SSHLibrary" path="testsuite/robot/library"/>
+    <referencedLibrary type="PYTHON" name="HTTPUtils" path="testsuite/robot/library/eteutils"/>
+    <referencedLibrary type="PYTHON" name="JSONUtils" path="testsuite/robot/library/eteutils"/>
+    <referencedLibrary type="PYTHON" name="HttpLibrary" path="testsuite/robot/library"/>
+    <referencedLibrary type="PYTHON" name="HttpLibrary.HTTP" path="testsuite/robot/library"/>
+    <referencedLibrary type="PYTHON" name="StringTemplater" path="testsuite/robot/library/eteutils"/>
+    <referencedLibrary type="PYTHON" name="OpenstackLibrary" path="testsuite/robot/library/eteutils"/>
+    <referencedLibrary type="PYTHON" name="OSUtils" path="testsuite/robot/library/eteutils"/>
+    <referencedLibrary type="PYTHON" name="DNSUtils" path="testsuite/robot/library/eteutils"/>
+    <referencedLibrary type="PYTHON" name="EteGatherDataListener" path="testsuite/robot/library/eteutils"/>
+    <referencedLibrary type="PYTHON" name="ArchiveLibrary" path="testsuite/robot/library"/>
+    <pythonpath>
+        <path location="robot/library"/>
+    </pythonpath>
+    <classpath/>
+    <variableFiles path="../properties/integration_robot_properties.py"/>
+    <variableFiles path="../properties/sample_vm_properties.py"/>
+    <excludedForValidation/>
+    <isValidatedFileSizeCheckingEnabled>true</isValidatedFileSizeCheckingEnabled>
+    <validatedFileMaxSize>1024</validatedFileMaxSize>
+    <isReferencedLibrariesAutoReloadEnabled>true</isReferencedLibrariesAutoReloadEnabled>
+    <isReferencedLibrariesAutoDiscoveringEnabled>true</isReferencedLibrariesAutoDiscoveringEnabled>
+    <isLibrariesAutoDiscoveringSummaryWindowEnabled>false</isLibrariesAutoDiscoveringSummaryWindowEnabled>
+</projectConfiguration>

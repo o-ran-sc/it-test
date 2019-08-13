@@ -1,0 +1,5 @@
+{
+"ranIp": "${ran_ip}",
+"ranPort": ${ran_port},
+"ranName":"${ran_name}"
+}

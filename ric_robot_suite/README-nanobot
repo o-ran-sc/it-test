@@ -1,0 +1,77 @@
+#   Copyright (c) 2019 AT&T Intellectual Property.
+#   Copyright (c) 2019 Nokia.
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+In addition to the default robot framework container, this tree
+includes a minimal robot framework container called "nanobot" and
+intented for automated testing or resource-limited environments while
+supporting all testsuites implemented by the larger container.  The
+nanobot container lacks the xvfb-based browser and lighttpd/PHP
+dashboard.
+
+To build the container, first check the following ENV values at the
+top of docker/nanobot/Dockerfile to ensure they reflect the RIC
+platform deployment environment:
+
+...
+ENV RICPLT_NAMESPACE=ricplatform
+ENV RICPLT_RELEASE_NAME=ric-full
+ENV RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term"
+...
+
+Then, in the test/ric_robot_suite directory,  build the container:
+
+$ docker build -f docker/nanobot/Dockerfile -t nanobot:v0.1 .
+
+To run the container:
+
+$ docker run --name nanobot -d nanobot:latest
+
+By default, once started the container simply sleeps forever.
+
+The container does not include any testsuites; either copy your tests
+into a running container, or mount a directory of tests when starting
+the container.  For example:
+
+$ docker run -v /opt/robot/testsuites:/robot/testsuites --name nanobot -d nanobot:latest
+
+Once started, the container will simply sleep forever.  To run a test
+in the container, first copy a K8S credential file to
+/kubernetes-admin-conf in the container:
+
+$ docker cp ${KUBECONFIG} nanobot:/kubernetes-admin-conf
+
+... then run the test:
+
+$ docker exec nanobot robot /robot/testsuites/ricdeployment.robot
+==============================================================================
+Ricdeployment :: Tests for the existence and functionality of RIC components
+==============================================================================
+Deployments                                                           .ricplatform/ric-full-appmgr is available
+ricplatform/ric-full-rtmgr is available
+ricplatform/ric-full-dbaas is available
+ricplatform/ric-full-e2mgr is available
+ricplatform/ric-full-e2term is available
+Deployments                                                           | PASS |
+------------------------------------------------------------------------------
+Ricdeployment :: Tests for the existence and functionality of RIC ... | PASS |
+1 critical test, 1 passed, 0 failed
+1 test total, 1 passed, 0 failed
+==============================================================================
+Output:  /output.xml
+Log:     /log.html
+Report:  /report.html
+
+A Helm chart for the container can be found in helm/nanobot.  See
+helm/nanobot/README for more information on the chart.

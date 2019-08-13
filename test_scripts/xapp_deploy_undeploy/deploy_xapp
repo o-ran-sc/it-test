@@ -1,0 +1,1 @@
+curl -H "Content-Type: application/json" -X POST http://10.102.211.206:8080/ric/v1/xapps -d '{"name": "xapp-admin"}'

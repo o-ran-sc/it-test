@@ -1,0 +1,2 @@
+kubectl -n ricplt delete pod $(kubectl -n ricplt get pods | grep -o 'adm-ctrl-xapp[^ ]*') 
+
