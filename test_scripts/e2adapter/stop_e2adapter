@@ -1,3 +1,0 @@
-docker stop e2adapter
-docker rm e2adapter
-

@@ -1,4 +1,0 @@
-#sudo docker run --net host --rm -it gnb:latest sh -c "./gnbe2_simu --gNBipv4 10.2.0.28 --gNBport 36422 --verbose"
-
-sudo docker run --net host --rm -it gnb:latest sh -c "./gnbe2_simu --gNBipv4 127.0.0.1 --gNBport 36422 --verbose --ricMaxRandomRate 5000000000 --cnxReportFileModel /opt/gnbe2simu/etc/SgNBReconfigurationComplete.xml --dcnxReportFileModel /opt/gnbe2simu/etc/UEContextRelease.xml --insertFileModel /opt/gnbe2simu/etc/SgNBAdditionRequest.xml --nbue 1"
-

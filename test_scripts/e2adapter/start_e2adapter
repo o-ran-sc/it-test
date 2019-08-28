@@ -1,6 +1,0 @@
-docker run -d \
-    -v ${PWD}:/etc/e2adapter        `# Bind-mount the configuration directory` \
-    -v ${PWD}:/var/log/e2adapter    `# Bind-mount the log directory` \
-    --network host                  `# Get all sockets working the "easy" way` \
-    --name e2adapter \
-    ranco-dev-tools.eastus.cloudapp.azure.com:10001/e2adapter:1.0.0
