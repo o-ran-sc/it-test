@@ -30,3 +30,4 @@
 #  remember to run the init_robot tag to complete robot setup
 #  cd ric-robot
 #      ./demo-k8s.sh ricplt init_robot
+#

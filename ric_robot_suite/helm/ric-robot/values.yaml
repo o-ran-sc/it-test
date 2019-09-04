@@ -35,7 +35,7 @@ fullnameOverride: ""
 
 config:
   dashboardExternalIp:  REPLACE_WITH_EXTERNAL_K8_IP_OF_DASHBOARD
-  dashboardExternalPort:  REPLACE_WITH_NODEPORT_OF_DASHBOARD
+  dashboardExternalPort:  REPLACE_WITH_NODEPORT_OF_KONG_PROXY_31080
 service:
   port: 88
   type: NodePort
@@ -83,3 +83,4 @@ ric:
    dbaas:
    e2mgr:
    e2term:
+
