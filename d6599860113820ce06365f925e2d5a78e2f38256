@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adec3675_23f05716",
+        "filename": "ric_robot_suite/robot/resources/appmgr/appmgr_interface.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-09-04T19:23:23Z",
+      "side": 1,
+      "message": "the static URL is temporary, just to make my testing easier.",
+      "revId": "d6599860113820ce06365f925e2d5a78e2f38256",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e367f7c1_6cc3a0bf",
+        "filename": "ric_robot_suite/robot/testsuites/ete.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-09-04T19:23:23Z",
+      "side": 1,
+      "message": "a temporary placeholder to facilitate testing the tests.",
+      "revId": "d6599860113820ce06365f925e2d5a78e2f38256",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}
