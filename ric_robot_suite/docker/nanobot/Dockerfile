@@ -61,7 +61,6 @@ COPY robot/resources/global_properties.robot /robot/resources
 
 RUN mkdir -p /robot/assets/templates
 COPY robot/assets/templates/e2mgr_setup_nodeb.template /robot/assets/templates
-COPY robot/assets/templates/appmgr_create_xapp.template /robot/assets/templates
 
 RUN pip install UUID
 RUN pip install kubernetes
