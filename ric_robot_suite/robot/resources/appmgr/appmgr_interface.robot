@@ -1,76 +1,114 @@
 *** Settings ***
-Documentation     The main interface for interacting with RIC Applications Manager (AppMgr) . It handles low level stuff like managing the http request library and AppMgr required fields
+Documentation     Keywords for interacting with the XApp Manager, including listing, deploying, and undeploying XApps
+
 Library           RequestsLibrary
-Library           UUID
 
 Resource          ../global_properties.robot
-Resource          ../json_templater.robot
 
 *** Variables ***
-${APPMGR_BASE_PATH}        /ric/v1/xapps/   
-${APPMGR_ENDPOINT}     ${GLOBAL_APPMGR_SERVER_PROTOCOL}://${GLOBAL_INJECTED_APPMGR_IP_ADDR}:${GLOBAL_APPMGR_SERVER_PORT}
-${APPMGR_CREATE_XAPP_TEMPLATE}     robot/assets/templates/appmgr_create_xapp.template
+${APPMGR_BASE_PATH}             /ric/v1/xapps
+${APPMGR_ENDPOINT}              http://service-ricplt-appmgr-http.ricplt.svc.cluster.local:8080
+# ${GLOBAL_APPMGR_SERVER_PROTOCOL}://${GLOBAL_INJECTED_APPMGR_IP_ADDR}:${GLOBAL_APPMGR_SERVER_PORT}
 
 
 *** Keywords ***
 Run AppMgr Health Check
      [Documentation]    Runs AppMgr Health check
-     Run Keyword   Run AppMgr Get All Request
+     Run Keyword        Get Deployed XApps From AppMgr
 
-Run AppMgr Get All Request 
-     [Documentation]    Runs AppMgr Get List of Xapps Request
-     ${resp}=    Run Keyword    Run AppMgr Get Request    ${APPMGR_BASE_PATH}
-     Should Be Equal As Strings        ${resp.status_code}     200
+Get Deployed XApps From AppMgr
+     [Documentation]  Obtain the list of deployed XApps from the Appmgr
+     ${resp} =        Run Keyword  Run AppMgr GET Request
+     [Return]         ${resp.json()}
 
-Run AppMgr Get By XappName and XappId
-     [documentation]     Get Xapp data by XappName and XappId
-     [Arguments]      ${xapp_name}  ${xapp_id}
-     ${data_path}=    Set Variable    ${APPMGR_BASE_PATH}${xapp_name}/${xapp_id}
-     ${resp}=   Run Keyword   Run AppMgr Get Request    ${data_path}
-     Should Be Equal As Strings        ${resp.status_code}     200
+Get Deployable XApps From AppMgr
+     [Documentation]  Obtain the list of deployed XApps from the Appmgr
+     ${resp} =        Run Keyword  Run AppMgr GET Request  /search/
+     Should Be True   ${resp}
+     [Return]         ${resp.json()}
 
-Run AppMgr Get By XappName 
-     [documentation]     Get List of Xapp data by XappName
+Get XApp By Name From AppMgr
+     [Documentation]  Get installed XApp from Appmgr given name
      [Arguments]      ${xapp_name}
-     ${data_path}=    Set Variable    ${APPMGR_BASE_PATH}${xapp_name}
-     ${resp}=   Run Keyword   Run AppMgr Get Request    ${data_path}
-     Should Be Equal As Strings        ${resp.status_code}     200
+     ${resp} =        Run Keyword   Run AppMgr GET Request  /${xapp_name}
+     Should Be True   ${resp}
+     [Return]         ${resp.json()}
 
-Run Create Xapp
-     [documentation]     Create Xapp 
-     [Arguments]      ${xapp_name}   ${xapp_id}  
-     ${data_path}=    Set Variable    ${APPMGR_BASE_PATH}
-     ${dict}=    Create Dictionary    xapp_name=${xapp_name}    xapp_id=${xapp_id}
-     ${data}=   Fill JSON Template File    ${APPMGR_CREATE_XAPP_TEMPLATE}    ${dict}
-     ${auth}=  Create List  ${GLOBAL_INJECTED_APPMGR_USER}    ${GLOBAL_INJECTED_APPMGR_PASSWORD}
-     ${session}=    Create Session      appmgr      ${APPMGR_ENDPOINT}   auth=${auth}
-     ${headers}=  Create Dictionary     Accept=application/json    Content-Type=application/json    
-     ${resp}=   Post Request     appmgr     ${data_path}     data=${data}   headers=${headers}
-     Log    Received response from AppMgr ${resp.text}
-     Should Be Equal As Strings        ${resp.status_code}     200
-     [Return]    ${resp}
+Get XApp By Name and ID From AppMgr
+     [Documentation]  Get installed XApp from Appmgr by name and ID
+     [Arguments]      ${xapp_name}  ${xapp_id}
+     ${resp}=         Run Keyword   Run AppMgr GET Request  /${xapp_name}/${xapp_id}/
+     Should Be True   ${resp}
+     [Return]         ${resp.json()}
+
+Deploy XApp Via AppMgr
+     [Documentation]  Create Xapp
+     [Arguments]      ${xapp_name}
+     &{dict} =        Create Dictionary        name=${xapp_name}
+     ${data} =        Evaluate                 json.dumps(&{dict})  json
+     ${resp} =        Run AppMgr POST Request  ${EMPTY}             ${data}
+     Should Be True   ${resp}
+     [Return]         ${resp}
+
+Undeploy XApp Via AppMgr
+     [Documentation]  Create Xapp
+     [Arguments]      ${xapp_name}
+     ${resp} =        Run AppMgr DELETE Request  /${xapp_name}
+     Should Be True   ${resp}
+     [Return]         ${resp}
+
+Deploy All Available XApps Via Appmgr
+     [Documentation]  Attempt to deploy any not-currently-deployed XApp
+     @{d} =          Get Deployed XApps From AppMgr
+     @{deployed} =   Pluck    Name       ${d}
+     @{available} =  Get Deployable XApps From AppMgr
+     @{toDeploy} =   Subtract From List  ${available}  ${deployed}
+     :For            ${xapp}  IN         @{toDeploy}
+     \               Deploy XApp Via AppMgr            ${xapp}
+
+Run AppMgr GET Request
+     [Documentation]  Make an HTTP GET request against the XApp manager
+     [Arguments]   ${path}=${EMPTY}
+     ${session} =  Create Session     roboAppmgrGet                   ${APPMGR_ENDPOINT}
+     ${headers} =  Create Dictionary  Accept=application/json         Content-Type=application/json
+     Log           GET ${path} from AppMgr
+     ${resp} =     Get Request        roboAppmgrGet                   ${APPMGR_BASE_PATH}${path}  headers=${headers}
+     Log           Received response ${resp.text} to AppMgr GET
+     [Return]      ${resp}
+
+Run AppMgr POST Request
+     [Documentation]    Make an HTTP POST request against the XApp manager
+     [Arguments]   ${path}=${EMPTY}   ${body}=${EMPTY}
+     ${session} =  Create Session     roboAppmgrPost                  ${APPMGR_ENDPOINT}
+     ${headers} =  Create Dictionary  Accept=application/json         Content-Type=application/json
+     Log           POST ${body} to ${path} on Appmgr
+     ${resp} =     Post Request       roboAppmgrPost                  ${APPMGR_BASE_PATH}${path}  headers=${headers}  data=${body}
+     Log           Received response from AppMgr ${resp.text}
+     [Return]      ${resp}
+
+Run AppMgr DELETE Request
+     [Documentation]  Make an HTTP DELETE request against the XApp manager
+     [Arguments]      ${path}
+     ${session} =     Create Session     roboAppmgrDelete                ${APPMGR_ENDPOINT}
+     ${headers} =     Create Dictionary  Accept=application/json         Content-Type=application/json
+     Log              DELETE ${path} from Appmgr
+     ${resp} =        Delete Request     roboAppmgrDelete                ${APPMGR_BASE_PATH}${path}  headers=${headers}
+     Log              Received response from AppMgr ${resp.text} to AppMgr DELETE
+     [Return]         ${resp}
 
 
-Run AppMgr Get Request
-     [Documentation]    Runs AppMgr Get request
-     [Arguments]    ${data_path}
-     ${auth}=  Create List  ${GLOBAL_INJECTED_APPMGR_USER}    ${GLOBAL_INJECTED_APPMGR_PASSWORD}
-     ${session}=    Create Session      appmgr      ${APPMGR_ENDPOINT}   auth=${auth}
-     ${uuid}=    Generate UUID
-     ${headers}=  Create Dictionary     Accept=application/json    Content-Type=application/json    
-     ${resp}=   Get Request     appmgr     ${data_path}     headers=${headers}
-     Log    Received response from AppMgr ${resp.text}
-     Should Be Equal As Strings        ${resp.status_code}     200
-     [Return]    ${resp}
+# a few useful list routines that should probably live elsewhere
+Pluck
+     [Documentation]  Get the values of a specific key from a list of dictionaries
+     [Arguments]      ${k}      ${l}
+     @{names} =       Evaluate  filter(lambda v: v != None, [i.get(${k}, None) for i in ${l}])
+     [Return]         ${names}
 
-Run AppMgr Delete Request
-     [documentation]     Delete Xapp data by XappId
-     [Arguments]      ${xapp_id}
-     ${data_path}=    Set Variable    ${APPMGR_BASE_PATH}/${xapp_id}
-     ${auth}=  Create List  ${GLOBAL_INJECTED_APPMGR_USER}    ${GLOBAL_INJECTED_APPMGR_PASSWORD}
-     ${session}=    Create Session      appmgr      ${APPMGR_ENDPOINT}   auth=${auth}
-     ${uuid}=    Generate UUID
-     ${headers}=  Create Dictionary     Accept=application/json    Content-Type=application/json    
-     ${resp}=   Delete Request     appmgr     ${data_path}     headers=${headers}
-     Log    Received response from AppMgr ${resp.text}
-     Should Be Equal As Strings        ${resp.status_code}     200
+Subtract From List
+     [Documentation]  Remove the elements of the second argument from the first
+     [Arguments]      ${x}  ${y}
+     ${diff} =        Run Keyword If  ${y}
+     ...              Evaluate  filter(lambda v: v not in ${y}, ${x})
+     ...              ELSE
+     ...              Set Variable    ${x}
+     [Return]         ${diff}
