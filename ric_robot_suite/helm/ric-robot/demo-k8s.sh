@@ -30,8 +30,8 @@ function usage
 
 # Set the defaults
 
-echo "Number of parameters:" 
-echo $#
+#echo "Number of parameters:" 
+#echo $#
 
 if [ $# -lt 2 ];then
 	usage
@@ -49,18 +49,13 @@ shift
 while [ $# -gt 0 ]
 do
 	key="$1"
-        echo "KEY:"
-        echo $key
+        #echo "KEY:"
+        #echo $key
 
 	case $key in
     	init_robot)
 			TAG="UpdateWebPage"
-			read -s -p "WEB Site Password for user 'test': " WEB_PASSWORD
-			if [ "$WEB_PASSWORD" = "" ]; then
-				echo ""
-				echo "WEB Password is required for user 'test'"
-				exit
-			fi
+		        WEB_PASSWORD=test
 			VARIABLES="$VARIABLES -v WEB_PASSWORD:$WEB_PASSWORD"
 			shift
 			if [ $# -eq 2 ];then
@@ -76,7 +71,7 @@ do
 	esac
 done
 
-set -x
+#set -x
 
 
 ETEHOME=/var/opt/RIC
