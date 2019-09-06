@@ -46,6 +46,29 @@
       "revId": "c5fa07bcd8cbd614bcd813cac698385b789bcfcb",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65fa54ea_a643e02a",
+        "filename": "ric_robot_suite/robot/testsuites/ete.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-09-06T17:32:29Z",
+      "side": 0,
+      "message": "need to add this back in as well",
+      "range": {
+        "startLine": 8,
+        "startChar": 65,
+        "endLine": 8,
+        "endChar": 65
+      },
+      "revId": "c5fa07bcd8cbd614bcd813cac698385b789bcfcb",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }
