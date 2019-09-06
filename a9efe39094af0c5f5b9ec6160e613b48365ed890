@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2ed6e966_326bb35e",
+        "filename": "ric_robot_suite/helm/ric-robot/ete-k8s.e2sim.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-09-06T15:52:43Z",
+      "side": 1,
+      "message": "Not sure that handles the case of statefulsets but I\u0027m more use to checking the number of running pods (and the scripts I stole this snippet from did that) - I agree its more elegant. I\u0027d like to get more comfortable with it and make sure thnings like statefulset are handled then we can change it.",
+      "parentUuid": "34808161_470c2626",
+      "revId": "a9efe39094af0c5f5b9ec6160e613b48365ed890",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa4a7543_041c1e6e",
         "filename": "ric_robot_suite/helm/ric-robot/ete-k8s.e2sim.sh",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-09-06T02:37:20Z",
       "side": 1,
       "message": "like above, maybe this is unnecessary, but sleeping 15 seems like it may fail sometimes.  would it be possible to bang requests (using curl, for example) off the e2mgr until it respons sensibly?",
+      "revId": "a9efe39094af0c5f5b9ec6160e613b48365ed890",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d7e67a2_f2eced57",
+        "filename": "ric_robot_suite/helm/ric-robot/ete-k8s.e2sim.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-09-06T15:52:43Z",
+      "side": 1,
+      "message": "I dont like it either but it was the simplest. it seems strange to use curl when robot is going to do an http post after this step. I think part of the problem is my VM is getting over loaded with all the pods running so things are generaly slower on it. let me try a wait_for_e2mgr with curl and see if I can do something simple as you suggest that would be less sensitive to a specific timer",
+      "parentUuid": "aa4a7543_041c1e6e",
       "revId": "a9efe39094af0c5f5b9ec6160e613b48365ed890",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
