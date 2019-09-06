@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a550d7a_141dc011",
+        "filename": "ric_robot_suite/robot/resources/appmgr/appmgr_interface.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-09-06T16:36:19Z",
+      "side": 1,
+      "message": "why not keep the template in case the api changes to take more arguments ? I guess its the same dictionary but templates for large payload andor complicated nested json structures a bit easier",
+      "range": {
+        "startLine": 45,
+        "startChar": 22,
+        "endLine": 45,
+        "endChar": 64
+      },
+      "revId": "43a59973e938ce4dc5207deabe65083d0a5644bf",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1b2b5b5_8373864b",
+        "filename": "ric_robot_suite/robot/resources/appmgr/appmgr_interface.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-09-06T16:36:19Z",
+      "side": 1,
+      "message": "robot automatically logs the request/response - did it not do that for you ?",
+      "range": {
+        "startLine": 99,
+        "startChar": 5,
+        "endLine": 99,
+        "endChar": 52
+      },
+      "revId": "43a59973e938ce4dc5207deabe65083d0a5644bf",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef74b426_8ba5fa7a",
+        "filename": "ric_robot_suite/robot/resources/appmgr/appmgr_interface.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-09-06T16:36:19Z",
+      "side": 1,
+      "message": "good point - similar to ssh under robot/resources/ssh\neither add to ric-utils as pythong or create a /robot/resources/utils/utils.robot and include that file in the appmgr_interface.robot",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 64
+      },
+      "revId": "43a59973e938ce4dc5207deabe65083d0a5644bf",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1f91613_176e3840",
+        "filename": "ric_robot_suite/robot/testsuites/ete.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-09-06T16:36:19Z",
+      "side": 1,
+      "message": "the format is checked by appmgr so I think we need that format dont we ?",
+      "range": {
+        "startLine": 12,
+        "startChar": 24,
+        "endLine": 12,
+        "endChar": 30
+      },
+      "revId": "43a59973e938ce4dc5207deabe65083d0a5644bf",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfe64493_a09857a1",
+        "filename": "ric_robot_suite/robot/testsuites/ete.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-09-06T16:36:19Z",
+      "side": 1,
+      "message": "36422 is the default e2sim port I think",
+      "range": {
+        "startLine": 14,
+        "startChar": 22,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "43a59973e938ce4dc5207deabe65083d0a5644bf",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    }
+  ]
+}
