@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b2bafc69_61a53ef1",
+        "filename": "ric_robot_suite/robot/resources/appmgr/appmgr_interface.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-09-06T16:51:14Z",
+      "side": 1,
+      "message": "I feel pretty strongly it\u0027s best to minimize our dependencies on external files if they\u0027re not necessary; in this case, the template was SO trivial, i can\u0027t imagine why we\u0027d need it, and eliminating it drops the dependency both on the template and on the library that populates it.",
+      "parentUuid": "7a550d7a_141dc011",
+      "range": {
+        "startLine": 45,
+        "startChar": 22,
+        "endLine": 45,
+        "endChar": 64
+      },
+      "revId": "43a59973e938ce4dc5207deabe65083d0a5644bf",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d1b2b5b5_8373864b",
         "filename": "ric_robot_suite/robot/resources/appmgr/appmgr_interface.robot",
         "patchSetId": 8
@@ -68,6 +92,30 @@
       "revId": "43a59973e938ce4dc5207deabe65083d0a5644bf",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2a41d59_b7ed6634",
+        "filename": "ric_robot_suite/robot/resources/appmgr/appmgr_interface.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-09-06T16:51:14Z",
+      "side": 1,
+      "message": "let\u0027s do that in another patch if it turns out to be useful. as above, i don\u0027t want to create additional files unless we really need them.",
+      "parentUuid": "ef74b426_8ba5fa7a",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 64
+      },
+      "revId": "43a59973e938ce4dc5207deabe65083d0a5644bf",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
     },
     {
       "key": {
