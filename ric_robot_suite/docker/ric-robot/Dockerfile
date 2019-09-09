@@ -68,7 +68,7 @@ RUN pip install robotframework==3.0.4 \
 
 COPY robot /var/opt/RIC/robot
 COPY red.xml /var/opt/RIC
-COPY ric-python-utils /var/opt/RIC
+COPY ric-python-utils /var/opt/RIC/ric-python-utils
 COPY runTags.sh /var/opt/RIC
 COPY setup.sh /var/opt/RIC
 COPY version.properties /var/opt/RIC

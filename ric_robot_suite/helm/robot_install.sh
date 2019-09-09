@@ -1,6 +1,4 @@
-#!/bin/bash
-################################################################################
-#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+opyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
@@ -29,7 +27,7 @@ BASE=${DIR%/test*}
 
 # /data/ORAN-OSC/it/dep/ric-platform/50-RIC-Platform/bin/install
 BASEDIR50=$BASE/dep/ric-platform/50-RIC-Platform/
-BASEDIR_COMMON_TEMPLATE=$BASE/dep/ric-common/Common-Template/helm/ric-common
+BASEDIRCOMMON=$BASE/dep/ric-common/Common-Template/helm/ric-common
 
 echo "Using etc/ric.conf from $BASEDIR50"
 
@@ -56,9 +54,12 @@ echo "Platform Namespace: $PLT_NAMESPACE"
 echo "Helm Release Name: $RELEASE_NAME"
 
 
-COMMON_CHART_VERSION=$(cat $BASEDIR_COMMON_TEMPLATE/Chart.yaml | grep version | awk '{print $2}')
+#COMMON_CHART_VERSION=$(cat $BASEDIR50/helm/common/Chart.yaml | grep version | awk '{print $2}')
+COMMON_CHART_VERSION=$(cat $BASEDIRCOMMON/Chart.yaml | grep version | awk '{print $2}')
 
-helm package -d /tmp $BASEDIR_COMMON_TEMPLATE
+
+
+helm package -d /tmp $BASEDIRCOMMON
 
 
 for component in $RICPLT_COMPONENTS; do

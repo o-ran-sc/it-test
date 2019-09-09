@@ -45,7 +45,7 @@ if [ "$3" != "" ] ; then
     VARIABLES="-v $3"
 fi
 
-set -x
+#set -x
 
 export NAMESPACE="$1"
 

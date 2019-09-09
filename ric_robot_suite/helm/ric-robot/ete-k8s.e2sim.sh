@@ -22,8 +22,8 @@
 # Please clean up logs when you are done...
 # Note: Do not run multiple concurrent ete.sh as the --display is not parameterized and tests will collide
 #
-if [ "$1" == "" ] || [ "$2" == "" ]; then
-   echo "Usage: ete-k8s.sh <namespace> <tag> [input variable]"
+if [ "$1" == "" ] || [ "$2" == "" ] || [ "$3" == "" ]; then
+   echo "Usage: ete-k8s.sh <namespace> <tag> <override_file> [input variable]"
    echo "  [input variable] is added to runTags with "-v" prepended"
    echo "         example :   TEST_NODE_B_IP:10.240.0.217 "
    echo "         example :   \"TEST_NODE_B_IP:10.240.0.217 -v TEST_NODE_B_PORT:34622 -v TEST_NODE_B_NAME:BBBB654321\""
@@ -39,16 +39,20 @@ if [ "$1" == "" ] || [ "$2" == "" ]; then
    exit
 fi
 
+# setup a detail log file
+current_time=$(date "+%Y.%m.%d-%H.%M.%S")
+LOGFILE=/tmp/ete-k8s.e2sim.$current_time.log
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-#/root/test/ric_robot_suite/helm
+
 # extract the base to find root to dep
 
 BASE=${DIR%/test*}
 
-BASEDIR50=$BASE/dep/ric-platform/50-RIC-Platform/
-OVERRIDEYAML=$BASE/dep/RECIPE_EXAMPLE/RIC_PLATFORM_RECIPE_EXAMPLE
+BASEDIR50=$BASE/dep/ric-platform/50-RIC-Platform
+#OVERRIDEYAML=$BASE/dep/RECIPE_EXAMPLE/ric-platform
+OVERRIDEYAML=$3
 
 echo "Using etc/ric.conf from $BASEDIR50"
 
@@ -83,8 +87,9 @@ wait_for_pods_running () {
   while [  $NUMPODS -lt $1 ]; do
     sleep 5
     NUMPODS=$(eval "$CMD2")
-    echo "> waiting for $NUMPODS/$1 pods running in namespace [$NS] with keyword [$KEYWORD]"
+    echo -n "."
   done
+  echo "."
 }
 
 wait_for_pods_terminated() {
@@ -104,16 +109,39 @@ wait_for_pods_terminated() {
   while [  $NUMPODS -gt $1 ]; do
     sleep 5
     NUMPODS=$(eval "$CMD2")
-    echo "> waiting for $NUMPODS/$1 pods terminated (gone) in namespace [$NS] with keyword [$KEYWORD]"
+    echo -n "."
+  done
+  echo "."
+}
+
+
+# wait_for_e2mgr
+#  e2mgr can take a few seconds after the POD is running to be up
+#  
+
+wait_for_e2mgr() {
+  E2MGR_IP=$(kubectl -n ricplt  get services | grep e2mgr-http | awk '{print $3}')
+  #echo $E2MGR_IP
+  CMD3="curl -s -o /dev/null -w \"%{http_code}\" http://$E2MGR_IP:3800/v1/nodeb-ids"
+  echo $CMD3
+  HTTP_CODE=$(eval "$CMD3")
+  echo $HTTP_CODE
+  while [  $HTTP_CODE  -ne 200 ]; do
+    sleep 1
+    HTTP_CODE=$(eval "$CMD3")
+    echo -n "."
   done
 }
 
 
-if [ "$3" != "" ] ; then
-    VARIABLES="-v $3"
+
+
+
+if [ "$4" != "" ] ; then
+    VARIABLES="-v $4"
 fi
 
-set -x
+#set -x
 
 export NAMESPACE="$1"
 
@@ -123,37 +151,37 @@ TAG="$2"
 TAGS="-i $2"
 
 
-# if $2 is e2setup or x2setup then helm delete/helm install 
+# if $2 is e2setup or x2setup then helm delete/helm install
 shift
 while [ $# -gt 0 ]
 do
         key="$1"
-        echo "KEY:"
+        echo -n "KEY:"
         echo $key
         case $key in
         e2setup|e2setup_dash|x2setup|x2setup_dash)
-                        #/root/dep/ric-platform/50-RIC-Platform/bin/harry-uninstall
-                        helm delete  ${RELEASE_NAME}-e2term   --purge
-                        helm delete  ${RELEASE_NAME}-e2mgr   --purge
-			helm delete  ${RELEASE_NAME}-e2sim  --purge
+                        helm delete  ${RELEASE_NAME}-e2term   --purge  >> $LOGFILE
+                        helm delete  ${RELEASE_NAME}-e2mgr   --purge   >> $LOGFILE
+                        helm delete  ${RELEASE_NAME}-e2sim  --purge  >> $LOGFILE
                         wait_for_pods_terminated  0  $NAMESPACE e2sim
                         wait_for_pods_terminated  0  $NAMESPACE e2term
                         wait_for_pods_terminated  0  $NAMESPACE e2mgr
-                        helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-e2term" $BASEDIR50/helm/e2term
-                        helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-e2mgr" $BASEDIR50/helm/e2mgr
+                        helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-e2term" $BASEDIR50/helm/e2term >> $LOGFILE
+                        helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-e2mgr" $BASEDIR50/helm/e2mgr >> $LOGFILE
                         cd /root/test/simulators/e2sim/helm
-		        ./e2sim_install.sh
+                        ./e2sim_install.sh     >> $LOGFILE
                         wait_for_pods_running 1 $NAMESPACE e2term
                         wait_for_pods_running 1 $NAMESPACE e2mgr
                         wait_for_pods_running 1 $NAMESPACE e2sim
+                        # wait for application
+                        wait_for_e2mgr
                         E2SIMIP=$(kubectl -n ricplt get pod -o=wide | grep e2sim | sed 's/\s\s*/ /g' | cut -d ' ' -f6)
-			echo $E2SIMIP
                         VARIABLES="$VARIABLES -v TEST_NODE_B_IP:$E2SIMIP"
-			shift
-			;;
+                        shift
+                        ;;
         *)
-			shift
-			;;
+                        shift
+                        ;;
         esac
 done
 
