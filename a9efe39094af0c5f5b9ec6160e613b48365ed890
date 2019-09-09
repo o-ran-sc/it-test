@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ee96a36a_c708fbde",
+        "filename": "ric_robot_suite/helm/ric-robot/ete-k8s.e2sim.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-09-09T14:08:20Z",
+      "side": 1,
+      "message": "belatedly: yeah, this assumes deployment-controlled pods, but the statefulset version is the same basic idea, just fetching the statefulset (or daemonset, for that matter) instead.  while it\u0027s possible to build a single \"wait-for\" function that handles any of these (one approach is to chase \"controlled-by\" links up the tree of controlling objects) it\u0027s probably simplest just to have a wait-for-{deployment,statefulset,daemonset,...} and call the one for what you know is at the root of the tree.  i do think that in general that\u0027s what you kinda need to do as you probably shouldn\u0027t assume things are working until all pods associated with a controlling object are working.\n\nbut also, as i said, i\u0027m being a pedantic here — this is a hobby-horse of mine.  this works fine for now.",
+      "parentUuid": "2ed6e966_326bb35e",
+      "revId": "a9efe39094af0c5f5b9ec6160e613b48365ed890",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa4a7543_041c1e6e",
         "filename": "ric_robot_suite/helm/ric-robot/ete-k8s.e2sim.sh",
         "patchSetId": 1
