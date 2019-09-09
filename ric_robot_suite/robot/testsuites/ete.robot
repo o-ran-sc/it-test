@@ -14,7 +14,7 @@ ${TEST_XAPPNAME}      xapp-std
 ${TEST_XAPPID}        101
 ${TEST_NODE_B_NAME}   AAAA456789
 ${TEST_NODE_B_IP}     10.0.0.3
-${TEST_NODE_B_PORT}   36422
+${TEST_NODE_B_PORT}   36421
 
 
 *** Test Cases ***
