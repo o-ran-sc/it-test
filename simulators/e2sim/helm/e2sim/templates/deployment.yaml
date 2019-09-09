@@ -46,7 +46,7 @@ spec:
           - name: E2SIM_NETWORK_TYPE
             value: {{ .Values.e2sim.network.type | default "host" }}
           - name: E2SIM_PORT
-            value: {{ .Values.e2sim.network.port | default 36422 |quote}}
+            value: {{ .Values.e2sim.network.port | default 36421 |quote}}
           - name: E2SIM_BIND_ADDR
             value: {{ .Values.e2sim.network.address }}
           - name: E2SIM_BIND_IF
