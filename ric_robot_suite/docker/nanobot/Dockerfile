@@ -22,9 +22,9 @@ ENV ROBOT_HOME="/robot"
 ENV ROBOT_OPTIONS="-T -d /robot/log --console verbose -C off -P /robot/lib/python"
 ENV KUBECONFIG="/robot/etc/kubernetes-admin-conf"
 ENV PYTHONPATH="/robot/lib/python"
-ENV RICPLT_NAMESPACE=ricplatform
+ENV RICPLT_NAMESPACE=ricplt
 ENV RICPLT_RELEASE_NAME=ric-full
-ENV RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term"
+ENV RICPLT_COMPONENTS="a1mediator appmgr dbaas e2mgr e2term rtmgr"
 
 RUN  mkdir -p /robot/lib/python
 
@@ -48,6 +48,7 @@ COPY ric-python-utils/ricutils/*.py /robot/lib/python/
 RUN mkdir /robot/resources
 COPY robot/resources/json_templater.robot /robot/resources
 COPY robot/resources/appmgr /robot/resources/appmgr
+COPY robot/resources/dashboard /robot/resources/dashboard
 COPY robot/resources/e2mgr /robot/resources/e2mgr
 COPY robot/resources/e2sim /robot/resources/e2sim
 COPY robot/resources/e2term /robot/resources/e2term
@@ -69,5 +70,7 @@ RUN pip install robotframework
 RUN pip install robotframework-requests
 
 RUN python -m compileall /robot/lib/python
+
+WORKDIR /
 
 CMD ["sleep", "9125d"]

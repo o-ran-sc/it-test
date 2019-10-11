@@ -16,27 +16,19 @@
 *** Settings ***
 Documentation   Tests for the existence and functionality of RIC components
 
-Library  KubernetesEntity  ${NAMESPACE}
+Resource       /robot/resources/global_properties.robot
+
+Library  KubernetesEntity  ${GLOBAL_RICPLT_NAMESPACE}
 Library  Collections
 Library  String
-
-# Resource        ../resources/appmgr/appmgr_interface.robot
-# Resource         ../resources/e2mgr/e2mgr_interface.robot
-
-*** Variables ***
-${NAMESPACE}   %{RICPLT_NAMESPACE}
-${PFX}         %{RICPLT_RELEASE_NAME}
 
 *** Test Cases ***
 Deployments
   [Tags]  etetests  k8stests  ci_tests
-  @{Components} =  Split String  %{RICPLT_COMPONENTS}
-  :FOR  ${Component}  IN  @{Components}
-  \  Log  Retrieving Deployment for ${Component}
-  #\  ${deploy} =  Deployment   ${PFX}-${Component}
-  #   new helm deployment naming 6/2019
-  \  ${deploy} =  Deployment   deployment-${PFX}-${Component}
-  \  ${status} =  Most Recent Availability Condition  @{deploy.status.conditions}
+  :FOR  ${component}  IN  @{GLOBAL_RICPLT_COMPONENTS}
+  \  ${deploymentName} =  Get From Dictionary  ${GLOBAL_RICPLT_COMPONENTS}  ${Component}
+  \  ${deploy} =          Deployment           ${deploymentName}
+  \  ${status} =          Most Recent Availability Condition                @{deploy.status.conditions}
   \  Should Be Equal As Strings  ${status}  True  ignore_case=True  msg=${Component} is not available
 
 *** Keywords ***

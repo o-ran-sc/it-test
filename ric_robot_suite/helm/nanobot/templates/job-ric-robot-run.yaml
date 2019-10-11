@@ -14,8 +14,8 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */}}
-{{- $platformNamespace := default .Release.Namespace .Values.ric.platform.namespace }}
-{{- $xappNamespace := default $platformNamespace .Values.ric.xapp.namespace }}
+{{- $platformNamespace := include "common.namespace.platform" . }}
+{{- $xappNamespace := include "common.namespace.xapp" .  }}
 {{- $releaseName := default "ric-full" .Values.ric.platform.releaseName }}
 {{- $jobName :=  printf "%s-%s" .Release.Name $releaseName }}
 {{- $acctName := randAlpha 6 | lower | printf "%s-%s" $jobName }}
@@ -133,7 +133,7 @@ spec:
             - name: robot-bin
               mountPath: /robot/bin
               readOnly: true
-      {{- $secrets := dict }}   
+      {{- $secrets := dict }}
       {{- range $index, $container := .Values.images.ric.robot.job }}
       {{- if index $container "repositoryCred" }}
       {{- $_ := set $secrets $container.repositoryCred (dict "name" $container.repositoryCred) }}
@@ -172,9 +172,15 @@ spec:
             - "verbose"
             - "-C"
             - "off"
-            {{- if .Values.ric.robot.tags }}
-            {{- range .Values.ric.robot.tags }}
+            {{- if .Values.ric.robot.tags.enabled }}
+            {{- range .Values.ric.robot.tags.enabled }}
             - "-i"
+            - "{{.}}"
+            {{- end }}
+            {{- end }}
+            {{- if .Values.ric.robot.tags.disabled }}
+            {{- range .Values.ric.robot.tags.disabled }}
+            - "-e"
             - "{{.}}"
             {{- end }}
             {{- end }}
@@ -195,10 +201,21 @@ spec:
             - name: robot-log
               mountPath: /robot/log
               readOnly: false
+            # for compatability with the ric robot, we mount
+            # both properties files and interface libraries
+            # under resources/.
+{{- range $map, $ignore := $.Files.Glob "configmap-src/*/properties/*.robot" }}
             - name: robot-properties
-              mountPath: /robot/resources/global_properties.robot
-              subPath: global_properties.robot
+              mountPath: /robot/resources/{{ base $map }}
+              subPath: {{ base $map }}
               readOnly: true
+{{- end }}
+{{- range $map, $ignore := $.Files.Glob "configmap-src/*/resources/*.robot" }}
+            - name: robot-resources
+              mountPath: /robot/resources/{{ base $map }}
+              subPath: {{ base $map }}
+              readOnly: true
+{{- end }}
       volumes:
         - name: robot-etc
           emptyDir: {}
@@ -217,4 +234,8 @@ spec:
         - name: robot-properties
           configMap:
            name: robot-properties
+           defaultMode: 0644
+        - name: robot-resources
+          configMap:
+           name: robot-resources
            defaultMode: 0644

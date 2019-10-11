@@ -70,7 +70,7 @@ Undeploy XApps
 Deploy All Available XApps
      [Documentation]  Attempt to deploy any not-currently-deployed XApp
      @{d} =          Get Deployed XApps
-     @{deployed} =   Pluck               Name          ${d}
+     @{deployed} =   Pluck               name          ${d}
      @{available} =  Get Deployable XApps
      @{toDeploy} =   Subtract From List  ${available}  ${deployed}
      Deploy XApps    @{toDeploy}
@@ -78,7 +78,7 @@ Deploy All Available XApps
 Undeploy All Running XApps
      [Documentation]  Undeploy any deployed XApps
      @{d} =           Get Deployed XApps
-     @{deployed} =    Pluck  Name  ${d}
+     @{deployed} =    Pluck  name  ${d}
      Run Keyword If   ${deployed}  Undeploy XApps  @{deployed}
 
 Run AppMgr GET Request
@@ -110,7 +110,7 @@ Run AppMgr DELETE Request
 Pluck
      [Documentation]  Get the values of a specific key from a list of dictionaries
      [Arguments]      ${k}      ${l}
-     @{names} =       Evaluate  filter(lambda v: v != None, [i.get(${k}, None) for i in ${l}])
+     @{names} =       Evaluate  filter(lambda v: v != None, [i.get('${k}', None) for i in ${l}])
      [Return]         ${names}
 
 Subtract From List

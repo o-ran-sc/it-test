@@ -12,9 +12,9 @@ Deploy Duplicate XApp And Expect Error
      [Documentation]      Ensure AppMgr produces an appropriate error when an already-running XApp is deployed
      @{d} =               Get Deployed XApps
      Should Not Be Empty  ${d}      No XApps currently deployed
-     @{names} =           Pluck     Name  ${d}
+     @{names} =           Pluck     name  ${d}
      ${xapp} =            Evaluate  random.choice(${names})  random
-     ${status} =          Run Keyword And Ignore Error  Deploy XApp  ${xapp}
+     ${status}  ${u} =    Run Keyword And Ignore Error  Deploy XApp  ${xapp}
      Should Be Equal As Strings  ${status}          FAIL
 
 Undeploy Nondeployed XApp And Expect Error
@@ -22,8 +22,9 @@ Undeploy Nondeployed XApp And Expect Error
      @{d} =               Get Deployed XApps
      @{a} =               Get Deployable XApps
      Should Not Be Empty  ${a}       No XApps available to deploy
-     @{dNames} =          Pluck      Name     ${d}
+     @{dNames} =          Pluck      name     ${d}
      @{a} =               Subtract From List  ${a}  ${dNames}
+     Should Not Be Empty  ${a}                No undeployed XApps
      ${xapp} =            Evaluate            random.choice(${a})  random
      ${status}  ${u} =    Run Keyword And Ignore Error  Undeploy XApp  ${xapp}
      Should Be Equal As Strings               ${status}            FAIL

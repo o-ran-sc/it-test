@@ -1,6 +1,5 @@
 {{/*
    Copyright (c) 2019 AT&T Intellectual Property.
-   Copyright (c) 2019 Nokia.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -14,10 +13,17 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */}}
+{{- range $map := list "bin" "properties" "resources" "testsuites" }}
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: robot-properties
-  namespace: {{ .Release.Namespace }}
+  name: robot-{{ $map }}
+  namespace: {{ $.Release.Namespace }}
 data:
-  {{ (tpl (.Files.Glob "configmap-src/properties/*.robot").AsConfig . ) | nindent 2 }}
+{{- $path := printf "configmap-src/*/%s/*" $map }}
+{{- $content :=  $.Files.Glob  $path }}
+{{- if $content }}
+{{ tpl ($content).AsConfig $ | indent 2 }}
+{{- end }}
+{{- end }}

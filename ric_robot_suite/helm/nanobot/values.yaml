@@ -13,6 +13,12 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+#
+# configuration for this chart is split between this file and the "recipe"
+# used by the ric-common chart.  For the most part, platform configuration
+# is defined by that recipe, and robot configuration is here.
+#
+
 images:
  ric:
   robot:
@@ -46,7 +52,6 @@ ric:
   # for these can typically be found in
   # the ricplt/ric_env.sh file from the ric
   # platform source tree
-  namespace: ricplt
   releaseName: r0
   components:
    appmgr:
@@ -55,15 +60,16 @@ ric:
    rtmgr:
     user: test
     password: test
-   dbaas:
-    port: "6379"
    e2mgr:
     user: test
     password: test
    e2term:
+   a1mediator:
  xapp:
-  namespace: ricxapp
+  anr:
+   servicename: anr
  robot:
+  release: r1
   #
   # host filesystem path where robot
   # output will be stored
@@ -76,8 +82,15 @@ ric:
   # - ricdeployment
   # - healthcheck
   tags:
-  # - etetests
-  # - k8stests
+   enabled:
+   # - etetests
+   # - k8stests
+   disabled:
+   # - intrusive
+   # - artificialdata
+   - UpdateWebPage
+   - e2setup_dash
+   - x2setup_dash
   #
   job:
    # set this to a true value to cause
@@ -94,4 +107,3 @@ ric:
     create: true
     # ... and specify the serviceaccount here:
     # name: nanobot
-    

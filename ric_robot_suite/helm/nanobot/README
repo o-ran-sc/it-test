@@ -20,13 +20,44 @@ The job mounts its testsuites directory as a configmap, built from
 files in nanobot/configmap-src/testsuites.  Template expansion is
 performed on files in that directory.
 
-To install the chart, edit values.yaml to reflect your environment
-and desired tests and run
+Configuration of the chart is split between the "recipe" used to
+deploy the RIC (and consumed by the ric-common chart, which is
+required for this chart) and the chart's own values.yaml file.
+Generally, RIC platform configuration is specified by the recipe, and
+robot and xapp configuration from the chart's values.yaml, although
+there is some overlap.
 
-$ helm install --namespace <namespace> nanobot
+Support files (testsuites, keyword definition libraries, scripts, and
+variable definition files) for the robot framework itself are supplied
+by k8s configmaps generated from the contents of subdirectories of the
+configmap-src directory; those subdirectories may contain one or more of
+the following directories:
+
+bin/:        scripts/binaries, mounted at /robot/bin
+testsuites/: test suites, mounted at /robot/testsuites
+properties/: variable definition (properties) files;
+             contents mounted at /robot/resources
+resources/:  robot keyword definition libraries, contents
+             mounted at /robot/resources
+
+Helm template expansion is performed on the contents of all
+directories.
+Because both resources/ and properties/ are mounted at
+robot/resources, care should be taken to ensure that names do not
+collide across those directories, particularly between trees.
+
+
+To install the chart (which creates and runs a single Kubernetes job),
+edit values.yaml to reflect your environment and desired tests and run
+
+$ helm install [--values <override-file> ] --namespace <namespace> nanobot
+
+... where <override-file> is the recipe override file used when
+deploying the RIC, if any.
 
 The namespace selected will be where the job's service account is
 created and the job runs.  It may but need not be the same as the RIC
-platform or xapp namespace.
+platform or xapp namespace —- the chart may be deployed in any
+namespace.
 
 

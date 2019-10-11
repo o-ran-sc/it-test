@@ -22,22 +22,22 @@ Test XApp Manager Health
     [Tags]  etetests  xapptests
     Run AppMgr Health Check
 Deploy An XApp    
-    [Tags]  etetests  xapptests
+    [Tags]  etetests  xapptests  intrusive
     Deploy XApp       ${TEST_XAPPNAME}
 Retrieve The Deployed XApp
     [Tags]  etetests  xapptests
     Get XApp By Name  ${TEST_XAPPNAME}
 Attempt To Deploy A Duplicate XApp
-    [Tags]  etetests  xapptests
+    [Tags]  etetests  xapptests  intrusive
     Deploy Duplicate XApp And Expect Error
 Undeploy The Deployed XApp
-    [Tags]  etetests  xapptests
+    [Tags]  etetests  xapptests  intrusive
     Undeploy XApp     ${TEST_XAPPNAME}
 Attempt To Undeploy An Already Undeployed XApp
-    [Tags]  etetests  xapptests
+    [Tags]  etetests  xapptests  intrusive
     Undeploy Nondeployed XApp And Expect Error
 Attempt To Request A Nonexistent XApp
-    [Tags]  etetests  xapptests
+    [Tags]  etetests  xapptests  intrusive
     Request Nonexistent XApp And Expect Error
     
 Setup RAN Via E2Mgr X2

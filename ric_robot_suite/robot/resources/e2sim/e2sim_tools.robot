@@ -10,8 +10,7 @@ Library           E2SimUtils        ${DBHOST}     ${DBPORT}
 *** Variables ***
 ${DBHOST}         ${GLOBAL_INJECTED_DBAAS_IP_ADDR}
 ${DBPORT}         ${GLOBAL_DBAAS_SERVER_PORT}
-${NAMESPACE}      %{RICPLT_NAMESPACE}
-${PFX}            %{RICPLT_RELEASE_NAME}
+${NAMESPACE}      ${GLOBAL_RICPLT_NAMESPACE}
 
 *** Keywords ***
 Generate RAN Name
@@ -28,6 +27,6 @@ Delete RAN Database Entry
 
 Restart E2 Simulator
      [Documentation]                Restart all E2Sim pods
-     [Arguments]                    ${deployment}=${PFX}-e2sim
+     [Arguments]                    ${deployment}=  ${GLOBAL_INJECTED_E2MGR_DEPLOYMENT} 
      ${resp} =                      Redeploy        ${deployment}
      [Return]                       ${resp}
