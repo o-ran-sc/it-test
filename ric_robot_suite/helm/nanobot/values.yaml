@@ -91,6 +91,20 @@ ric:
    - UpdateWebPage
    - e2setup_dash
    - x2setup_dash
+  # the name of a test xapp; the appmgr testsuite
+  # will attempt to deploy and undeploy this app;
+  # This should be an xapp which is "onboarded" to
+  # the appmgr but not deployed at the time the test
+  # is initiated.
+  xapp: xapp-std
+  gNodeB:
+   # the details of a test gNodeB, for [E/X]2 tests.
+   # This can be either a real gnodeb or a simulator,
+   # but in either case should exist prior to test
+   # initiation.
+   name: AAAA456789
+   address: 10.0.0.3
+   port: 36421
   #
   job:
    # set this to a true value to cause

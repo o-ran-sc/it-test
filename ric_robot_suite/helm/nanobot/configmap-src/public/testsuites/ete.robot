@@ -10,11 +10,10 @@ Resource         ../resources/e2mgr/e2mgr_interface.robot
 Resource         ../resources/dashboard/dashboard_interface.robot
 
 *** Variables ***
-${TEST_XAPPNAME}      xapp-std
-${TEST_XAPPID}        101
-${TEST_NODE_B_NAME}   AAAA456789
-${TEST_NODE_B_IP}     10.0.0.3
-${TEST_NODE_B_PORT}   36421
+${TEST_XAPPNAME}      ${GLOBAL_TEST_XAPP}
+${TEST_NODE_B_NAME}   ${GLOBAL_TEST_NODEB_NAME}
+${TEST_NODE_B_IP}     ${GLOBAL_TEST_NODEB_ADDRESS}
+${TEST_NODE_B_PORT}   ${GLOBAL_TEST_NODEB_PORT}
 
 
 *** Test Cases ***
