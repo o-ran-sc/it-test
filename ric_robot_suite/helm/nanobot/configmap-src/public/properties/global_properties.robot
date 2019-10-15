@@ -42,3 +42,9 @@ ${GLOBAL_INJECTED_RTMGR_PASSWORD}     {{ .Values.ric.platform.components.rtmgr.p
 #
 ${GLOBAL_INJECTED_DBAAS_IP_ADDR}      {{ printf "%s.%s" (include "common.servicename.dbaas.tcp" .) $ricplt  }}
 ${GLOBAL_DBAAS_SERVER_PORT}           {{ include "common.serviceport.dbaas.tcp" .  }}
+#
+${GLOBAL_TEST_XAPP}                   {{ default "xapp-std" .Values.ric.robot.xapp }}
+#
+${GLOBAL_TEST_NODEB_NAME}             {{ default "AAAA456789" .Values.ric.robot.gNodeB.name }}
+${GLOBAL_TEST_NODEB_ADDRESS}          {{ default "10.0.0.3"   .Values.ric.robot.gNodeB.address }}
+${GLOBAL_TEST_NODEB_PORT}             {{ default "36421"      .Values.ric.robot.gNodeB.port }}
