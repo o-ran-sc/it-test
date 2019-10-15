@@ -127,9 +127,11 @@ spec:
             - name: robot-etc
               mountPath: /robot/etc
               readOnly: false
+            {{- if .Values.ric.robot.log }}
             - name: robot-log
               mountPath: /robot/log
               readOnly: false
+            {{- end }}
             - name: robot-bin
               mountPath: /robot/bin
               readOnly: true
@@ -166,8 +168,19 @@ spec:
             {{- if not .Values.ric.robot.job.failOnTestFail }}
             - "--NoStatusRC"
             {{- end }}
+            {{- if .Values.ric.robot.log }}
             - "-d"
             - "/robot/log"
+            {{- else }}
+            - "-o"
+            - "NONE"
+            - "-l"
+            - "NONE"
+            - "-r"
+            - "NONE"
+            - "-L"
+            - "NONE"
+            {{- end }}
             - "--console"
             - "verbose"
             - "-C"
@@ -198,9 +211,11 @@ spec:
             - name: robot-etc
               mountPath: /robot/etc
               readOnly: true
+            {{- if .Values.ric.robot.log }}
             - name: robot-log
               mountPath: /robot/log
               readOnly: false
+            {{- end }}
             # for compatability with the ric robot, we mount
             # both properties files and interface libraries
             # under resources/.
@@ -220,9 +235,11 @@ spec:
         - name: robot-etc
           emptyDir: {}
         - name: robot-log
+        {{- if .Values.ric.robot.log }}
           hostPath:
            path: {{ default "/opt/ric/robot/log"  .Values.ric.robot.log }}
            type: DirectoryOrCreate
+        {{- end }}
         - name: robot-bin
           configMap:
            name: robot-bin
