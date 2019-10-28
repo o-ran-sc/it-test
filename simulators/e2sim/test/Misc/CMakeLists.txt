@@ -25,37 +25,62 @@ add_definitions("-D ASN_DISABLE_OER_SUPPORT")
 
 project(e2sim)
 
-set (E2SIM_ROOT ./)
+set (HOME_DIR $ENV{HOME})
+#set (E2SIM_ROOT ../../../)
 
-include_directories("${E2SIM_ROOT}/src")
-include_directories("${E2SIM_ROOT}/src/DEF")
-include_directories("${E2SIM_ROOT}/src/SCTP/")
-include_directories("${E2SIM_ROOT}/src/E2AP")
-include_directories("${E2SIM_ROOT}/src/E2AP/E2SM")
-include_directories("${E2SIM_ROOT}/ASN1c")
+include_directories("src")
+include_directories("src/SCTP/")
+include_directories("src/E2AP")
+include_directories("src/E2AP/E2SM")
+include_directories("ASN1c")
 
-find_library( SCTP_STD_LIB sctp )  #needed for sctp_sendmsg
+find_library( SCTP_LIBRARY sctp )  #needed for sctp_sendmsg
 
 #----------------------------------------------
 file(GLOB E2AGENT_SOURCES
-      "${E2SIM_ROOT}/e2agent.cpp"
-      "${E2SIM_ROOT}/src/DEF/*.cpp"
-      "${E2SIM_ROOT}/src/SCTP/*.cpp"
-      "${E2SIM_ROOT}/src/E2AP/*.c"
-      "${E2SIM_ROOT}/src/E2AP/*.cpp"
-      "${E2SIM_ROOT}/ASN1c/*.c"
+      "src/e2agent.cpp"
+      "src/e2sim_defs.cpp"
+      "src/SCTP/*.cpp"
+      "src/E2AP/*.c"
+      "src/E2AP/*.cpp"
+      "ASN1c/*.c"
       )
 add_executable(e2agent ${E2AGENT_SOURCES})
-target_link_libraries( e2agent ${SCTP_STD_LIB} )
+target_link_libraries( e2agent ${SCTP_LIBRARY} )
 
 #----------------------------------------------
 file(GLOB RICSIM_SOURCES
-      "${E2SIM_ROOT}/ric_sim.cpp"
-      "${E2SIM_ROOT}/src/DEF/*.cpp"
-      "${E2SIM_ROOT}/src/SCTP/*.cpp"
-      "${E2SIM_ROOT}/src/E2AP/*.c"
-      "${E2SIM_ROOT}/src/E2AP/*.cpp"
-      "${E2SIM_ROOT}/ASN1c/*.c"
+      "src/ric_sim.cpp"
+      "src/e2sim_defs.cpp"
+      "src/SCTP/*.cpp"
+      "src/E2AP/*.c"
+      "src/E2AP/*.cpp"
+      "ASN1c/*.c"
       )
 add_executable(ric_sim ${RICSIM_SOURCES})
-target_link_libraries( ric_sim ${SCTP_STD_LIB} )
+target_link_libraries( ric_sim ${SCTP_LIBRARY} )
+
+
+#----------------------------------------------
+file(GLOB X2TERM_SOURCES
+      "src/x2term.cpp"
+      "src/e2sim_defs.cpp"
+      "src/SCTP/*.cpp"
+      "src/E2AP/*.c"
+      "src/E2AP/*.cpp"
+      "ASN1c/*.c"
+      )
+add_executable(x2term ${X2TERM_SOURCES})
+target_link_libraries( x2term ${SCTP_LIBRARY} )
+
+
+#-----------------------------------------------
+file(GLOB TEST
+      "src/test_asn1c.cpp"
+      "src/e2sim_defs.cpp"
+#      "src/SCTP/*.cpp"
+      "ASN1c/*.c"
+      "src/E2AP/*.c"
+      "src/E2AP/E2SM/*.c"
+      )
+add_executable(test_asn1c ${TEST})

@@ -29,6 +29,16 @@
 #include "e2sim_sctp.hpp"
 // #include "e2sim_defs.h"
 
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/sctp.h>
+#include <signal.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 int sctp_start_server(const char *server_ip_str, const int server_port)
 {
   if(server_port < 1 || server_port > 65535) {
@@ -108,18 +118,14 @@ int sctp_start_client(const char *server_ip_str, const int server_port)
   {
     server4_addr.sin_family = AF_INET;
     server4_addr.sin_port   = htons(server_port);
-
     server_addr = (struct sockaddr*)&server4_addr;
-    af          = AF_INET;
     addr_len    = sizeof(server4_addr);
   }
   else if(inet_pton(AF_INET6, server_ip_str, &server6_addr.sin6_addr) == 1)
   {
     server6_addr.sin6_family = AF_INET6;
     server6_addr.sin6_port   = htons(server_port);
-
     server_addr = (struct sockaddr*)&server6_addr;
-    af          = AF_INET6;
     addr_len    = sizeof(server6_addr);
   }
   else {
@@ -127,25 +133,47 @@ int sctp_start_client(const char *server_ip_str, const int server_port)
     exit(1);
   }
 
-  if((client_fd = socket(af, SOCK_STREAM, IPPROTO_SCTP)) == -1)
+  if((client_fd = socket(AF_INET6, SOCK_STREAM, IPPROTO_SCTP)) == -1)
   {
      perror("socket");
      exit(1);
   }
 
-  LOG_I("[SCTP] Connecting to server at %s:%d ...", server_ip_str, server_port);
+  //--------------------------------
+  //Bind before connect
+  auto optval = 1;
+  if( setsockopt(client_fd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof optval) != 0 ){
+    perror("setsockopt port");
+    exit(1);
+  }
 
+  if( setsockopt(client_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval) != 0 ){
+    perror("setsockopt addr");
+    exit(1);
+  }
+
+  struct sockaddr_in6  client6_addr {};
+  client6_addr.sin6_family = AF_INET6;
+  client6_addr.sin6_port   = htons(RIC_SCTP_SRC_PORT);
+  client6_addr.sin6_addr   = in6addr_any;
+
+  LOG_I("[SCTP] Binding client socket to source port %d", RIC_SCTP_SRC_PORT);
+  if(bind(client_fd, (struct sockaddr*)&client6_addr, sizeof(client6_addr)) == -1) {
+    perror("bind");
+    exit(1);
+  }
+  // end binding ---------------------
+
+  LOG_I("[SCTP] Connecting to server at %s:%d ...", server_ip_str, server_port);
   if(connect(client_fd, server_addr, addr_len) == -1) {
     perror("connect");
     exit(1);
   }
-
   assert(client_fd != 0);
 
   LOG_I("[SCTP] Connection established");
 
   return client_fd;
-
 }
 
 int sctp_accept_connection(const char *server_ip_str, const int server_fd)
@@ -191,6 +219,18 @@ int sctp_send_data(int &socket_fd, sctp_buffer_t &data)
   }
 
   return sent_len;
+}
+
+int sctp_send_data_X2AP(int &socket_fd, sctp_buffer_t &data)
+{
+  int sent_len = sctp_sendmsg(socket_fd, (void*)(&(data.buffer[0])), data.len,
+                  NULL, 0, (uint32_t) X2AP_PPID, 0, 0, 0, 0);
+
+  if(sent_len == -1) {
+    perror("[SCTP] sctp_send_data");
+    exit(1);
+  }
+
 }
 
 /*

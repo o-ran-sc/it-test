@@ -19,4 +19,9 @@
 #******************************************************************************/
 
 set -e
-sudo docker build -f docker/Dockerfile -t e2agent .
+
+mkdir -p build
+cd build
+rm -rf CMakeCache.txt
+cmake ..
+make -j`nproc`

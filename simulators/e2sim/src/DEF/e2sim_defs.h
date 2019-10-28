@@ -20,12 +20,16 @@
 #ifndef E2SIM_DEFS_H
 #define E2SIM_DEFS_H
 
-#include <iostream>
+// #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define VERSION             "1.2.0"      //May 2019
 #define DEFAULT_SCTP_IP     "127.0.0.1"
-#define X2AP_SCTP_PORT       36422
-#define MAX_SCTP_BUFFER      1024
+#define X2AP_PPID           (452984832) //27 = 1b, PPID = 1b000000(hex) -> 452984832(dec)
+#define X2AP_SCTP_PORT      36421
+#define RIC_SCTP_SRC_PORT   36422
+#define MAX_SCTP_BUFFER     1024
 #define WORKDIR_ENV         "E2SIM_DIR" //environment variable
 
 #define LOG_I(...) {printf(__VA_ARGS__); printf("\n");}

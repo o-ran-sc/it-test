@@ -111,8 +111,8 @@ int main(int argc, char* argv[]){
 
   int client_fd = sctp_start_client(ops.server_ip, ops.server_port);
 
-  // test_X2Setup(client_fd);
-  test_ENDCX2Setup(client_fd);
+  test_X2Setup(client_fd);
+  // test_ENDCX2Setup(client_fd);
 
 
   return 0;

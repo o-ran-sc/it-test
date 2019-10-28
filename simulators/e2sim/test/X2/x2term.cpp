@@ -17,23 +17,56 @@
 #                                                                            *
 ******************************************************************************/
 
-#ifndef E2SIM_SCTP_HPP
-#define E2SIM_SCTP_HPP
+#include <stdio.h>
+#include <unistd.h>
+#include <assert.h>
 
-#include "e2sim_defs.h"
+#include "e2sim_sctp.hpp"
+#include "e2ap_message_handler.hpp"
 
-const int SERVER_LISTEN_QUEUE_SIZE  = 10;
+extern "C" {
+  #include "e2sim_defs.h"
+  #include "E2AP-PDU.h"
+  #include "e2ap_asn1c_codec.h"
+}
 
-int sctp_start_server(const char *server_ip_str, const int server_port);
+using namespace std;
 
-int sctp_start_client(const char *server_ip_str, const int server_port);
+void encode_and_send_sctp_data(E2AP_PDU_t* pdu, int client_fd)
+{
+  uint8_t       *buf;
+  sctp_buffer_t data;
 
-int sctp_accept_connection(const char *server_ip_str, const int server_fd);
+  data.len = e2ap_asn1c_encode_pdu(pdu, &buf);
+  memcpy(data.buffer, buf, data.len);
 
-int sctp_send_data(int &socket_fd, sctp_buffer_t &data);
+  // sctp_send_data(client_fd, data);
+  sctp_send_data_X2AP(client_fd, data);
+}
 
-int sctp_send_data_X2AP(int &socket_fd, sctp_buffer_t &data);
+void wait_for_sctp_data(int client_fd)
+{
+  sctp_buffer_t recv_buf;
+  if(sctp_receive_data(client_fd, recv_buf) > 0)
+  {
+    LOG_I("[SCTP] Received new data of size %d", recv_buf.len);
+    e2ap_handle_sctp_data(client_fd, recv_buf);
+  }
+}
 
-int sctp_receive_data(int &socket_fd, sctp_buffer_t &data);
 
-#endif
+int main(int argc, char* argv[]){
+  LOG_I("Start RIC Simulator");
+
+  options_t ops = read_input_options(argc, argv);
+  int client_fd = sctp_start_client(ops.server_ip, ops.server_port);
+
+  //Send X2 Setup Request
+  E2AP_PDU_t* pdu_setup = e2ap_xml_to_pdu("E2AP_X2SetupRequest.xml");
+  e2ap_asn1c_print_pdu(pdu_setup);
+
+  encode_and_send_sctp_data(pdu_setup, client_fd);
+
+  //wait to receive X2SetupResponse
+  wait_for_sctp_data(client_fd);
+}
