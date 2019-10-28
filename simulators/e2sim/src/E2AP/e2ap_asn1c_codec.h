@@ -16,59 +16,29 @@
 # limitations under the License.                                             *
 #                                                                            *
 ******************************************************************************/
-
-#include <stdio.h>
-#include <unistd.h>
-#include <string>
-#include <iostream>
+#ifndef E2AP_ASN1C_CODEC_H
+#define E2AP_ASN1C_CODEC_H
 
 #include "e2sim_defs.h"
-#include "e2sim_sctp.hpp"
-#include "asn_e2ap.hpp"
-#include "e2ap_message_handler.hpp"
+#include "E2AP-PDU.h"
+#include "InitiatingMessage.h"
+#include "SuccessfulOutcome.h"
+#include "UnsuccessfulOutcome.h"
 
-using namespace std;
+#define ASN1C_PDU_PRINT_BUFFER     4096
+#define MAX_XML_BUFFER             10000
+#define E2AP_XML_DIR               "/src/E2AP/XML/"
 
-void test(void)
-{
-  e2ap_pdu_t* pdu = new_e2ap_pdu();
+void e2ap_asn1c_print_pdu(const E2AP_PDU_t* pdu);
 
-  gNB_config gnb_cfg;
+void asn1c_xer_print(asn_TYPE_descriptor_t *typeDescriptor, void *data);
 
-  e2ap_create_ENDCX2SetupResponse(pdu, gnb_cfg);
+E2AP_PDU_t* e2ap_xml_to_pdu(char const* xml_message);
 
-  e2ap_print_pdu(pdu);
+int e2ap_asn1c_encode_pdu(E2AP_PDU_t* pdu, unsigned char **buffer);
 
-  //Encode into buffer
-  sctp_buffer_t data;
-  e2ap_encode_pdu(pdu, data.buffer, sizeof(data.buffer), data.len);
+void e2ap_asn1c_decode_pdu(E2AP_PDU_t* pdu, unsigned char *buffer, int len);
 
-}
+int e2ap_asn1c_get_procedureCode(E2AP_PDU_t* pdu);
 
-int main(int argc, char* argv[]){
-
-  LOG_I("E2 Agent (E2 Simulator) Version %s", VERSION);
-
-  // test();
-  // return 0;
-
-  options_t ops = read_input_options(argc, argv);
-
-  int server_fd = sctp_start_server(ops.server_ip, ops.server_port);
-  int client_fd = sctp_accept_connection(ops.server_ip, server_fd);
-
-  sctp_buffer_t recv_buf;
-
-  LOG_I("[SCTP] Waiting for SCTP data");
-  while(1) //constantly looking for data on SCTP interface
-  {
-    if(sctp_receive_data(client_fd, recv_buf) <= 0)
-      break;
-
-    LOG_I("[SCTP] Received new data of size %d", recv_buf.len);
-
-    e2ap_handle_sctp_data(client_fd, recv_buf);
-  }
-
-  return 0;
-}
+#endif

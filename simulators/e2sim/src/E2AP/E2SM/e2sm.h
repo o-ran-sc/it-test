@@ -1,4 +1,4 @@
-#*****************************************************************************
+/*****************************************************************************
 #                                                                            *
 # Copyright 2019 AT&T Intellectual Property                                  *
 # Copyright 2019 Nokia                                                       *
@@ -15,18 +15,16 @@
 # See the License for the specific language governing permissions and        *
 # limitations under the License.                                             *
 #                                                                            *
-#*****************************************************************************
+******************************************************************************/
+#ifndef E2SM_H
+#define E2SM_H
 
-# Run a default build and run the e2sim executable
+#include "E2SM-gNB-X2-eventTriggerDefinition.h"
+#include "E2AP-PDU.h"
+#include "e2ap_asn1c_codec.h"
 
-set -e
+E2SM_gNB_X2_eventTriggerDefinition_t* create_eventTriggerDefinition(void);
 
-clear
+void test_eventTriggerDefinition(void);
 
-./build_e2sim --clean
-
-./build_e2sim
-
-echo "===================== Running E2 Agent Simulator ========================"
-
-./build/e2agent
+#endif
