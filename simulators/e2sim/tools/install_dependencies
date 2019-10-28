@@ -1,3 +1,4 @@
+#!/bin/bash
 #/*****************************************************************************
 #                                                                            *
 # Copyright 2019 AT&T Intellectual Property                                  *
@@ -17,77 +18,21 @@
 #                                                                            *
 #******************************************************************************/
 
-#######################################
-#            Helper Func
-######################################
-
-black='\E[30m'
-red='\E[31m'
-green='\E[32m'
-yellow='\E[33m'
-blue='\E[34m'
-magenta='\E[35m'
-cyan='\E[36m'
-white='\E[37m'
-reset_color='\E[00m'
-
-cecho()   # Color-echo. arg1 = message, arg2 = color
-{
-    local default_msg="No Message."
-    message=${1:-$default_msg}
-    color=${2:-$green}
-    echo -e -n "$color$message$reset_color"
-    echo
-    return
-}
-
-echo_error() {
-    local my_string=""
-    until [ -z "$1" ]
-    do
-        my_string="$my_string$1"
-        shift
-        done
-        cecho "$my_string" $red
-}
-
-echo_fatal() {
-    local my_string=""
-    until [ -z "$1" ]
-    do
-        my_string="$my_string$1"
-        shift
-        done
-        echo_error "$my_string"
-    exit -1
-}
-
-echo_warning() {
-    local my_string=""
-    until [ -z "$1" ]
-    do
-        my_string="$my_string$1"
-        shift
-    done
-    cecho "$my_string" $yellow
-}
-
-echo_success() {
-    local my_string=""
-    until [ -z "$1" ]
-    do
-        my_string="$my_string$1"
-        shift
-    done
-    cecho "$my_string" $green
-}
-
-echo_info() {
-    local my_string=""
-    until [ -z "$1" ]
-    do
-        my_string="$my_string$1"
-        shift
-    done
-    cecho "$my_string" $blue
-}
+sudo apt-get update \
+	&& sudo apt-get install -y \
+	build-essential \
+	git \
+	cmake \
+	libsctp-dev \
+	lksctp-tools \
+	autoconf \
+	automake \
+	libtool \
+	bison \
+	flex \
+  libboost-all-dev \
+	iputils-ping \
+	net-tools \
+	nano \
+	vim \
+  && sudo apt-get clean

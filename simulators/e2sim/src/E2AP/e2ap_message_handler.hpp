@@ -19,19 +19,23 @@
 #ifndef E2AP_MESSAGE_HANDLER_HPP
 #define E2AP_MESSAGE_HANDLER_HPP
 
-#include "e2sim_defs.h"
 #include "e2sim_sctp.hpp"
-#include "asn_e2ap.hpp"
-#include "e2ap_asn_codec.hpp"
+
+extern "C" {
+  #include "e2sim_defs.h"
+  #include "e2ap_asn1c_codec.h"
+}
 
 void e2ap_handle_sctp_data(int &socket_fd, sctp_buffer_t &data);
 
-void e2ap_handle_X2SetupRequest(e2ap_pdu_t* pdu, int &socket_fd);
+void e2ap_handle_X2SetupRequest(E2AP_PDU_t* pdu, int &socket_fd);
 
-void e2ap_handle_X2SetupResponse(e2ap_pdu_t* pdu, int &socket_fd);
+void e2ap_handle_X2SetupResponse(E2AP_PDU_t* pdu, int &socket_fd);
 
-void e2ap_handle_ENDCX2SetupRequest(e2ap_pdu_t* pdu, int &socket_fd);
+void e2ap_handle_ENDCX2SetupRequest(E2AP_PDU_t* pdu, int &socket_fd);
 
-void e2ap_handle_RICSubscriptionRequest(e2ap_pdu_t* pdu, int &socket_fd);
+void e2ap_handle_RICSubscriptionRequest(E2AP_PDU_t* pdu, int &socket_fd);
+
+void e2ap_handle_RICSubscriptionRequest_securityDemo(E2AP_PDU_t* pdu, int &socket_fd);
 
 #endif
