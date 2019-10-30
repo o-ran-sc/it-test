@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d32ae1b_0e861326",
+        "filename": "simulators/e2sim/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-10-30T01:42:18Z",
+      "side": 1,
+      "message": "Should this say where to download the files from?",
+      "revId": "e440e6695aef24ac8c88d852071efb96d192b618",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}
