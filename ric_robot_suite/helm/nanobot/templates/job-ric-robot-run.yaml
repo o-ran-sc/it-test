@@ -72,7 +72,7 @@ metadata:
   namespace: {{ $xappNamespace }}
 rules:
 - apiGroups: [""]
-  resources: ["pods", "services"]
+  resources: ["pods", "pods/log", "services"]
   verbs: ["get", "list"]
 - apiGroups: ["apps"]
   resources: ["deployments", "daemonsets", "replicasets", "statefulsets"]

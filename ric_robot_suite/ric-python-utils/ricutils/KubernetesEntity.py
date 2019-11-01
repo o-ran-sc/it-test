@@ -17,6 +17,7 @@ from kubernetes import client, config
 import string
 import random
 import time
+import sys
 
 # This library provides a massively-simplified interface to the kubernetes
 # API library to reduce bloat in robot tests.
@@ -82,3 +83,19 @@ class KubernetesEntity(object):
    timeout -= 1
   raise TimeoutError('Kubernetes timeout waiting for ' + name + ' to become available')
 
+ def RetrievePodsForDeployment(self, name):
+  # return the pod names associated with a deployment
+  d = self.Deployment(name)
+  labels = d.spec.selector.match_labels
+  pods = self._k8sCore.list_namespaced_pod(self._ns,
+                                           label_selector=",".join(map(lambda k: k + "=" + labels[k], 
+                                                                       labels)))
+  return map(lambda i: i.metadata.name, pods.items)
+ 
+ def RetrieveLogForPod(self, pod, container='', tail=sys.maxsize):
+  # not really an "entity" thing per se, but.
+  # kinda want to include timestamps, but i don't have a use case for them.
+  return self._k8sCore.read_namespaced_pod_log(namespace=self._ns,
+                                               name=pod,
+                                               container=container,
+                                               tail_lines=tail).split('\n')[0:-1]

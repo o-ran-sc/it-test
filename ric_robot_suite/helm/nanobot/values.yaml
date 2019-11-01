@@ -54,20 +54,37 @@ ric:
   # platform source tree
   releaseName: r0
   components:
+   a1mediator:
    appmgr:
     user: test
     password: test
-   rtmgr:
-    user: test
-    password: test
+   dbaas:
    e2mgr:
     user: test
     password: test
    e2term:
-   a1mediator:
+   rtmgr:
+    user: test
+    password: test
+   submgr:
  xapp:
-  anr:
-   servicename: anr
+  mcxapp:
+   listener:
+    containername: mc-xapp-listener
+   writer:
+    containername: mc-xapp-writer
+    # statistics sent to ves by the writer.  the tests
+    # will check that these are actually being sent
+    statistics:
+    - mc_connected_cnt
+    - mc_connection_stats
+    - mc_connects_cnt
+    - mc_disconnects_cnt
+    - mc_unique_ue_cnt
+    - rrcx_pdf_serv_cell
+    - rrcx_pdf_serv_gnb
+    - rrcx_stats_serv_cell
+    - rrcx_stats_serv_gnb
  robot:
   release: r1
   #
@@ -123,3 +140,6 @@ ric:
      name: AAAA456789
      address: 10.0.0.3
      port: 36421
+    dashboard:
+     address: 10.1.0.1
+     port: 31080
