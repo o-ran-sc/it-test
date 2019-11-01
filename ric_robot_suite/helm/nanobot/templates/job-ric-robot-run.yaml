@@ -72,7 +72,7 @@ metadata:
   namespace: {{ $xappNamespace }}
 rules:
 - apiGroups: [""]
-  resources: ["pods", "services"]
+  resources: ["pods", "pods/log", "services"]
   verbs: ["get", "list"]
 - apiGroups: ["apps"]
   resources: ["deployments", "daemonsets", "replicasets", "statefulsets"]
@@ -103,10 +103,11 @@ metadata:
   name: {{ $jobName }}-ric-robot-run
   namespace: {{ .Release.Namespace }}
 spec:
+  backoffLimit:  {{ default 0 .Values.ric.robot.job.backoffLimit }}
   template:
     spec:
       serviceAccountName: {{ $serviceAccountName }}
-      restartPolicy: Never
+      restartPolicy: {{ default "Never" .Values.ric.robot.job.restartPolicy }}
       initContainers:
         - name: {{ $jobName }}-generate-robot-kubeconfig
           {{ with .Values.images.ric.robot.job.init }}

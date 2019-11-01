@@ -5,6 +5,8 @@ Library        RequestsLibrary
 
 Resource       ../global_properties.robot
 
+Resource       ../ric/ric_utils.robot
+
 *** Variables ***
 ${APPMGR_BASE_PATH}  /ric/v1/xapps
 ${APPMGR_ENDPOINT}   ${GLOBAL_APPMGR_SERVER_PROTOCOL}://${GLOBAL_INJECTED_APPMGR_IP_ADDR}:${GLOBAL_APPMGR_SERVER_PORT}
@@ -104,20 +106,3 @@ Run AppMgr DELETE Request
      ${headers} =     Create Dictionary  Accept=application/json         Content-Type=application/json
      ${resp} =        Delete Request     roboAppmgrDelete                ${APPMGR_BASE_PATH}${path}  headers=${headers}
      [Return]         ${resp}
-
-
-# a few useful list routines that should probably live elsewhere
-Pluck
-     [Documentation]  Get the values of a specific key from a list of dictionaries
-     [Arguments]      ${k}      ${l}
-     @{names} =       Evaluate  filter(lambda v: v != None, [i.get('${k}', None) for i in ${l}])
-     [Return]         ${names}
-
-Subtract From List
-     [Documentation]  Remove the elements of the second argument from the first
-     [Arguments]      ${x}  ${y}
-     ${diff} =        Run Keyword If  ${y}
-     ...              Evaluate  filter(lambda v: v not in ${y}, ${x})
-     ...              ELSE
-     ...              Set Variable    ${x}
-     [Return]         ${diff}
