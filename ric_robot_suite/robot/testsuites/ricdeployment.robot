@@ -16,7 +16,9 @@
 *** Settings ***
 Documentation   Tests for the existence and functionality of RIC components
 
-Resource       /robot/resources/global_properties.robot
+Resource       ../global_properties.robot
+
+Resource       ../ric/ric_utils.robot
 
 Library  KubernetesEntity  ${GLOBAL_RICPLT_NAMESPACE}
 Library  Collections
@@ -30,13 +32,3 @@ Deployments
   \  ${deploy} =          Deployment           ${deploymentName}
   \  ${status} =          Most Recent Availability Condition                @{deploy.status.conditions}
   \  Should Be Equal As Strings  ${status}  True  ignore_case=True  msg=${Component} is not available
-
-*** Keywords ***
-Most Recent Availability Condition
-  # this makes the probably-unsafe assumption that the conditions are ordered
-  # temporally.
-  [Arguments]  @{Conditions}
-  ${status} =  Set Variable  'False'
-  :FOR  ${Condition}  IN  @{Conditions}
-  \  ${status} =  Set Variable If  '${Condition.type}' == 'Available'  ${Condition.status}  ${status}
-  [Return]  ${status}
