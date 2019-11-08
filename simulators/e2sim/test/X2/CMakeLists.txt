@@ -17,77 +17,33 @@
 #                                                                            *
 #******************************************************************************/
 
-#######################################
-#            Helper Func
-######################################
+cmake_minimum_required(VERSION 3.5.1)
+set(CMAKE_CXX_COMPILER "/usr/bin/g++")
+set(CMAKE_CXX_STANDARD 14)
 
-black='\E[30m'
-red='\E[31m'
-green='\E[32m'
-yellow='\E[33m'
-blue='\E[34m'
-magenta='\E[35m'
-cyan='\E[36m'
-white='\E[37m'
-reset_color='\E[00m'
+add_definitions("-D ASN_DISABLE_OER_SUPPORT")
 
-cecho()   # Color-echo. arg1 = message, arg2 = color
-{
-    local default_msg="No Message."
-    message=${1:-$default_msg}
-    color=${2:-$green}
-    echo -e -n "$color$message$reset_color"
-    echo
-    return
-}
+project(x2term)
 
-echo_error() {
-    local my_string=""
-    until [ -z "$1" ]
-    do
-        my_string="$my_string$1"
-        shift
-        done
-        cecho "$my_string" $red
-}
+set (E2SIM_ROOT ../../)
 
-echo_fatal() {
-    local my_string=""
-    until [ -z "$1" ]
-    do
-        my_string="$my_string$1"
-        shift
-        done
-        echo_error "$my_string"
-    exit -1
-}
+include_directories("${E2SIM_ROOT}/src")
+include_directories("${E2SIM_ROOT}/src/DEF")
+include_directories("${E2SIM_ROOT}/src/SCTP/")
+include_directories("${E2SIM_ROOT}/src/E2AP")
+include_directories("${E2SIM_ROOT}/src/E2AP/E2SM")
+include_directories("${E2SIM_ROOT}/ASN1c")
 
-echo_warning() {
-    local my_string=""
-    until [ -z "$1" ]
-    do
-        my_string="$my_string$1"
-        shift
-    done
-    cecho "$my_string" $yellow
-}
+find_library( SCTP_STD_LIB sctp )  #needed for sctp_sendmsg
 
-echo_success() {
-    local my_string=""
-    until [ -z "$1" ]
-    do
-        my_string="$my_string$1"
-        shift
-    done
-    cecho "$my_string" $green
-}
-
-echo_info() {
-    local my_string=""
-    until [ -z "$1" ]
-    do
-        my_string="$my_string$1"
-        shift
-    done
-    cecho "$my_string" $blue
-}
+#----------------------------------------------
+file(GLOB X2TERM_SOURCES
+      "${E2SIM_ROOT}/test/X2/x2term.cpp"
+      "${E2SIM_ROOT}/src/DEF/*.cpp"
+      "${E2SIM_ROOT}/src/SCTP/*.cpp"
+      "${E2SIM_ROOT}/src/E2AP/*.c"
+      "${E2SIM_ROOT}/src/E2AP/*.cpp"
+      "${E2SIM_ROOT}/ASN1c/*.c"
+      )
+add_executable(x2term ${X2TERM_SOURCES})
+target_link_libraries( x2term  ${SCTP_STD_LIB} )

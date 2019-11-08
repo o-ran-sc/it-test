@@ -1,4 +1,4 @@
-#/*****************************************************************************
+/*****************************************************************************
 #                                                                            *
 # Copyright 2019 AT&T Intellectual Property                                  *
 # Copyright 2019 Nokia                                                       *
@@ -15,37 +15,40 @@
 # See the License for the specific language governing permissions and        *
 # limitations under the License.                                             *
 #                                                                            *
-#******************************************************************************/
+******************************************************************************/
 
-FROM ubuntu:16.04
+#include <stdio.h>
+#include <unistd.h>
+#include <string>
+#include <iostream>
 
-# location in the container
-ENV E2SIM_DIR /home/e2sim
+#include "e2sim_defs.h"
+#include "e2sim_sctp.hpp"
+#include "e2ap_message_handler.hpp"
 
-# Install necessary packages
-RUN apt-get update \
-	&& apt-get install -y \
-	build-essential \
-	git \
-	cmake \
-	libsctp-dev \
-	lksctp-tools \
-	autoconf \
-	automake \
-	libtool \
-	bison \
-	flex \
-  libboost-all-dev \
-	iputils-ping \
-	net-tools \
-	nano \
-	vim \
-  && apt-get clean
+using namespace std;
 
-# Copy E2Sim sources into the container
-COPY	 	./ ${E2SIM_DIR}
-WORKDIR ${E2SIM_DIR}
+int main(int argc, char* argv[]){
+  LOG_I("Start E2 Agent (E2 Simulator)");
 
-#------------- Build E2SIM -----------------------
-RUN   ./build_e2sim --clean
-RUN   ./build_e2sim
+  options_t ops = read_input_options(argc, argv);
+
+  int server_fd = sctp_start_server(ops.server_ip, ops.server_port);
+  int client_fd = sctp_accept_connection(ops.server_ip, server_fd);
+
+  sctp_buffer_t recv_buf;
+
+  LOG_I("[SCTP] Waiting for SCTP data");
+
+  while(1) //constantly looking for data on SCTP interface
+  {
+    if(sctp_receive_data(client_fd, recv_buf) <= 0)
+      break;
+
+    LOG_I("[SCTP] Received new data of size %d", recv_buf.len);
+
+    e2ap_handle_sctp_data(client_fd, recv_buf);
+  }
+
+  return 0;
+}

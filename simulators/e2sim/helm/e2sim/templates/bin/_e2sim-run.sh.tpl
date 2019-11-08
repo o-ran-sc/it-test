@@ -51,4 +51,4 @@ else
   echo "e2sim starting at ${E2SIM_BIND_ADDR}:${E2SIM_PORT:-36421}"
 fi
 
-${E2SIM:-/home/e2sim/build/e2agent} ${E2SIM_BIND_ADDR} ${E2SIM_PORT:-36421}
+${E2SIM:-/home/e2sim/build/e2sim} ${E2SIM_BIND_ADDR} ${E2SIM_PORT:-36421}
