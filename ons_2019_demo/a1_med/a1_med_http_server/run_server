@@ -1,8 +1,0 @@
-#!/bin/bash
-
-virtualenv flask
-
-flask/bin/pip install flask
-flask/bin/pip install flask_cors
-
-./a1med.py

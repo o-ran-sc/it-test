@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker build -t a1-med:0.0.1 .

@@ -1,6 +1,0 @@
-export C_INCLUDE_PATH=$HOME/usr/include
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/usr/lib
-export RMR_SEED_RT=$HOME/global_rmr_files/global_rmr_routes.rt
-gcc load_gen.c -g -o load_gen -L $HOME/usr/lib -lrmr_nng -lnng -lpthread -lm
-./load_gen ../a1_med/a1_med_http_server/load.txt
-
