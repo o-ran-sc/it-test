@@ -1,4 +1,4 @@
-# RIC end-to-end (E2E) deployment and testing 
+# RIC end-to-end (E2E) deployment and testing: 
 1. Clone the it_dep and it_test folders on your VM
 2. Install kubernetes using the script in it_dep_kubernetes/setup-1node-k8s.sh
 3. Install the RIC using the script in it_dep_ricplt/ric_install.sh
