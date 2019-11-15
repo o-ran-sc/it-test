@@ -27,9 +27,9 @@ images:
      name: alpine
      # tag: latest
     run:
-     repository: snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com:10001
-     name: test/nanobot
-     tag: latest
+     repository: nexus3.o-ran-sc.org:10004
+     name: o-ran-sc/it-test-nanobot
+     tag: 0.0.1
      # note: the helm chart does not create repository credential secrets.
      # If your repository requires authentication, create a docker-registry 
      # secret with
@@ -39,7 +39,7 @@ images:
      # and fill in secret-name below.  Only one secret should be created per
      # registry. The chart will take care of producing a unique  list of
      # imagePullSecrets.
-     repositoryCred: azure-secret
+     repositoryCred: o-ran-registry-secret
 ric:
  cluster:
   # The kubernetes cluster name.  To find this, do:
