@@ -40,7 +40,7 @@ void encode_and_send_sctp_data(E2AP_PDU_t* pdu, int client_fd)
   sctp_buffer_t data;
 
   data.len = e2ap_asn1c_encode_pdu(pdu, &buf);
-  memcpy(data.buffer, buf, data.len);
+  memcpy(data.buffer, buf, min(data.len, MAX_SCTP_BUFFER));
 
   sctp_send_data(client_fd, data);
 }

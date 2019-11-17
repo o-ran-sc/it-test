@@ -22,6 +22,7 @@
 #include <string>
 #include <iostream>
 
+
 #include "e2sim_defs.h"
 #include "e2sim_sctp.hpp"
 #include "e2ap_message_handler.hpp"
@@ -33,6 +34,7 @@ int main(int argc, char* argv[]){
 
   options_t ops = read_input_options(argc, argv);
 
+  //E2 Agent will automatically restart upon sctp disconnection
   int server_fd = sctp_start_server(ops.server_ip, ops.server_port);
   int client_fd = sctp_accept_connection(ops.server_ip, server_fd);
 

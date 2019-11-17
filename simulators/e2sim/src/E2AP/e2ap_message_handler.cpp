@@ -46,6 +46,7 @@ void e2ap_handle_sctp_data(int &socket_fd, sctp_buffer_t &data)
 
         case E2AP_PDU_PR_successfulOutcome: //successfulOutcome
           LOG_I("[E2AP] Received X2-SETUP-RESPONSE");
+          e2ap_handle_X2SetupResponse(pdu, socket_fd);
           break;
 
         case E2AP_PDU_PR_unsuccessfulOutcome:
@@ -138,6 +139,43 @@ void e2ap_handle_sctp_data(int &socket_fd, sctp_buffer_t &data)
       }
       break;
 
+    case ProcedureCode_id_resourceStatusReportingInitiation: //9
+      switch(index)
+      {
+        case E2AP_PDU_PR_initiatingMessage: //initiatingMessage
+          LOG_I("[E2AP] Received RESOURCE-STATUS-REQUEST");
+          e2ap_handle_ResourceStatusRequest(pdu, socket_fd);
+          break;
+
+        case E2AP_PDU_PR_successfulOutcome: //successfulOutcome
+          LOG_I("[E2AP] Received RESOURCE-STATUS-RESPONSE");
+          break;
+
+        case E2AP_PDU_PR_unsuccessfulOutcome:
+          LOG_I("[E2AP] Received RESOURCE-STATUS-FAILURE");
+          break;
+
+        default:
+          LOG_E("[E2AP] Invalid message index=%d in E2AP-PDU %d", index,
+                    (int)ProcedureCode_id_resourceStatusReportingInitiation);
+          break;
+      }
+      break;
+
+    case ProcedureCode_id_resourceStatusReporting: // 10
+      switch(index)
+      {
+        case E2AP_PDU_PR_initiatingMessage: //initiatingMessage
+          LOG_I("[E2AP] Received RESOURCE-STATUS-UPDATE");
+          break;
+
+        default:
+          LOG_E("[E2AP] Unable to process message index=%d in E2AP-PDU %d", index,
+                    (int)ProcedureCode_id_resourceStatusReporting);
+          break;
+      }
+      break;
+
     default:
       LOG_E("[E2AP] No available handler for procedureCode=%d", procedureCode);
       break;
@@ -160,7 +198,7 @@ void e2ap_handle_X2SetupRequest(E2AP_PDU_t* pdu, int &socket_fd)
   sctp_buffer_t data;
 
   data.len = e2ap_asn1c_encode_pdu(res_pdu, &buf);
-  memcpy(data.buffer, buf, data.len);
+  memcpy(data.buffer, buf, min(data.len, MAX_SCTP_BUFFER));
 
   //send response data over sctp
   if(sctp_send_data(socket_fd, data) > 0) {
@@ -168,6 +206,30 @@ void e2ap_handle_X2SetupRequest(E2AP_PDU_t* pdu, int &socket_fd)
   } else {
     LOG_E("[SCTP] Unable to send X2-SETUP-RESPONSE to peer");
   }
+}
+
+void e2ap_handle_X2SetupResponse(E2AP_PDU_t* pdu, int &socket_fd)
+{
+  E2AP_PDU_t* req_pdu = e2ap_xml_to_pdu("E2AP_ResourceStatusRequest.xml");
+  // E2AP_PDU_t* req_pdu = e2ap_xml_to_pdu("E2AP_ResourceStatusRequest_bad.xml");
+
+  LOG_D("[E2AP] Created RESOURCE-STATUS-REQUEST");
+
+  e2ap_asn1c_print_pdu(req_pdu);
+
+  uint8_t       *buf;
+  sctp_buffer_t data;
+
+  data.len = e2ap_asn1c_encode_pdu(req_pdu, &buf);
+  memcpy(data.buffer, buf, min(data.len, MAX_SCTP_BUFFER));
+
+  //send response data over sctp
+  if(sctp_send_data(socket_fd, data) > 0) {
+    LOG_I("[SCTP] Sent RESOURCE-STATUS-REQUEST");
+  } else {
+    LOG_E("[SCTP] Unable to send RESOURCE-STATUS-REQUEST to peer");
+  }
+
 }
 
 /*
@@ -186,7 +248,7 @@ void e2ap_handle_ENDCX2SetupRequest(E2AP_PDU_t* pdu, int &socket_fd)
   sctp_buffer_t data;
 
   data.len = e2ap_asn1c_encode_pdu(res_pdu, &buf);
-  memcpy(data.buffer, buf, data.len);
+  memcpy(data.buffer, buf, min(data.len, MAX_SCTP_BUFFER));
 
   //send response data over sctp
   if(sctp_send_data(socket_fd, data) > 0) {
@@ -212,7 +274,7 @@ void e2ap_handle_RICSubscriptionRequest(E2AP_PDU_t* pdu, int &socket_fd)
   sctp_buffer_t data;
 
   data.len = e2ap_asn1c_encode_pdu(res_pdu, &buf);
-  memcpy(data.buffer, buf, data.len);
+  memcpy(data.buffer, buf, min(data.len, MAX_SCTP_BUFFER));
 
   //send response data over sctp
   if(sctp_send_data(socket_fd, data) > 0) {
@@ -234,7 +296,7 @@ void e2ap_handle_RICSubscriptionRequest_securityDemo(E2AP_PDU_t* pdu, int &socke
   sctp_buffer_t data;
 
   data.len = e2ap_asn1c_encode_pdu(res_pdu, &buf);
-  memcpy(data.buffer, buf, data.len);
+  memcpy(data.buffer, buf, min(data.len, MAX_SCTP_BUFFER));
 
   //send response data over sctp
   if(sctp_send_data(socket_fd, data) > 0) {
@@ -252,10 +314,10 @@ void e2ap_handle_RICSubscriptionRequest_securityDemo(E2AP_PDU_t* pdu, int &socke
   uint8_t *buf1, *buf2;
   sctp_buffer_t data1, data2;
   data1.len = e2ap_asn1c_encode_pdu(indication_type1, &buf1);
-  memcpy(data1.buffer, buf1, data1.len);
+  memcpy(data1.buffer, buf1, min(data1.len, MAX_SCTP_BUFFER));
 
   data2.len = e2ap_asn1c_encode_pdu(indication_type2, &buf2);
-  memcpy(data2.buffer, buf2, data2.len);
+  memcpy(data2.buffer, buf2, min(data2.len, MAX_SCTP_BUFFER));
 
   while(1){
     sleep(1);
@@ -279,76 +341,48 @@ void e2ap_handle_RICSubscriptionRequest_securityDemo(E2AP_PDU_t* pdu, int &socke
 
 }
 
-// void e2ap_handle_RICSubscriptionRequest_old(e2ap_pdu_t* pdu, int &socket_fd)
-// {
-//   RICsubscription_params_t params;
-//   e2ap_parse_RICsubscriptionRequest(pdu, params);
-//
-//   /* Example handling logic
-//   - Accept if request id is even-numbered -> send back response
-//     in this case, accept every other actions
-//
-//   - Reject if request id is odd-numbered -> send back failure
-//   */
-//
-//   e2ap_pdu_t* res_pdu = new_e2ap_pdu();
-//   bool is_failure = false;
-//
-//   if(params.request_id % 2 == 0)
-//   {
-//     for(size_t i = 0; i < params.actionList.size(); i++)
-//     {
-//       if(i%2 == 0){
-//         params.actionList[i].isAdmitted = true;
-//       } else {
-//         params.actionList[i].isAdmitted = false;
-//         params.actionList[i].notAdmitted_cause = RICcause_radioNetwork;
-//         params.actionList[i].notAdmitted_subCause = 5;
-//       }
-//     }
-//
-//     e2ap_create_RICsubscriptionResponse(res_pdu, params);
-//     LOG_I("[E2AP] Created RIC-SUBSCRIPTION-RESPONSE");
-//   }
-//   else
-//   {
-//     is_failure = true;
-//
-//     for(size_t i = 0; i < params.actionList.size(); i++)
-//     {
-//       params.actionList[i].isAdmitted = false;
-//       params.actionList[i].notAdmitted_cause = RICcause_radioNetwork;
-//       params.actionList[i].notAdmitted_subCause = 5;
-//     }
-//
-//     e2ap_create_RICsubscriptionFailure(res_pdu, params);
-//     LOG_I("[E2AP] Created RIC-SUBSCRIPTION-FAILURE");
-//   }
-//
-//   e2ap_print_pdu(res_pdu);
-//
-//   //Encode into buffer
-//   sctp_buffer_t data;
-//   e2ap_encode_pdu(res_pdu, data.buffer, sizeof(data.buffer), data.len);
-//
-//   //send response data over sctp
-//   if(sctp_send_data(socket_fd, data) > 0)
-//   {
-//     if(is_failure) {
-//       LOG_I("[SCTP] Sent RIC-SUBSCRIPTION-FAILURE");
-//     }
-//     else {
-//       LOG_I("[SCTP] Sent RIC-SUBSCRIPTION-RESPONSE");
-//     }
-//   }
-//   else
-//   {
-//     if(is_failure) {
-//       LOG_I("[SCTP] Unable to send RIC-SUBSCRIPTION-FAILURE");
-//     }
-//     else {
-//       LOG_E("[SCTP] Unable to send RIC-SUBSCRIPTION-RESPONSE");
-//     }
-//   }
-//
-// }
+void e2ap_handle_ResourceStatusRequest(E2AP_PDU_t* pdu, int &socket_fd)
+{
+  //send back ResourceStatusResponse, followed by resource status update
+  E2AP_PDU_t* res_pdu = e2ap_xml_to_pdu("E2AP_ResourceStatusResponse.xml");
+
+  LOG_D("[E2AP] Created RESOURCE-STATUS-RESPONSE");
+
+  e2ap_asn1c_print_pdu(res_pdu);
+
+  uint8_t       *buf;
+  sctp_buffer_t data;
+
+  data.len = e2ap_asn1c_encode_pdu(res_pdu, &buf);
+  memcpy(data.buffer, buf, min(data.len, MAX_SCTP_BUFFER));
+
+  //send response data over sctp
+  if(sctp_send_data(socket_fd, data) > 0) {
+    LOG_I("[SCTP] Sent RESOURCE-STATUS-RESPONSE");
+  } else {
+    LOG_E("[SCTP] Unable to send RESOURCE-STATUS-RESPONSE to peer");
+  }
+
+
+  //send ResourceStatusUpdate periodically
+  E2AP_PDU_t* update_pdu = e2ap_xml_to_pdu("E2AP_ResourceStatusUpdate.xml");
+
+  uint8_t       *update_buf;
+  sctp_buffer_t update_data;
+
+  update_data.len = e2ap_asn1c_encode_pdu(update_pdu, &update_buf);
+  memcpy(update_data.buffer, update_buf, min(update_data.len, MAX_SCTP_BUFFER));
+
+  while(1) {
+    // e2ap_asn1c_print_pdu(update_pdu);
+
+    if(sctp_send_data(socket_fd, update_data) > 0) {
+      LOG_I("[SCTP] Sent RESOURCE-STATUS-UPDATE");
+    } else {
+      LOG_E("[SCTP] Unable to send RESOURCE-STATUS-UPDATE to peer");
+    }
+
+    sleep(1);
+
+  }
+}

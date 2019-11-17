@@ -40,6 +40,9 @@ RUN apt-get update \
 	net-tools \
 	nano \
 	vim \
+	tcpdump \
+	net-tools \
+	nmap \
   && apt-get clean
 
 # Copy E2Sim sources into the container

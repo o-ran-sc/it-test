@@ -84,6 +84,17 @@ int sctp_start_server(const char *server_ip_str, const int server_port)
     exit(1);
   }
 
+  //set send_buffer
+  // int sendbuff = 10000;
+  // socklen_t optlen = sizeof(sendbuff);
+  // if(getsockopt(server_fd, SOL_SOCKET, SO_SNDBUF, &sendbuff, &optlen) == -1) {
+  //   perror("getsockopt send");
+  //   exit(1);
+  // }
+  // else
+  //   LOG_D("[SCTP] send buffer size = %d\n", sendbuff);
+
+
   if(bind(server_fd, server_addr, addr_len) == -1) {
     perror("bind");
     exit(1);
@@ -138,6 +149,15 @@ int sctp_start_client(const char *server_ip_str, const int server_port)
      perror("socket");
      exit(1);
   }
+
+  // int sendbuff = 10000;
+  // socklen_t optlen = sizeof(sendbuff);
+  // if(getsockopt(client_fd, SOL_SOCKET, SO_SNDBUF, &sendbuff, &optlen) == -1) {
+  //   perror("getsockopt send");
+  //   exit(1);
+  // }
+  // else
+  //   LOG_D("[SCTP] send buffer size = %d\n", sendbuff);
 
   //--------------------------------
   //Bind before connect
