@@ -20,7 +20,7 @@
 
 set -e
 
-E2SIM_VERSION='1.3.0'
+E2SIM_VERSION='1.4.0'
 export E2SIM_DIR=$PWD
 source $E2SIM_DIR/tools/build_helper.bash
 DOCKER_IMAGE='e2sim'

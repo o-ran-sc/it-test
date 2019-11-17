@@ -64,9 +64,10 @@ int main(int argc, char* argv[]){
   //Send X2 Setup Request
   E2AP_PDU_t* pdu_setup = e2ap_xml_to_pdu("E2AP_X2SetupRequest.xml");
   e2ap_asn1c_print_pdu(pdu_setup);
-
   encode_and_send_sctp_data(pdu_setup, client_fd);
 
   //wait to receive X2SetupResponse
-  wait_for_sctp_data(client_fd);
+  while(1){
+    wait_for_sctp_data(client_fd);
+  }
 }

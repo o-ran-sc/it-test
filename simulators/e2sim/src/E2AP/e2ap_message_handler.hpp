@@ -38,4 +38,6 @@ void e2ap_handle_RICSubscriptionRequest(E2AP_PDU_t* pdu, int &socket_fd);
 
 void e2ap_handle_RICSubscriptionRequest_securityDemo(E2AP_PDU_t* pdu, int &socket_fd);
 
+void e2ap_handle_ResourceStatusRequest(E2AP_PDU_t* pdu, int &socket_fd);
+
 #endif

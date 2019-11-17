@@ -29,8 +29,14 @@
 #define X2AP_PPID           (452984832) //27 = 1b, PPID = 1b000000(hex) -> 452984832(dec)
 #define X2AP_SCTP_PORT      36421
 #define RIC_SCTP_SRC_PORT   36422
-#define MAX_SCTP_BUFFER     1024
+#define MAX_SCTP_BUFFER     10000
 #define WORKDIR_ENV         "E2SIM_DIR" //environment variable
+
+char* time_stamp(void);
+
+// #define LOG_I(...) {printf("[%s]", time_stamp()); printf(__VA_ARGS__); printf("\n");}
+// #define LOG_E(...) {printf("[%s]", time_stamp()); printf(__VA_ARGS__); printf("\n");}
+// #define LOG_D(...) {printf("[%s]", time_stamp()); printf(__VA_ARGS__); printf("\n");}
 
 #define LOG_I(...) {printf(__VA_ARGS__); printf("\n");}
 #define LOG_E(...) {printf(__VA_ARGS__); printf("\n");}
