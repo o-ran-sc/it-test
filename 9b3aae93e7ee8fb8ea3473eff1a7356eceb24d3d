@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "666d539c_78dca73c",
+        "filename": "simulators/e2sim/src/DEF/e2sim_defs.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-11-19T15:13:33Z",
+      "side": 1,
+      "message": "obligatory pedantry: even though this can\u0027t really ever overflow, it\u0027s probably a good idea to always use snprintf.  not a big deal, just a good habit if only because source-code scanning might flag it.",
+      "revId": "9b3aae93e7ee8fb8ea3473eff1a7356eceb24d3d",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d055046_c9bcf888",
+        "filename": "simulators/e2sim/src/E2AP/e2ap_message_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-11-19T15:13:33Z",
+      "side": 1,
+      "message": "more pedantry: probably should use min(MAX_SCTP_BUFFER, data.len) here, or maybe just bail if data.len \u003e MAX_SCTP_BUFFER.  even if it\u0027s just totally inconceivable you\u0027ll overrun the buffer, it\u0027s always good to play it excessively safe with these things.",
+      "revId": "9b3aae93e7ee8fb8ea3473eff1a7356eceb24d3d",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}
