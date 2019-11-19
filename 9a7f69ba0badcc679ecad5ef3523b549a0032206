@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b433d1c_15a56285",
+        "filename": "simulators/e2sim/src/E2AP/e2ap_message_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-11-19T19:16:06Z",
+      "side": 1,
+      "message": "as we talked about offline, it\u0027s seems like it might better to throw an error here if the thing\u0027s bigger than MAX_SCTP_BUFFER rather than silently truncating (which would likely cause the receiver to panic).   might as well keep this min() in place though, just to avoid complaints about unchecked copies.",
+      "revId": "9a7f69ba0badcc679ecad5ef3523b549a0032206",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}
