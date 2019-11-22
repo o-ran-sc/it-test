@@ -39,7 +39,7 @@ if [ $# -lt 2 ];then
 fi
 
 NAMESPACE=$1
-POD=$(kubectl --namespace $NAMESPACE get pods | sed 's/ .*//'| grep robot)
+POD=$(kubectl --namespace $NAMESPACE get pods -l robotImplementation=ric-robot  --no-headers=true | sed 's/ .*//')
 
 shift
 
