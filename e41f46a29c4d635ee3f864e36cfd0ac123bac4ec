@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c58951e_e755de18",
+        "filename": "ric_robot_suite/robot/testsuites/ricdeployment.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-11-22T22:17:04Z",
+      "side": 1,
+      "message": "needs to be ../resources/global_properties.robot",
+      "range": {
+        "startLine": 19,
+        "startChar": 15,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "e41f46a29c4d635ee3f864e36cfd0ac123bac4ec",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b5d5768_bc99376b",
+        "filename": "ric_robot_suite/robot/testsuites/ricdeployment.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-11-22T22:17:04Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 21,
+        "startChar": 15,
+        "endLine": 21,
+        "endChar": 37
+      },
+      "revId": "e41f46a29c4d635ee3f864e36cfd0ac123bac4ec",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    }
+  ]
+}
