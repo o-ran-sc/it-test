@@ -22,20 +22,22 @@
 replicaCount: 1
 
 image:
-  repository: snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com:10001
+  repository: nexus3.o-ran-sc.org:10004
   repositoryCred: docker-reg-cred
   # for local testing
   #repository: ric/testsuite
-  name: test/ric-robot
-  tag: 0.2.0-latest
+  name: o-ran-sc/it-test-ric-robot
+  tag: 0.3.0
   pullPolicy: IfNotPresent
 
 nameOverride: ""
 fullnameOverride: ""
 
 config:
-  dashboardExternalIp:  REPLACE_WITH_EXTERNAL_K8_IP_OF_DASHBOARD
-  dashboardExternalPort:  REPLACE_WITH_NODEPORT_OF_KONG_PROXY_31080
+  #dashboardExternalIp:  REPLACE_WITH_EXTERNAL_K8_IP_OF_DASHBOARD
+  #dashboardExternalPort:  REPLACE_WITH_NODEPORT_OF_KONG_PROXY_31080
+  dashboardExternalIp:  192.168.130.122
+  dashboardExternalPort:  32080
 service:
   port: 88
   type: NodePort
