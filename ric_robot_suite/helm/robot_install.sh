@@ -1,4 +1,6 @@
-opyright (c) 2019 AT&T Intellectual Property.                             #
+#!/bin/bash
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
@@ -13,65 +15,54 @@ opyright (c) 2019 AT&T Intellectual Property.                             #
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
+while [ -n "$1" ]; do # while loop starts
+
+    case "$1" in
+
+    -f) OVERRIDEYAML=$2
+        shift
+        ;;
+    *) echo "Option $1 not recognized" ;; # In case you typed a different option other than a,b,c
+
+    esac
+
+    shift
+
+done
 
 
-OVERRIDEYAML=$1
-
+if [ -z "$OVERRIDEYAML" ];then
+    echo "****************************************************************************************************************"
+    echo "                                                     ERROR                                                      "
+    echo "****************************************************************************************************************"
+    echo "RIC robot deployment without deployment recipe/override is currently disabled. Please specify an recipe/ovrride  with the -f option."
+    echo "   the deployment recipe/override should be the same file as is used for RIC platform deplpoyment "
+    echo "****************************************************************************************************************"
+    exit 1
+fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+GLOBAL_BLOCK=$(cat $OVERRIDEYAML | awk '/^global:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
+NAMESPACE_BLOCK=$(cat $OVERRIDEYAML | awk '/^  namespace:/{getline; while ($0 ~ /^    .*|^ *$/) {print $0; if (getline == 0) {break}}}')
+NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *platform:/{print $2}')
+RELEASE_PREFIX=$(echo "$GLOBAL_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
+COMPONENTS=ric-robot
 
-#/root/test/ric_robot_suite/helm
-# extract the base to find root to dep
-
-BASE=${DIR%/test*}
-
-# /data/ORAN-OSC/it/dep/ric-platform/50-RIC-Platform/bin/install
-BASEDIR50=$BASE/dep/ric-platform/50-RIC-Platform/
-BASEDIRCOMMON=$BASE/dep/ric-common/Common-Template/helm/ric-common
-
-echo "Using etc/ric.conf from $BASEDIR50"
-
-source $BASEDIR50/etc/ric.conf
+echo "Deploying RIC [$COMPONENTS]"
 
 
-if [ -z "$RICPLT_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICPLT_RELEASE_NAME
-fi
-
-# Namespace configuration
-if [ -z "$RICPLT_NAMESPACE" ];then
-   PLT_NAMESPACE=$plt_namespace
-else
-   PLT_NAMESPACE=$RICPLT_NAMESPACE
-fi
-
-RICPLT_COMPONENTS="ric-robot"
-
-echo "Deploying RIC Platform components [$RICPLT_COMPONENTS]"
-echo "Platform Namespace: $PLT_NAMESPACE"
-echo "Helm Release Name: $RELEASE_NAME"
+COMMON_CHART_VERSION=$(cat $DIR/../../../dep/ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $DIR/../../../dep/ric-common/Common-Template/helm/ric-common
 
 
-#COMMON_CHART_VERSION=$(cat $BASEDIR50/helm/common/Chart.yaml | grep version | awk '{print $2}')
-COMMON_CHART_VERSION=$(cat $BASEDIRCOMMON/Chart.yaml | grep version | awk '{print $2}')
+for component in $COMPONENTS; do
 
-
-
-helm package -d /tmp $BASEDIRCOMMON
-
-
-for component in $RICPLT_COMPONENTS; do
-  echo "Preparing chart for comonent $component"
   mkdir -p $DIR/$component/charts/
   cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/$component/charts/
-  if [ -z $OVERRIDEYAML ]; then
-  echo "helm install --namespace \"${PLT_NAMESPACE}\" --set \"Release.HelmReleaseName=${RELEASE_NAME}\" --name \"${RELEASE_NAME}-$component\" $DIR/../helm/$component"
-  helm install --namespace "${PLT_NAMESPACE}" --set "Release.HelmReleaseName=${RELEASE_NAME}"  --name "${RELEASE_NAME}-$component" $DIR/$component
-  else
-  echo "helm install -f $OVERRIDEYAML --namespace \"${PLT_NAMESPACE}\" --set \"Release.HelmReleaseName=${RELEASE_NAME}\"  --name \"${RELEASE_NAME}-$component\" $DIR/../helm/$component"
-  helm install -f $OVERRIDEYAML --namespace "${PLT_NAMESPACE}" --set "Release.HelmReleaseName=${RELEASE_NAME}"  --name "${RELEASE_NAME}-$component" $DIR/$component
-  fi
+  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_PREFIX}-$component" $DIR/../helm/$component
 done
+
+echo "RELEASE_NAMESPACE=${NAMESPACE}" > /tmp/ric-robot.conf
+echo "RELEASE_NAME=${RELEASE_PREFIX}" >> /tmp/ric-robot.conf
+echo "OVERRIDEYAML=${OVERRIDEYAML}" >> /tmp/ric-robot.conf
 
