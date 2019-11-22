@@ -50,7 +50,7 @@ fi
 
 export NAMESPACE="$1"
 
-POD=$(kubectl --namespace $NAMESPACE get pods | sed 's/ .*//'| grep robot)
+POD=$(kubectl --namespace  $NAMESPACE get pod -l robotImplementation=ric-robot | sed 's/ .*//' | grep robot  )
 
 
 TAGS="-i $2"
