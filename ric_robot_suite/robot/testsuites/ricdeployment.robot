@@ -16,9 +16,9 @@
 *** Settings ***
 Documentation   Tests for the existence and functionality of RIC components
 
-Resource       ../global_properties.robot
+Resource       ../resources/global_properties.robot
 
-Resource       ../ric/ric_utils.robot
+Resource       ../resources/ric/ric_utils.robot
 
 Library  KubernetesEntity  ${GLOBAL_RICPLT_NAMESPACE}
 Library  Collections
