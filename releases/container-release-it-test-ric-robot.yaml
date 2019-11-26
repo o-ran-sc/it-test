@@ -1,0 +1,10 @@
+---
+distribution_type: container
+container_release_tag: 0.2.0
+container_pull_registry: nexus3.o-ran-sc.org:10004
+container_push_registry: nexus3.o-ran-sc.org:10002
+project: it/test
+ref: e3a2b6fed94e2caab5f9f2424beace6e4cea0013
+containers:
+    - name: it-test-ric-robot
+      version: 0.2.0
