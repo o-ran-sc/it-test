@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "150e870b_4090fe4b",
+        "filename": "ric_robot_suite/helm/ric-robot/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-12-02T15:31:02Z",
+      "side": 1,
+      "message": "is this the right path o-ran-sc/it-test-ric-robot ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "3053f4d44b03fe58300fdfd4157da53219b8606d",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dfad5ae8_fb22014a",
+        "filename": "ric_robot_suite/helm/ric-robot/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-12-02T15:31:02Z",
+      "side": 1,
+      "message": "this should be 0.3.0 to match version.properties",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 12
+      },
+      "revId": "3053f4d44b03fe58300fdfd4157da53219b8606d",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    }
+  ]
+}
