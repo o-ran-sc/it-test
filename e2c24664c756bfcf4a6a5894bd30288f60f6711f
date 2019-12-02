@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8eb608b2_018ba6de",
+        "filename": "ric_robot_suite/helm/ric-robot/demo-k8s.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-12-02T16:14:55Z",
+      "side": 1,
+      "message": "nitpick: is the \"grep\" necessary here?  not a big deal, and it\u0027s a belt-and-suspenders thing, but if we\u0027re the only one using this label space it should be unnecessary.",
+      "revId": "e2c24664c756bfcf4a6a5894bd30288f60f6711f",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6489befe_095c6bd8",
+        "filename": "ric_robot_suite/helm/ric-robot/ete-k8s.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-12-02T16:14:55Z",
+      "side": 1,
+      "message": "see cmt on demo-k8s",
+      "revId": "e2c24664c756bfcf4a6a5894bd30288f60f6711f",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}
