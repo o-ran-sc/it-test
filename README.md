@@ -6,6 +6,3 @@
 5. cd into it_dep_ricplt and run robot_install.sh. It will create a softlink to the it_test_ric_robot_suite helm director and do the helm install of rig-robot from it_dep_ricplt
 6. The command “kubectl -n ricplatform get pods” will show the additional pod for ric-robot.
 7. cd into it_test_ric_robot_suite_helm_ric-robot and run  ./ete.sh health to verify that the RIC is ready and deployed. 
-
-
-	
