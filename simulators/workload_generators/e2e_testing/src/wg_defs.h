@@ -17,9 +17,20 @@
 #                                                                            *
 ******************************************************************************/
 
-There are two directories in this "workload_generators" folder. Each directory
-holds one type of workload generator. In "internal_testing", there are source
-code and config files for a work load generator testing RIC internals such as
-the RMR messaging system latency. In "e2e_testing", there are source code and
-config files for a work load generator testing the end to end performance of a
-RIC platform.
+#include <stdio.h>
+#include <stdlib.h>
+
+#define NUM_SAMPLE 2000
+#define SEC2MUS	1000000
+#define LOG_I(...) {}
+#define LOG_E(...) {}
+#define LOG_D(...) {}
+
+typedef struct {
+  char* server_ip;
+  int   server_port;
+  int rate;
+  //... extend as needed
+} wg_options_t;
+
+wg_options_t wg_input_options(int argc, char *argv[]);
