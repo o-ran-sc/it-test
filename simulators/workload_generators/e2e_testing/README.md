@@ -17,9 +17,18 @@
 #                                                                            *
 ******************************************************************************/
 
-There are two directories in this "workload_generators" folder. Each directory
-holds one type of workload generator. In "internal_testing", there are source
-code and config files for a work load generator testing RIC internals such as
-the RMR messaging system latency. In "e2e_testing", there are source code and
-config files for a work load generator testing the end to end performance of a
-RIC platform.
+installation(assuming you are in the where this README resides):
+
+1. export E2SIM_DIR=[YOUR E2SIM DIRECTORY]
+2. cmake .
+3. make
+
+run wg:
+1. ./wg_serial 0.0.0.0 36421 [rate]
+2. ./wg_serial 0.0.0.0 36421 [rate]
+
+for example:
+run wg serial mode at 10msgs/second:
+./wg_serial 10.2.0.16 36421 10
+run wg concurrent mode at 100msgs/second:
+./wg_concur 10.2.0.16 36421 100

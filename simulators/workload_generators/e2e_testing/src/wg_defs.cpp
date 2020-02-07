@@ -17,9 +17,38 @@
 #                                                                            *
 ******************************************************************************/
 
-There are two directories in this "workload_generators" folder. Each directory
-holds one type of workload generator. In "internal_testing", there are source
-code and config files for a work load generator testing RIC internals such as
-the RMR messaging system latency. In "e2e_testing", there are source code and
-config files for a work load generator testing the end to end performance of a
-RIC platform.
+#include "wg_defs.h"
+#include "e2sim_defs.h"
+#include <getopt.h>
+#include <iostream>
+
+using namespace std;
+
+wg_options_t wg_input_options(int argc, char *argv[]) {
+  wg_options_t options;
+  options.server_ip = (char*)DEFAULT_SCTP_IP;
+  options.server_port = X2AP_SCTP_PORT;
+  options.rate = 1;
+  if (argc == 4) {
+    options.server_ip = argv[1];
+    options.server_port = atoi(argv[2]);
+    options.rate = atoi(argv[3]);
+  } else if (argc == 3) {
+    options.server_ip = argv[1];
+    options.server_port = atoi(argv[2]);
+    if (options.server_port < 1 || options.server_port > 65535) {
+      LOG_E("Invalid port number (%d). Valid values are between 1 and 65535.\n",
+            options.server_port);
+      exit(1);
+    }
+  } else if (argc == 2) {
+    options.server_ip = argv[1];
+  } else if (argc == 1) {
+    options.server_ip = (char*)DEFAULT_SCTP_IP;
+  } else {
+    LOG_I("Unrecognized option.\n");
+    LOG_I("Usage: %s [SERVER IP ADDRESS] [SERVER PORT] [RATE]\n", argv[0]);
+    exit(1);
+  }
+  return options;
+}
