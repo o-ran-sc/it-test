@@ -17,6 +17,7 @@
 {{- $xappNS := include "common.namespace.xapp" . }}
 {{- $ricplt := printf "%s.svc.%s" $ricpltNS $domain }}
 {{- $release := default "r1" .Values.ric.robot.release }}
+{{- $testxapp := default "robot-xapp" .Values.ric.robot.environment.xapp }}
 #
 *** Settings ***
 Documentation        store all properties that can change or are used in multiple places here
@@ -59,6 +60,14 @@ ${GLOBAL_INJECTED_RTMGR_IP_ADDR}      {{ printf "%s.%s" (include "common.service
 ${GLOBAL_RTMGR_SERVER_PORT}           {{ include "common.serviceport.e2mgr.http" .  }}
 ${GLOBAL_INJECTED_RTMGR_USER}         {{ .Values.ric.platform.components.rtmgr.user  }}
 ${GLOBAL_INJECTED_RTMGR_PASSWORD}     {{ .Values.ric.platform.components.rtmgr.password  }}
+{{- end }}
+#
+{{- if .Values.ric.platform.components.a1mediator }}
+${GLOBAL_A1MEDIATOR_SERVER_PROTOCOL}       {{ default "http" .Values.ric.platform.components.a1mediator.protocol }}
+${GLOBAL_INJECTED_A1MEDIATOR_IP_ADDR}      {{ printf "%s.%s" (include "common.servicename.a1mediator.http" .) $ricplt }}
+${GLOBAL_A1MEDIATOR_SERVER_PORT}           {{ include "common.serviceport.a1mediator.http" . }}
+${GLOBAL_A1MEDIATOR_POLICY_ID}             {{ default "6266268" .Values.ric.platform.components.a1mediator.policyID }}
+${GLOBAL_A1MEDIATOR_TARGET_XAPP}           {{ default $testxapp .Values.ric.platform.components.a1mediator.xappName }}
 {{- end }}
 #
 ${GLOBAL_INJECTED_DBAAS_IP_ADDR}      {{ printf "%s.%s" (include "common.servicename.dbaas.tcp" .) $ricplt  }}
