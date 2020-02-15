@@ -1,0 +1,357 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "local",
+    "logger",
+    "rmr",
+    "db",
+    "controls",
+    "metrics"
+  ],
+  "properties": {
+    "local": {
+      "$id": "#/properties/local",
+      "type": "object",
+      "title": "The Local Schema",
+      "required": [
+        "host"
+      ],
+      "properties": {
+        "host": {
+          "$id": "#/properties/local/properties/host",
+          "type": "string",
+          "title": "The Host Schema",
+          "default": "",
+          "examples": [
+            ":8080"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "logger": {
+      "$id": "#/properties/logger",
+      "type": "object",
+      "title": "The Logger Schema",
+      "required": [
+        "level"
+      ],
+      "properties": {
+        "level": {
+          "$id": "#/properties/logger/properties/level",
+          "type": "integer",
+          "title": "The Level Schema",
+          "default": 0,
+          "examples": [
+            3
+          ]
+        }
+      }
+    },
+    "rmr": {
+      "$id": "#/properties/rmr",
+      "type": "object",
+      "title": "The Rmr Schema",
+      "required": [
+        "protPort",
+        "maxSize",
+        "numWorkers",
+        "rxMessages",
+        "txMessages"
+      ],
+      "properties": {
+        "protPort": {
+          "$id": "#/properties/rmr/properties/protPort",
+          "type": "string",
+          "title": "The Protport Schema",
+          "default": "",
+          "examples": [
+            "tcp:4560"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "maxSize": {
+          "$id": "#/properties/rmr/properties/maxSize",
+          "type": "integer",
+          "title": "The Maxsize Schema",
+          "default": 0,
+          "examples": [
+            2072
+          ]
+        },
+        "numWorkers": {
+          "$id": "#/properties/rmr/properties/numWorkers",
+          "type": "integer",
+          "title": "The Numworkers Schema",
+          "default": 0,
+          "examples": [
+            1
+          ]
+        },
+        "rxMessages": {
+          "$id": "#/properties/rmr/properties/rxMessages",
+          "type": "array",
+          "title": "The Rxmessages Schema",
+          "items": {
+            "$id": "#/properties/rmr/properties/rxMessages/items",
+            "type": "string",
+            "title": "The Items Schema",
+            "default": "",
+            "examples": [
+              "RIC_SUB_RESP",
+              "RIC_SUB_FAILURE",
+              "RIC_SUB_DEL_RESP",
+              "RIC_SUB_DEL_FAILURE",
+              "RIC_INDICATION"
+            ],
+            "pattern": "^(.*)$"
+          }
+        },
+        "txMessages": {
+          "$id": "#/properties/rmr/properties/txMessages",
+          "type": "array",
+          "title": "The Txmessages Schema",
+          "items": {
+            "$id": "#/properties/rmr/properties/txMessages/items",
+            "type": "string",
+            "title": "The Items Schema",
+            "default": "",
+            "examples": [
+              "RIC_SUB_REQ",
+              "RIC_SUB_DEL_REQ",
+              "RIC_SGNB_ADDITION_REQ",
+              "RIC_SGNB_ADDITION_ACK",
+              "RIC_SGNB_ADDITION_REJECT",
+              "RIC_SGNB_MOD_REQUEST",
+              "RIC_SGNB_MOD_REQUEST_ACK",
+              "RIC_SGNB_MOD_REQUEST_REJECT",
+              "RIC_SGNB_MOD_REQUIRED",
+              "RIC_SGNB_MOD_CONFIRM",
+              "RIC_SGNB_MOD_REFUSE",
+              "RIC_SGNB_RECONF_COMPLETE",
+              "RIC_SGNB_RELEASE_REQUEST",
+              "RIC_SGNB_RELEASE_CONFIRM",
+              "RIC_SGNB_RELEASE_REQUIRED",
+              "RIC_SGNB_RELEASE_REQUEST_ACK",
+              "RIC_SECONDARY_RAT_DATA_USAGE_REPORT",
+              "RIC_SN_STATUS_TRANSFER",
+              "RIC_RRC_TRANSFER",
+              "RIC_UE_CONTEXT_RELEASE"
+            ],
+            "pattern": "^(.*)$"
+          }
+        }
+      }
+    },
+    "db": {
+      "$id": "#/properties/db",
+      "type": "object",
+      "title": "The Db Schema",
+      "required": [
+        "host",
+        "port",
+        "namespaces"
+      ],
+      "properties": {
+        "host": {
+          "$id": "#/properties/db/properties/host",
+          "type": "string",
+          "title": "The Host Schema",
+          "default": "",
+          "examples": [
+            "localhost"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "port": {
+          "$id": "#/properties/db/properties/port",
+          "type": "integer",
+          "title": "The Port Schema",
+          "default": 0,
+          "examples": [
+            6379
+          ]
+        },
+        "namespaces": {
+          "$id": "#/properties/db/properties/namespaces",
+          "type": "array",
+          "title": "The Namespaces Schema",
+          "items": {
+            "$id": "#/properties/db/properties/namespaces/items",
+            "type": "string",
+            "title": "The Items Schema",
+            "default": "",
+            "examples": [
+              "sdl",
+              "rnib"
+            ],
+            "pattern": "^(.*)$"
+          }
+        }
+      }
+    },
+    "controls": {
+      "$id": "#/properties/controls",
+      "type": "object",
+      "title": "The Controls Schema",
+      "required": [
+        "active",
+        "requestorId",
+        "ranFunctionId",
+        "ricActionId",
+        "interfaceId"
+      ],
+      "properties": {
+        "active": {
+          "$id": "#/properties/controls/properties/active",
+          "type": "boolean",
+          "title": "The Active Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "requestorId": {
+          "$id": "#/properties/controls/properties/requestorId",
+          "type": "integer",
+          "title": "The Requestorid Schema",
+          "default": 0,
+          "examples": [
+            66
+          ]
+        },
+        "ranFunctionId": {
+          "$id": "#/properties/controls/properties/ranFunctionId",
+          "type": "integer",
+          "title": "The Ranfunctionid Schema",
+          "default": 0,
+          "examples": [
+            1
+          ]
+        },
+        "ricActionId": {
+          "$id": "#/properties/controls/properties/ricActionId",
+          "type": "integer",
+          "title": "The Ricactionid Schema",
+          "default": 0,
+          "examples": [
+            0
+          ]
+        },
+        "interfaceId": {
+          "$id": "#/properties/controls/properties/interfaceId",
+          "type": "object",
+          "title": "The Interfaceid Schema",
+          "required": [
+            "globalENBId"
+          ],
+          "properties": {
+            "globalENBId": {
+              "$id": "#/properties/controls/properties/interfaceId/properties/globalENBId",
+              "type": "object",
+              "title": "The Globalenbid Schema",
+              "required": [
+                "plmnId",
+                "eNBId"
+              ],
+              "properties": {
+                "plmnId": {
+                  "$id": "#/properties/controls/properties/interfaceId/properties/globalENBId/properties/plmnId",
+                  "type": "string",
+                  "title": "The Plmnid Schema",
+                  "default": "",
+                  "examples": [
+                    "310150"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "eNBId": {
+                  "$id": "#/properties/controls/properties/interfaceId/properties/globalENBId/properties/eNBId",
+                  "type": "integer",
+                  "title": "The Enbid Schema",
+                  "default": 0,
+                  "examples": [
+                    202251
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "metrics": {
+      "$id": "#/properties/metrics",
+      "type": "array",
+      "title": "The Metrics Schema",
+      "items": {
+        "$id": "#/properties/metrics/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "objectName",
+          "objectInstance",
+          "name",
+          "type",
+          "description"
+        ],
+        "properties": {
+          "objectName": {
+            "$id": "#/properties/metrics/items/properties/objectName",
+            "type": "string",
+            "title": "The Objectname Schema",
+            "default": "",
+            "examples": [
+              "UEEventStreamingCounters"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "objectInstance": {
+            "$id": "#/properties/metrics/items/properties/objectInstance",
+            "type": "string",
+            "title": "The Objectinstance Schema",
+            "default": "",
+            "examples": [
+              "SgNBAdditionRequest"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "name": {
+            "$id": "#/properties/metrics/items/properties/name",
+            "type": "string",
+            "title": "The Name Schema",
+            "default": "",
+            "examples": [
+              "SgNBAdditionRequest"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "type": {
+            "$id": "#/properties/metrics/items/properties/type",
+            "type": "string",
+            "title": "The Type Schema",
+            "default": "",
+            "examples": [
+              "counter"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "description": {
+            "$id": "#/properties/metrics/items/properties/description",
+            "type": "string",
+            "title": "The Description Schema",
+            "default": "",
+            "examples": [
+              "The total number of SG addition request events processed"
+            ],
+            "pattern": "^(.*)$"
+          }
+        }
+      }
+    }
+  }
+}
