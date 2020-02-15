@@ -47,6 +47,7 @@ COPY ric-python-utils/ricutils/*.py /robot/lib/python/
 # files/libraries, so we pick and choose what to copy..
 RUN mkdir /robot/resources
 COPY robot/resources/json_templater.robot /robot/resources
+COPY robot/resources/a1mediator /robot/resources/a1mediator
 COPY robot/resources/appmgr /robot/resources/appmgr
 COPY robot/resources/dashboard /robot/resources/dashboard
 COPY robot/resources/e2mgr /robot/resources/e2mgr

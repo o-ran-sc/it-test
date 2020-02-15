@@ -13,12 +13,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-In addition to the default robot framework container, this tree
-includes a minimal robot framework container called "nanobot" and
-intented for automated testing or resource-limited environments while
-supporting all testsuites implemented by the larger container.  The
-nanobot container lacks the xvfb-based browser and lighttpd/PHP
-dashboard.
+This dockerfile implements a minimal robot framework container called
+"nanobot", intended for automated testing or resource-limited
+environments.
 
 To build the container, first check the following ENV values at the
 top of docker/nanobot/Dockerfile to ensure they reflect the RIC
@@ -73,5 +70,6 @@ Output:  /output.xml
 Log:     /log.html
 Report:  /report.html
 
-A Helm chart for the container can be found in helm/nanobot.  See
-helm/nanobot/README for more information on the chart.
+A Helm chart for the container can be found in
+ric_robot_suite/helm/nanobot.  See ric_robot_suite/helm/nanobot/README
+for more information on the chart.

@@ -1,5 +1,4 @@
 #   Copyright (c) 2019 AT&T Intellectual Property.
-#   Copyright (c) 2019 Nokia.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -16,6 +15,31 @@
 This directory contains a Helm chart for the minimal robot container
 and Kubernetes job.
 
+USING THE CHART
+To install the chart (which creates and runs a single Kubernetes job),
+first copy the packaged Common-Template chart (from
+https://gerrit.o-ran-sc.org/r/it/dep.git) into
+ric_robot_suite/helm/nanobot/charts.  Then, edit
+ric_robot_suite/helm/nanobot/values.yaml to reflect your
+environment and desired tests and run
+
+$ helm install [--values <override-file> ] --namespace <namespace> nanobot
+
+... in the ric_robot_suite/helm directory, where <override-file>
+is the recipe override file used when deploying the RIC, if any.  The
+output from the test will be in the job's log:
+
+kubectl logs --namespace <namespace> job/nanobot-r0-ric-robot-run
+
+(the job name may be different if you have altered the values.yaml
+file; use 'kubectl --namespace <namespace> get jobs' to find it).
+
+The namespace selected will be where the job's service account is
+created and the job runs.  It may but need not be the same as the RIC
+platform or xapp namespace —- the chart may be deployed in any
+namespace.
+
+CUSTOMIZING AND EXTENDING THE CHART
 The job mounts its testsuites directory as a configmap, built from
 files in nanobot/configmap-src/testsuites.  Template expansion is
 performed on files in that directory.
@@ -46,18 +70,7 @@ Because both resources/ and properties/ are mounted at
 robot/resources, care should be taken to ensure that names do not
 collide across those directories, particularly between trees.
 
-
-To install the chart (which creates and runs a single Kubernetes job),
-edit values.yaml to reflect your environment and desired tests and run
-
-$ helm install [--values <override-file> ] --namespace <namespace> nanobot
-
-... where <override-file> is the recipe override file used when
-deploying the RIC, if any.
-
-The namespace selected will be where the job's service account is
-created and the job runs.  It may but need not be the same as the RIC
-platform or xapp namespace —- the chart may be deployed in any
-namespace.
-
-
+The job uses the nanobot docker image built by
+ric_robot_suite/docker/nanobot/Dockerfile; see
+ric_robot_suite/docker/nanobot/README for information about the
+image.
