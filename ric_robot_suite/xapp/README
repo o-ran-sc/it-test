@@ -1,0 +1,13 @@
+This directory contains an XApp used to support RIC testing; its
+primary purpose is things like RMR message handling which aren't
+easily managed in Robot itself, and to provide a way to test XApp
+deployment and point-to-point message flow without depending on the
+functionality of any particular XApp.
+
+To build the XApp container, do
+
+$ doocker build -f docker/robot-xapp/Dockerfile .
+
+from the ric_robot_suite directory.  The XApp can be deployed via the
+RIC Application Manager using the schema.json and config.json files in
+this directory.
