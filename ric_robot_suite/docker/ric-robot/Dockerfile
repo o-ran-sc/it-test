@@ -31,12 +31,16 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV BUILDTIME=true
 
 # Install Python, Pip, Robot framework, chromium, lighttpd web server
+
+# temporarily removed chromium-browser and chromium-chromedriver as
+# they've moved to snaps and we don't have snapd support in this container
+# yet. This will break robot tests that depend on the browser, but we don't
+# have those in the RIC at this point anyway.
+
 RUN apt-get update \
     && apt-get install \
         --no-install-recommends \
         --assume-yes \
-            chromium-browser \
-            chromium-chromedriver \
             dnsutils \
             git \
             gcc \
@@ -47,11 +51,9 @@ RUN apt-get update \
             net-tools \
             php  \
             php-cgi \
-            python2.7 \
+            python3-pip \
             python-dev \
             python-setuptools \
-            python-wheel \
-            python-pip \
             python-redis \
             unzip \
             vim   \
@@ -61,7 +63,7 @@ RUN apt-get update \
             xxd
 
 
-RUN pip install robotframework==3.0.4 \
+RUN pip3 install robotframework==3.0.4 \
     && python --version
 
 # Copy the robot code

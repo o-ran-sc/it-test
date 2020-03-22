@@ -56,3 +56,22 @@ class E2SimUtils(object):
  def randomRANName(self, prefix=""):
   prefix = prefix + ''.join(random.choice(string.ascii_uppercase) for _ in range(4-(min(4, len(prefix)))))
   return prefix[0:4].upper() + ''.join(random.choice(string.digits) for _ in range(6))
+
+ def TranslategNodeBID(self, prefix, plmn, bits):
+  # given a gNodeB type prefix, a plmn (as a string, no spaces), and a bitstring
+  # return a gNodeB ID
+  plmn = ''.join(filter(lambda c: c in list(string.hexdigits), plmn))
+  bits = ''.join(filter(lambda c: c in ['0', '1'], bits))
+  mnc3 = (int(plmn[2:4],16) & 0xf0) >> 4
+  if mnc3 == 15:
+    return '%s:%d%d%d-0%d%d-%x' % \
+     (prefix,\
+      int(plmn[0:2],16) & 0xf, (int(plmn[0:2],16) & 0xf0) >> 4, int(plmn[2:4],16) & 0xf,\
+      int(plmn[4:6],16) & 0x0f, (int(plmn[4:6],16) & 0xf0) >> 4, \
+      int((bits + "0" * (len(bits)%4)),2))
+  else:
+    return '%s:%d%d%d-%d%d%d-%x' % \
+     (prefix,\
+      int(plmn[0:2],16) & 0xf, (int(plmn[0:2],16) & 0xf0) >> 4, int(plmn[2:4],16) & 0xf,\
+      int(plmn[4:6],16) & 0x0f, (int(plmn[4:6],16) & 0xf0) >> 4, mnc3,\
+      int((bits + "0" * (len(bits)%4)),2))
