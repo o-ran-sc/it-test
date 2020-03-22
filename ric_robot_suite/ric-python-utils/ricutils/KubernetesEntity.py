@@ -90,7 +90,7 @@ class KubernetesEntity(object):
   pods = self._k8sCore.list_namespaced_pod(self._ns,
                                            label_selector=",".join(map(lambda k: k + "=" + labels[k], 
                                                                        labels)))
-  return map(lambda i: i.metadata.name, pods.items)
+  return list(map(lambda i: i.metadata.name, pods.items))
  
  def RetrieveLogForPod(self, pod, container='', tail=sys.maxsize):
   # not really an "entity" thing per se, but.
