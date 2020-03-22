@@ -1,0 +1,70 @@
+#   Copyright (c) 2019 AT&T Intellectual Property.
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+*** Settings ***
+Library  XML              use_lxml=True
+Library  NcclientLibrary
+
+*** Variables ***
+${XAppNS}                 urn:o-ran:ric:xapp-desc:1.0
+${NetconfNS}              urn:ietf:params:xml:ns:netconf:base:1.0
+${baseXML}                <?xml version="1.0" encoding="UTF8"?><config xmlns="${NetconfNS}"><ric xmlns="${XAppNS}"></ric></config>
+
+*** Keywords ***
+Establish O1 Session
+  [Arguments]  ${user}
+  ...          ${password}
+  ...          ${session}
+  ...          ${host}=service-ricplt-o1mediator-tcp-netconf.ricplt
+  ...          ${port}=830
+  ...          ${hostkey_verify}=${False}
+  ...          ${key}=/dev/null
+  ${status} =  Connect      host=${host}
+  ...           port=${port}
+  ...           username=${user}
+  ...           password=${password}
+  ...           key_filename=${key}
+  ...           look_for_keys=False
+  ...           alias=${session}
+  [Return]     ${status}
+
+Retrieve O1 Running Configuration
+  [Arguments]     ${session}
+  ${config} =     Get Config   ${session}  running
+  [Return]        ${config}
+
+Deploy An XApp Using O1
+  [Arguments]         ${session}   ${app}   ${version}
+  ${xappCreateXML} =  Generate XApp Deployment XML  ${app}  ${version}
+  Edit Config         ${session}   running  ${xappCreateXML}
+
+*** Keywords ***
+Generate XApp Deployment XML
+  [Arguments]  ${name}    ${version}
+  ${XML} =     Parse XML  ${baseXML}
+  Add Element  ${XML}
+  ...                     <xapps xmlns="${XAppNS}"></xapps>
+  ...                     xpath=ric
+  Add Element  ${XML}     <xapp xmlns:xc="${NetconfNS}" xc:operation="create"></xapp>
+  ...                     xpath=ric/xapps
+  Add Element  ${XML}
+  ...                     <name>${name}</name>
+  ...                     xpath=ric/xapps/xapp
+  Add Element  ${XML}     <release-name>xapp-${name}</release-name>
+  ...                     xpath=ric/xapps/xapp
+  Add Element  ${XML}     <version>${version}</version>
+  ...                     xpath=ric/xapps/xapp
+  Add Element  ${XML}     <namespace>${GLOBAL_XAPP_NAMESPACE}</namespace>
+  ...                     xpath=ric/xapps/xapp
+  [Return]                ${XML}
