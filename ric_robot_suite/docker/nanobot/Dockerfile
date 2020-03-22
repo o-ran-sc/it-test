@@ -1,5 +1,4 @@
 #   Copyright (c) 2019 AT&T Intellectual Property.
-#   Copyright (c) 2019 Nokia.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -12,10 +11,23 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
+
+FROM python:3-alpine AS nanobot-build
+
+RUN apk update && apk add git build-base libffi-dev libxml2 libxslt libxml2-dev libxslt-dev openssl-dev
+
+RUN pip install UUID
+RUN pip install kubernetes
+RUN pip install redis
+RUN pip install robotframework
+RUN pip install robotframework-requests
+RUN pip install robotframework-ncclient
+
+WORKDIR /tmp/
+RUN git clone -b 3.0.1-ONAP https://gerrit.onap.org/r/testsuite/python-testing-utils.git
+
 FROM python:3-alpine
-
 MAINTAINER "RIC"
-
 LABEL name="Docker image for the RIC Robot Testing Framework"
 
 ENV ROBOT_HOME="/robot"
@@ -26,20 +38,16 @@ ENV RICPLT_NAMESPACE=ricplt
 ENV RICPLT_RELEASE_NAME=ric-full
 ENV RICPLT_COMPONENTS="a1mediator appmgr dbaas e2mgr e2term rtmgr"
 
+RUN apk update && apk add libxslt
+COPY --from=nanobot-build /usr/local/lib/python3.8 /usr/local/lib/python3.8
+COPY --from=nanobot-build /usr/local/bin/robot /usr/local/bin
+
 RUN  mkdir -p /robot/lib/python
 
 # ONAP eteutils
-# we only need a few things from this so we won't install
-# the whole thing.
-# we could do this in a builder image but that seems execssive.
-RUN apk update && apk add git
-WORKDIR /tmp/
-RUN git clone -b 3.0.1-ONAP https://gerrit.onap.org/r/testsuite/python-testing-utils.git
-RUN cp /tmp/python-testing-utils/eteutils/StringTemplater.py /robot/lib/python
-RUN cp /tmp/python-testing-utils/eteutils/UUID.py /robot/lib/python
-RUN rm -rf /tmp/python-testing-utils
-RUN apk del --purge  git
-
+# we only need a few things from this so we won't install the whole thing.
+COPY --from=nanobot-build /tmp/python-testing-utils/eteutils/StringTemplater.py /robot/lib/python
+COPY --from=nanobot-build /tmp/python-testing-utils/eteutils/UUID.py /robot/lib/python
 COPY ric-python-utils/ricutils/*.py /robot/lib/python/
 
 #
@@ -47,7 +55,6 @@ COPY ric-python-utils/ricutils/*.py /robot/lib/python/
 # files/libraries, so we pick and choose what to copy..
 RUN mkdir /robot/resources
 COPY robot/resources/json_templater.robot /robot/resources
-COPY robot/resources/a1mediator /robot/resources/a1mediator
 COPY robot/resources/appmgr /robot/resources/appmgr
 COPY robot/resources/dashboard /robot/resources/dashboard
 COPY robot/resources/e2mgr /robot/resources/e2mgr
@@ -63,12 +70,6 @@ COPY robot/resources/global_properties.robot /robot/resources
 
 RUN mkdir -p /robot/assets/templates
 COPY robot/assets/templates/e2mgr_setup_nodeb.template /robot/assets/templates
-
-RUN pip install UUID
-RUN pip install kubernetes
-RUN pip install redis
-RUN pip install robotframework
-RUN pip install robotframework-requests
 
 RUN python -m compileall /robot/lib/python
 
