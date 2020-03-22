@@ -70,6 +70,13 @@ ${GLOBAL_A1MEDIATOR_POLICY_ID}             {{ default "6266268" .Values.ric.plat
 ${GLOBAL_A1MEDIATOR_TARGET_XAPP}           {{ default $testxapp .Values.ric.platform.components.a1mediator.xappName }}
 {{- end }}
 #
+{{- if .Values.ric.platform.components.o1mediator }}
+${GLOBAL_O1MEDIATOR_HOST}             {{ printf "%s.%s" (include "common.servicename.o1mediator.tcp.netconf" .) $ricplt }}
+${GLOBAL_O1MEDIATOR_PORT}             {{ include "common.serviceport.o1mediator.tcp.netconf" .  }}
+${GLOBAL_O1MEDIATOR_USER}             {{ .Values.ric.platform.components.o1mediator.user }}
+${GLOBAL_O1MEDIATOR_PASSWORD}         {{ .Values.ric.platform.components.o1mediator.password }}
+{{- end }}
+#
 ${GLOBAL_INJECTED_DBAAS_IP_ADDR}      {{ printf "%s.%s" (include "common.servicename.dbaas.tcp" .) $ricplt  }}
 ${GLOBAL_DBAAS_SERVER_PORT}           {{ include "common.serviceport.dbaas.tcp" .  }}
 #
