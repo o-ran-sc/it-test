@@ -29,7 +29,7 @@ images:
     run:
      repository: nexus3.o-ran-sc.org:10004
      name: o-ran-sc/it-test-nanobot
-     tag: 0.0.1
+     tag: 0.0.2
      # note: the helm chart does not create repository credential secrets.
      # If your repository requires authentication, create a docker-registry 
      # secret with
@@ -69,6 +69,12 @@ ric:
     user: test
     password: test
    submgr:
+   o1mediator:
+    user: netconf
+    password: netconf
+    xapp:
+     name: robot-xapp
+     version: 1.0
  xapp:
   mcxapp:
    listener:
@@ -92,7 +98,7 @@ ric:
   #
   # If specified, a host filesystem
   # path where robot output will be stored 
-  # log: /opt/ric/robot/log
+  log: /opt/ric/robot/log
   #
   # Active testsuites can be chosen by
   # tag, testuite names, or both.  leaving
