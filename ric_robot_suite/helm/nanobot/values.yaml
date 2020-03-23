@@ -55,6 +55,8 @@ ric:
   releaseName: r0
   components:
    a1mediator:
+    xappName: robot-xapp
+    policyID: "6266268"
    appmgr:
     user: test
     password: test
@@ -131,7 +133,7 @@ ric:
     # This should be an xapp which is "onboarded" to
     # the appmgr but not deployed at the time the test
     # is initiated.
-    xapp: xapp-std
+    xapp: robot-xapp
     gNodeB:
      # the details of a test gNodeB, for [E/X]2 tests.
      # This can be either a real gnodeb or a simulator,

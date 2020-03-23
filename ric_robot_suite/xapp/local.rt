@@ -1,0 +1,5 @@
+newrt|start
+rte|20001|service-ricplt-a1mediator-rmr.ricplt:4561;service-ricplt-a1mediator-rmr.ricplt:4562
+mse|20011|3608368|service-ricplt-a1mediator-rmr.ricplt:4561;service-ricplt-a1mediator-rmr.ricplt:4562
+mse|20011|6266268|service-ricplt-a1mediator-rmr.ricplt:4561;service-ricplt-a1mediator-rmr.ricplt:4562
+newrt|end

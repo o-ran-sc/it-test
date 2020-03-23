@@ -1,0 +1,23 @@
+This directory contains containers, Helm charts, libraries, and
+testsuites to support automated, end-to-end testing of the RIC.
+Testing is implemented in the Robot Framework (robotframework.org).
+
+The simplest way to execute the tests is using the helm chart in
+ric_robot_suite/helm/nanobot.  See ric_robot_suite/helm/nanobot/README
+for instructions on configuring, installing, and extending the chart.
+The chart depends on the docker image in docker/nanobot.
+
+Roadmap:
+
+test/
+|- ric_robot_suite/    (this directory) 
+   |- docker/
+      |- nanobot/      : Dockerfile for the robot framework image
+      |- robot-xapp/   : Dockerfile for an xapp used by some tests
+   |- helm/
+      |- nanobot/      : Chart for the robot framework
+   |- ric-python-utils : RIC test-support libraries; these are built into the
+                         docker image.
+   |- robot/           : Test libraries, testsuites, and support files to be
+                         built into the docker image
+   |- xapp/            : Go source and deployment files for the test xapp

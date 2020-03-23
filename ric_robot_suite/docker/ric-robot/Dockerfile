@@ -67,12 +67,12 @@ RUN pip install robotframework==3.0.4 \
 # Copy the robot code
 
 COPY robot /var/opt/RIC/robot
-COPY red.xml /var/opt/RIC
+COPY docker/ric-robot/red.xml /var/opt/RIC
 COPY ric-python-utils /var/opt/RIC/ric-python-utils
-COPY runTags.sh /var/opt/RIC
-COPY setup.sh /var/opt/RIC
-COPY version.properties /var/opt/RIC
-COPY README.md /var/opt/RIC
+COPY docker/ric-robot/runTags.sh /var/opt/RIC
+COPY docker/ric-robot/setup.sh /var/opt/RIC
+COPY docker/ric-robot/version.properties /var/opt/RIC
+COPY docker/ric-robot/README.md /var/opt/RIC
 COPY docker/ric-robot/lighttpd.conf /etc/lighttpd/lighttpd.conf
 COPY docker/ric-robot/authorization /etc/lighttpd/authorization
 
