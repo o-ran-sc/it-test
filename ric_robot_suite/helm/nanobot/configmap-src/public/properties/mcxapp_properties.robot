@@ -16,8 +16,7 @@
 Documentation        This file contains configuration specific to the MC xapp.
 
 *** Variables ***
-${GLOBAL_MCXAPP_LISTENER_NAME}        {{ default "mc-xapp-listener" .Values.ric.xapp.mcxapp.listener.containername }}
-${GLOBAL_MCXAPP_WRITER_NAME}          {{ default "mc-xapp-writer" .Values.ric.xapp.mcxapp.writer.containername }}
+${GLOBAL_MCXAPP_WRITER_NAME}          {{ default "mcxapp" .Values.ric.xapp.mcxapp.writer.containername }}
 @{GLOBAL_MCXAPP_WRITER_STATISTICS}    {{- range .Values.ric.xapp.mcxapp.writer.statistics }}
 ...                                   {{.}}
                                       {{- end }}

@@ -26,8 +26,17 @@ Library  String
 *** Test Cases ***
 Deployments
   [Tags]  etetests  k8stests  ci_tests
-  :FOR  ${component}  IN  @{GLOBAL_RICPLT_COMPONENTS}
-  \  ${deploymentName} =  Get From Dictionary  ${GLOBAL_RICPLT_COMPONENTS}  ${Component}
-  \  ${deploy} =          Deployment           ${deploymentName}
-  \  ${status} =          Most Recent Availability Condition                @{deploy.status.conditions}
-  \  Should Be Equal As Strings  ${status}  True  ignore_case=True  msg=${Component} is not available
+  FOR  ${component}  IN  @{GLOBAL_RICPLT_COMPONENTS}
+     ${controllerName} =  Get From Dictionary              ${GLOBAL_RICPLT_COMPONENTS}  ${Component}
+     ${cType}  ${name} =  Split String  ${controllerName}  |
+     ${ctrl} =            Run Keyword   ${cType}           ${name}
+     Should Be Equal      ${ctrl.status.replicas}          ${ctrl.status.ready_replicas}
+     # this doesn't seem to exist for statefulsets
+     ${status} =          Run Keyword If       '${cType}' == 'deployment'
+     ...                  ${status} =          Most Recent Availability Condition  @{deploy.status.conditions}
+     ...  ELSE
+     ...                  Set Variable         'True'
+     Should Be Equal As Strings  ${status}  True  ignore_case=True  msg=${Component} is not available
+  END
+  
+  
