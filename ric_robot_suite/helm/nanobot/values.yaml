@@ -25,7 +25,7 @@ images:
    job:
     init:
      name: alpine
-     # tag: latest
+     tag: latest
     run:
      repository: nexus3.o-ran-sc.org:10004
      name: o-ran-sc/it-test-nanobot
@@ -48,10 +48,9 @@ ric:
   # the DNS domain for k8s services, typically "cluster.local"
   domain: cluster.local
  platform:
-  # RIC installation details.  The values
-  # for these can typically be found in
-  # the ricplt/ric_env.sh file from the ric
-  # platform source tree
+  # RIC installation details.  These values mostly cover things
+  # the robot needs to know, but which aren't configured by the
+  # RIC recipe.
   releaseName: r0
   components:
    a1mediator:
@@ -61,10 +60,21 @@ ric:
     user: test
     password: test
    dbaas:
+    controller:
+     # the type of k8s controller for this entity
+     # (ie, statefulset, daemonset, deployment..)
+     # if unspecified, the default is "deployment".
+     type: statefulset
+     # the suffix, if any, to append to the name
+     # of the controller entity.  The chart will
+     # prepend a hyphen to this string.
+     suffix: server
    e2mgr:
     user: test
     password: test
    e2term:
+    controller:
+     suffix: alpha
    rtmgr:
     user: test
     password: test
@@ -80,19 +90,14 @@ ric:
    listener:
     containername: mc-xapp-listener
    writer:
-    containername: mc-xapp-writer
+    containername: mcxapp
     # statistics sent to ves by the writer.  the tests
     # will check that these are actually being sent
     statistics:
     - mc_connected_cnt
-    - mc_connection_stats
-    - mc_connects_cnt
-    - mc_disconnects_cnt
-    - mc_unique_ue_cnt
-    - rrcx_pdf_serv_cell
-    - rrcx_pdf_serv_gnb
-    - rrcx_stats_serv_cell
-    - rrcx_stats_serv_gnb
+    - throughput_gnb
+    - throughput_rollup
+    - throughput_ue
  robot:
   release: r1
   #

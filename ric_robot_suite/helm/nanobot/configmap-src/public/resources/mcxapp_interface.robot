@@ -44,21 +44,22 @@ Parse Listener Statistics
   # lines are sorted by timestamp, it's not something i'm
   # going to take for granted.
   ${stats} =         Create Dictionary
-  :FOR  ${statLine}  IN  @{logLines}
-  \  ${match}  ${ts}  ${mtype}  ${tWrites}  ${tDrops}  ${rWrites}  ${rDrops} =
-  ...  Should Match Regexp   ${statLine}  ${listenerStatRegex}
-  \  ${stat} =        Create Dictionary
-  ...                 timestamp=${ts}
-  ...                 totalWrites=${tWrites}
-  ...                 totalDrops=${tDrops}
-  ...                 recentWrites=${rWrites}
-  ...                 recentDrops=${rDrops}
-  \  ${s}  ${d} =     Run Keyword And Ignore Error
-  ...                 Get From Dictionary  ${stats}  ${mtype}
-  \  ${prevTS} =      Run Keyword If       "${s}" == "PASS"
-  ...                 Get From Dictionary  ${d}  timestamp
-  ...  ELSE
-  ...                 Set Variable         -1
-  \  Run Keyword If   ${ts} > ${prevTS}
-  ...                 Set To Dictionary  ${stats}  ${mtype}  ${stat}
+  FOR  ${statLine}  IN  @{logLines}
+     ${match}  ${ts}  ${mtype}  ${tWrites}  ${tDrops}  ${rWrites}  ${rDrops} =
+     ...  Should Match Regexp   ${statLine}  ${listenerStatRegex}
+     ${stat} =        Create Dictionary
+     ...              timestamp=${ts}
+     ...              totalWrites=${tWrites}
+     ...              totalDrops=${tDrops}
+     ...              recentWrites=${rWrites}
+     ...              recentDrops=${rDrops}
+     ${s}  ${d} =     Run Keyword And Ignore Error
+     ...              Get From Dictionary  ${stats}  ${mtype}
+     ${prevTS} =      Run Keyword If       "${s}" == "PASS"
+     ...              Get From Dictionary  ${d}  timestamp
+     ...  ELSE
+     ...              Set Variable         -1
+     Run Keyword If   ${ts} > ${prevTS}
+     ...              Set To Dictionary  ${stats}  ${mtype}  ${stat}
+  END
   [Return]     ${stats}
