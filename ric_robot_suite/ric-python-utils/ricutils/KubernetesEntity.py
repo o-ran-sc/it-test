@@ -48,6 +48,12 @@ class KubernetesEntity(object):
   return self._k8sApp.read_namespaced_deployment(namespace=namespace or self._ns,
                                                  name=name)
 
+ def StatefulSet(self, name, namespace=None):
+  # as above, but for statefulsets, and with the assumption
+  # that the typical check here sfst.replicas == sfst.ready_replicas
+  return self._k8sApp.read_namespaced_statefulset(namespace = namespace or self._ns,
+                                                  name=name)
+ 
  def Service(self, name, namespace=None):
   # as above, we'll rely on this to throw if the svc dne.
 

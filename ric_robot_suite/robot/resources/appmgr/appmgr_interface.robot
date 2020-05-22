@@ -53,9 +53,10 @@ Deploy XApp
 Deploy XApps
      [Documentation]  Create one or more XApps
      [Arguments]      @{xapp_names}
-     :FOR             ${xapp}  IN             @{xapp_names}
-     \                Deploy XApp   ${xapp}
-
+     FOR             ${xapp}  IN             @{xapp_names}
+                     Deploy XApp   ${xapp}
+     END
+     
 Undeploy XApp
      [Documentation]  Remove a deployed XApp
      [Arguments]      ${xapp_name}
@@ -66,8 +67,8 @@ Undeploy XApp
 Undeploy XApps
      [Documentation]  Remove one or more deployed XApps
      [Arguments]      @{xapp_names}
-     :FOR             ${xapp}  IN     @{xapp_names}
-     \                Undeploy XApp   ${xapp}
+     FOR             ${xapp}  IN     @{xapp_names}
+                     Undeploy XApp   ${xapp}
 
 Deploy All Available XApps
      [Documentation]  Attempt to deploy any not-currently-deployed XApp
