@@ -32,7 +32,9 @@ ${sessionPfx} =   nanobot-O1
 *** Test Cases ***
 O1 Mediator Should Be Available
   [Tags]   etetests  o1mediatortests
-  ${o1} =        Get From Dictionary  ${GLOBAL_RICPLT_COMPONENTS}  o1mediator
+  ${c} =         Get From Dictionary  ${GLOBAL_RICPLT_COMPONENTS}  o1mediator
+  ${u}  ${o1} =  Split String         ${c}           |
+  # probably shouldn't assume this will always be a deployment
   ${deploy} =    Deployment           ${o1}
   ${status} =    Most Recent Availability Condition  @{deploy.status.conditions}
   Should Be Equal As Strings          ${status}  True  ignore_case=True

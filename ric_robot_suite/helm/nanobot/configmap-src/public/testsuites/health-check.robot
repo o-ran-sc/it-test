@@ -30,13 +30,14 @@ Basic Component Health Checks
   # by the ric-robot, which does not perform template expansion on testsuites.
   [Tags]  health
   Set Test Variable    ${finalStatus}  PASS
-  :FOR   ${component}  IN              @{GLOBAL_RICPLT_COMPONENTS}
-  \  Run Keyword And Ignore Error
-  ...   Import Resource                /robot/resources/${component}/${component}_interface.robot
-  \  ${healthCheck} =  Set Variable    Run ${component} Health Check
-  \  ${status} =       Run Keyword If Present                   ${healthCheck}
-  \  ${finalStatus} =  Set Variable If   '${status}' == 'FAIL'  FAIL  ${finalStatus}
-  \  Run Keyword If    '${status}' == 'FAIL'
-  ...                  Log  ${component} is unhealthy
+  FOR   ${component}  IN              @{GLOBAL_RICPLT_COMPONENTS}
+     Run Keyword And Ignore Error
+     ...   Import Resource                /robot/resources/${component}/${component}_interface.robot
+     ${healthCheck} =  Set Variable    Run ${component} Health Check
+     ${status} =       Run Keyword If Present                   ${healthCheck}
+     ${finalStatus} =  Set Variable If   '${status}' == 'FAIL'  FAIL  ${finalStatus}
+     Run Keyword If    '${status}' == 'FAIL'
+     ...               Log  ${component} is unhealthy
+  END
   Run Keyword If       '${finalStatus}' == 'FAIL'
   ...                  Fail  One or more Health Checks failed
