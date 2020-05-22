@@ -58,25 +58,26 @@ Listener Should Not Be Producing Errors
 Writer Should Be Successfully Sending Statistics
   [Tags]  etetests  xapptests  mcxapptests
   Set Test Variable  ${finalStatus}  PASS
-  :FOR  ${stat}  IN  @{GLOBAL_MCXAPP_WRITER_STATISTICS}
-  \  ${statRE} =        Regexp Escape  ${stat}
-  \  ${log} =           Most Recent Container Logs    ${deploymentName}
-  ...                   ${GLOBAL_MCXAPP_WRITER_NAME}
-  ...                   ^${statRE}:\\s+successful\\s+ves\\s+posts\\.*
-  \  ${status}  ${u} =  Run Keyword And Ignore Error
-  ...                   Should Contain Match  ${log}  regexp=${writerVesSuccesses}
-  \  ${finalStatus} =   Set Variable If  "${status}" == "FAIL"
-  ...                   FAIL
-  ...                   ${finalStatus}
-  \  Run Keyword If     "${status}" == "FAIL"
-  ...                   Log  No messages have been sent to VES for ${stat}
-  \  ${status}  ${u} =  Run Keyword And Ignore Error
-  ...                   Should Not Contain Match  ${log}  regexp=${writerVesErrors}
-  \  ${finalStatus} =   Set Variable If  "${status}" == "FAIL"
-  ...                   FAIL
-  ...                   ${finalStatus}
-  \  Run Keyword If     "${status}" == "FAIL"
-  ...                   Log  ${stat} is producing errors logging to VES
+  FOR  ${stat}  IN  @{GLOBAL_MCXAPP_WRITER_STATISTICS}
+     ${statRE} =        Regexp Escape  ${stat}
+     ${log} =           Most Recent Container Logs    ${deploymentName}
+     ...                ${GLOBAL_MCXAPP_WRITER_NAME}
+     ...                ^${statRE}:\\s+successful\\s+ves\\s+posts\\.*
+     ${status}  ${u} =  Run Keyword And Ignore Error
+     ...                Should Contain Match  ${log}  regexp=${writerVesSuccesses}
+     ${finalStatus} =   Set Variable If  "${status}" == "FAIL"
+     ...                FAIL
+     ...                ${finalStatus}
+     Run Keyword If     "${status}" == "FAIL"
+     ...                Log  No messages have been sent to VES for ${stat}
+     ${status}  ${u} =  Run Keyword And Ignore Error
+     ...                Should Not Contain Match  ${log}  regexp=${writerVesErrors}
+     ${finalStatus} =   Set Variable If  "${status}" == "FAIL"
+     ...                FAIL
+     ...                ${finalStatus}
+     Run Keyword If     "${status}" == "FAIL"
+     ...                Log  ${stat} is producing errors logging to VES
+  END
   Run Keyword If        "${finalStatus}" == "FAIL"
   ...                   Fail  One or more statistics is not being succesfully logged
 

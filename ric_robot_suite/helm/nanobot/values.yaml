@@ -61,6 +61,7 @@ ric:
     user: test
     password: test
    dbaas:
+    controller: statefulset
    e2mgr:
     user: test
     password: test

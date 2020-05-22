@@ -27,8 +27,9 @@ Library  String
 *** Test Cases ***
 Ensure RIC components are deployed and available
   [Tags]  etetests  k8stests  ci_tests
-  :FOR  ${component}  IN  @{GLOBAL_RICPLT_COMPONENTS}
-  \  ${deploymentName} =  Get From Dictionary  ${GLOBAL_RICPLT_COMPONENTS}  ${Component}
-  \  ${deploy} =          Deployment           ${deploymentName}
-  \  ${status} =          Most Recent Availability Condition                @{deploy.status.conditions}
-  \  Should Be Equal As Strings  ${status}  True  ignore_case=True  msg=${Component} is not available
+  FOR  ${component}  IN  @{GLOBAL_RICPLT_COMPONENTS}
+     ${deploymentName} =  Get From Dictionary  ${GLOBAL_RICPLT_COMPONENTS}  ${Component}
+     ${deploy} =          Deployment           ${deploymentName}
+     ${status} =          Most Recent Availability Condition                @{deploy.status.conditions}
+     Should Be Equal As Strings  ${status}  True  ignore_case=True  msg=${Component} is not available
+  END
