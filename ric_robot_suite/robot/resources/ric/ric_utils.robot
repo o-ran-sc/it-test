@@ -26,24 +26,40 @@ Most Recent Availability Condition
   # temporally.
   [Arguments]  @{Conditions}
   ${status} =  Set Variable  'False'
-  :FOR  ${Condition}  IN  @{Conditions}
-  \  ${status} =  Set Variable If  '${Condition.type}' == 'Available'  ${Condition.status}  ${status}
+  FOR  ${Condition}  IN  @{Conditions}
+     ${status} =  Set Variable If  '${Condition.type}' == 'Available'  ${Condition.status}  ${status}
+  END   
   [Return]  ${status}
 
 Most Recent Container Logs
   [Arguments]  ${deployment}  ${container}=${EMPTY}  ${regex}=${EMPTY}
   ${pods} =            Retrieve Pods For Deployment  ${deployment}
   ${logs} =            Create List
-  :FOR  ${pod}  IN  @{pods}
-  \  ${log} =   Retrieve Log For Pod     ${pod}             ${container}
-  \  Should Not Be Empty        ${log}   No log entries for ${pod}/${container}
-  \  ${line} =  Run Keyword If           "${regex}" != "${EMPTY}"
-  ...                                    Most Recent Match  ${log}  ${regex}
-  ...           ELSE
-  ...                                    Get From List      ${log}  -1
-  \  Append To List             ${logs}  ${line}
+  FOR  ${pod}  IN  @{pods}
+     ${log} =   Retrieve Log For Pod     ${pod}             ${container}
+     Should Not Be Empty        ${log}   No log entries for ${pod}/${container}
+     ${line} =  Run Keyword If           "${regex}" != "${EMPTY}"
+     ...                                 Most Recent Match  ${log}  ${regex}
+     ...        ELSE
+     ...                                 Get From List      ${log}  -1
+     Append To List             ${logs}  ${line}
+  END   
   [Return]                      ${logs}
 
+Component Should Be Ready
+  [Documentation]  Given a Kubernetes controller object as returned from the KubernetesEntity
+  ...              library routines (such as 'Deployment' or Statefulset'), check whether the
+  ...              entity is ready
+  [Arguments]      ${entity}
+  Should Be Equal  ${entity.status.replicas}           ${entity.status.ready_replicas}
+  # This doesn't seem to make sense for statefulsets
+  ${status} =      Run Keyword If                      '${entity.kind}' == 'Deployment'
+  ...              Most Recent Availability Condition  @{entity.status.conditions}
+  ...  ELSE
+  ...              Set Variable                        True
+  Should Be Equal As Strings  ${status}  True  ignore_case=True
+  [Return]         ${status}
+  
 #
 # Robot metatools
 Run Keyword If Present

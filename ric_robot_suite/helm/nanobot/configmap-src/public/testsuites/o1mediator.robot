@@ -32,10 +32,10 @@ ${sessionPfx} =   nanobot-O1
 *** Test Cases ***
 O1 Mediator Should Be Available
   [Tags]   etetests  o1mediatortests
-  ${o1} =        Get From Dictionary  ${GLOBAL_RICPLT_COMPONENTS}  o1mediator
-  ${deploy} =    Deployment           ${o1}
-  ${status} =    Most Recent Availability Condition  @{deploy.status.conditions}
-  Should Be Equal As Strings          ${status}  True  ignore_case=True
+  ${c} =            Get From Dictionary  ${GLOBAL_RICPLT_COMPONENTS}  o1mediator
+  ${ctrl}  ${o1} =  Split String         ${c}           |
+  ${deploy} =       Run Keyword          ${ctrl}        ${o1}
+  Component Should Be Ready              ${deploy}
 
 Connect To O1 Mediator
    [tags]  etetests  o1mediatortests

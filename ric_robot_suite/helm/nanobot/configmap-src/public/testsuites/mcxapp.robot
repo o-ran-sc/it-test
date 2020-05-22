@@ -25,10 +25,6 @@ Library        Collections
 Library        KubernetesEntity          ${GLOBAL_XAPP_NAMESPACE}
 
 *** Variables ***
-${listenerContainerName}    mc-xapp-listener
-${listenerStatRegex}        ^[0-9]+\\s*\\[STAT\\]\\s*\\(mcl\\)
-${recentListenerDrops}      .*last 60s.*drops\\s*=\\s*([1-9][0-9]*)
-${recentListenerErrors}     .*last 60s.*errs\\s*=\\s*([1-9][0-9]*)
 ${writerVesSuccesses}       .*successful\\s+ves\\s+posts\\s*-\\s*([1-9][0-9]*)
 ${writerVesErrors}          .*failed\\s+ves\\s+posts\\s*-\\s*([1-9][0-9]*)
 
@@ -41,42 +37,29 @@ XApp Should Be Available
   ${status} =          Most Recent Availability Condition           @{deploy.status.conditions}
   Should Be Equal As Strings   ${status}  True  ignore_case=True
 
-Listener Should Not Be Dropping Messages
-  [Tags]  etetests  xapptests  mcxapptests
-  ${log} =  Most Recent Container Logs  ${deploymentName}
-  ...                                   ${GLOBAL_MCXAPP_LISTENER_NAME}
-  ...                                   ${listenerStatRegex}
-  Should Not Contain Match             ${log}                   regexp=${recentListenerDrops}
-  
-Listener Should Not Be Producing Errors
-  [Tags]  etetests  xapptests  mcxapptests
-  ${log} =  Most Recent Container Logs  ${deploymentName}
-  ...                                   ${GLOBAL_MCXAPP_LISTENER_NAME}
-  ...                                   ${listenerStatRegex}
-  Should Not Contain Match             ${log}                   regexp=${recentListenerErrors}
-
 Writer Should Be Successfully Sending Statistics
   [Tags]  etetests  xapptests  mcxapptests
   Set Test Variable  ${finalStatus}  PASS
-  :FOR  ${stat}  IN  @{GLOBAL_MCXAPP_WRITER_STATISTICS}
-  \  ${statRE} =        Regexp Escape  ${stat}
-  \  ${log} =           Most Recent Container Logs    ${deploymentName}
-  ...                   ${GLOBAL_MCXAPP_WRITER_NAME}
-  ...                   ^${statRE}:\\s+successful\\s+ves\\s+posts\\.*
-  \  ${status}  ${u} =  Run Keyword And Ignore Error
-  ...                   Should Contain Match  ${log}  regexp=${writerVesSuccesses}
-  \  ${finalStatus} =   Set Variable If  "${status}" == "FAIL"
-  ...                   FAIL
-  ...                   ${finalStatus}
-  \  Run Keyword If     "${status}" == "FAIL"
-  ...                   Log  No messages have been sent to VES for ${stat}
-  \  ${status}  ${u} =  Run Keyword And Ignore Error
-  ...                   Should Not Contain Match  ${log}  regexp=${writerVesErrors}
-  \  ${finalStatus} =   Set Variable If  "${status}" == "FAIL"
-  ...                   FAIL
-  ...                   ${finalStatus}
-  \  Run Keyword If     "${status}" == "FAIL"
-  ...                   Log  ${stat} is producing errors logging to VES
+  FOR  ${stat}  IN  @{GLOBAL_MCXAPP_WRITER_STATISTICS}
+     ${statRE} =        Regexp Escape  ${stat}
+     ${log} =           Most Recent Container Logs    ${deploymentName}
+     ...                ${GLOBAL_MCXAPP_WRITER_NAME}
+     ...                ^${statRE}:\\s+successful\\s+ves\\s+posts\\.*
+     ${status}  ${u} =  Run Keyword And Ignore Error
+     ...                Should Contain Match  ${log}  regexp=${writerVesSuccesses}
+     ${finalStatus} =   Set Variable If  "${status}" == "FAIL"
+     ...                FAIL
+     ...                ${finalStatus}
+     Run Keyword If     "${status}" == "FAIL"
+     ...                Log  No messages have been sent to VES for ${stat}
+     ${status}  ${u} =  Run Keyword And Ignore Error
+     ...                Should Not Contain Match  ${log}  regexp=${writerVesErrors}
+     ${finalStatus} =   Set Variable If  "${status}" == "FAIL"
+     ...                FAIL
+     ...                ${finalStatus}
+     Run Keyword If     "${status}" == "FAIL"
+     ...                Log  ${stat} is producing errors logging to VES
+  END
   Run Keyword If        "${finalStatus}" == "FAIL"
   ...                   Fail  One or more statistics is not being succesfully logged
 
