@@ -61,6 +61,7 @@ ric:
     user: test
     password: test
    dbaas:
+    controller: statefulset
    e2mgr:
     user: test
     password: test
@@ -80,19 +81,14 @@ ric:
    listener:
     containername: mc-xapp-listener
    writer:
-    containername: mc-xapp-writer
+    containername: mcxapp
     # statistics sent to ves by the writer.  the tests
     # will check that these are actually being sent
     statistics:
     - mc_connected_cnt
-    - mc_connection_stats
-    - mc_connects_cnt
-    - mc_disconnects_cnt
-    - mc_unique_ue_cnt
-    - rrcx_pdf_serv_cell
-    - rrcx_pdf_serv_gnb
-    - rrcx_stats_serv_cell
-    - rrcx_stats_serv_gnb
+    - throughput_gnb
+    - throughput_rollup
+    - throughput_ue
  robot:
   release: r1
   #

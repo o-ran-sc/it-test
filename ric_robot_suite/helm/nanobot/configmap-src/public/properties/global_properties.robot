@@ -18,6 +18,7 @@
 {{- $ricplt := printf "%s.svc.%s" $ricpltNS $domain }}
 {{- $release := default "r1" .Values.ric.robot.release }}
 {{- $testxapp := default "robot-xapp" .Values.ric.robot.environment.xapp }}
+{{- $dt := "deployment" }}
 #
 *** Settings ***
 Documentation        store all properties that can change or are used in multiple places here
@@ -26,12 +27,16 @@ Documentation        store all properties that can change or are used in multipl
 
 
 *** Variables ***
-&{GLOBAL_RICPLT_COMPONENTS}           {{- range keys .Values.ric.platform.components }}
-...                                   {{.}}={{include (printf "common.deploymentname.%s" .) $}}
+&{GLOBAL_RICPLT_COMPONENTS}           {{- range $k, $v := .Values.ric.platform.components }}
+                                      {{- if $v }}
+                                      {{- $dt = index $v "controller" | default "deployment" | lower }}
+                                      {{- end }}
+...                                   {{$k}}={{$dt}}|{{include (printf "common.%sname.%s" $dt $k) $}}
                                       {{- end }}
 &{GLOBAL_RICPLT_XAPPS}                {{- range keys .Values.ric.xapp }}
 ...                                   {{.}}={{ printf "%s-%s" $xappNS . }}
                                       {{- end }}
+
 #
 ${GLOBAL_APPLICATION_ID}              {{ default "r0" .Values.ric.robot.release | printf "nanobot-%s" }}
 ${GLOBAL_BUILD_NUMBER}                {{ default "0" .Values.ric.platform.build  }}
@@ -80,8 +85,6 @@ ${GLOBAL_O1MEDIATOR_XAPP_VERSION}       {{ default "1.0" .Values.ric.platform.co
 ${GLOBAL_O1MEDIATOR_DEPLOYMENT_WAIT}    {{ default "180" .Values.ric.platform.components.o1mediator.xapp.wait }}
 {{- end }}
 #
-${GLOBAL_INJECTED_DBAAS_IP_ADDR}      {{ printf "%s.%s" (include "common.servicename.dbaas.tcp" .) $ricplt  }}
-${GLOBAL_DBAAS_SERVER_PORT}           {{ include "common.serviceport.dbaas.tcp" .  }}
 #
 ${GLOBAL_TEST_XAPP}                   {{ default "xapp-std" .Values.ric.robot.environment.xapp }}
 #
