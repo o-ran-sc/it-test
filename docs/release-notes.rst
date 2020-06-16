@@ -16,7 +16,7 @@
 .. ===============LICENSE_END=========================================================
 
 
-This document provides the release notes for the Amber Release of the it/test repository.
+This document provides the release notes for the Bronze Release of the it/test repository.
 
 .. contents::
    :depth: 3
@@ -34,19 +34,28 @@ Version history
 | **Date**           | **Ver.**           | **Author**         | **Comment**        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
+| 2020-06-16         | 0.1.1              | Bharath B          | Bronze version     |
+|                    |                    |                    |                    |
++--------------------+--------------------+--------------------+--------------------+
 | 2019-11-29         | 0.1.0              | Bharath B          | First draft        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
 
 
+
 Summary
 -------
 
-The Amber Release of it/test repository contains:
+The Bronze Release of it/test repository contains:
 
-- Test automation scripts written using the robot frameworkDeployment scripts for a dev-test 1-node Kubernetes cluster.
-- A functional simulator for the E2 protocol that acts as gNB used to test the RIC.
-- A workload generator that is used to benchmark the RIC
+- Test automation scripts written using the robot frameworkDeployment scripts for a dev-test 1-node Kubernetes cluster. The following improvements were made to the robot framework: 
+	• Substantial rework of the ric-robot-framework tree to make it more user-friendly
+	• Added an XApp specifically for testing purposes; currently only used for A1 mediator tests
+	• Tests for many more RIC components
+	• Support for tests which execute commands in pods
+	• Bugfixes and functionality upgrades to existing tests
+	• Improved documentation
+- A workload generator that is used to benchmark the RIC (no change since Amber)
 
 
 
@@ -61,13 +70,13 @@ Release Data
 | **Repo/commit-ID**                   | it/test                              |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | Amber                                |
+| **Release designation**              | Bronze                               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | 2019-11-29                           |
+| **Release date**                     | 2020-06-16                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | First release                        |
+| **Purpose of the delivery**          | Bronze release                       |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -118,7 +127,7 @@ Deliverables
 Software deliverables
 ---------------------
 
-- Stand-alone light-weight robot container: nexus3.o-ran-sc.org:10002/o-ran-sc/it-test-nanobot:0.0.1	
+- Stand-alone light-weight robot container: nexus3.o-ran-sc.org:10002/o-ran-sc/it-test-nanobot:0.0.3	
 - Full-fledged robot container with GUI: nexus3.o-ran-sc.org:10002/o-ran-sc/it-test-ric-robot:0.2.0
 
 Documentation deliverables
