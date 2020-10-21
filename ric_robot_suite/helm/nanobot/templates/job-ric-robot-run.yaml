@@ -1,13 +1,14 @@
 {{/*
    Copyright (c) 2019 AT&T Intellectual Property.
    Copyright (c) 2019 Nokia.
-
+   Copyright (c) 2020 HCL Technologies Limited.
+ 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
-
+ 
        http://www.apache.org/licenses/LICENSE-2.0
-
+ 
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,6 +16,7 @@
    limitations under the License.
 */}}
 {{- $platformNamespace := include "common.namespace.platform" . }}
+{{- $e2simNamespace := default "test"}}
 {{- $xappNamespace := include "common.namespace.xapp" .  }}
 {{- $releaseName := default "ric-full" .Values.ric.platform.releaseName }}
 {{- $jobName :=  printf "%s-%s" .Release.Name $releaseName }}
@@ -35,7 +37,7 @@ metadata:
   namespace: {{ $platformNamespace }}
 rules:
 - apiGroups: [""]
-  resources: ["pods", "services"]
+  resources: ["pods", "pods/log", "pods/exec", "services"]
   verbs: ["get", "list"]
 - apiGroups: ["apps"]
   resources: ["daemonsets", "replicasets", "statefulsets"]
@@ -72,7 +74,7 @@ metadata:
   namespace: {{ $xappNamespace }}
 rules:
 - apiGroups: [""]
-  resources: ["pods", "pods/log", "services"]
+  resources: ["pods", "pods/log", "pods/exec", "services"]
   verbs: ["get", "list"]
 - apiGroups: ["apps"]
   resources: ["deployments", "daemonsets", "replicasets", "statefulsets"]
@@ -94,7 +96,44 @@ subjects:
   - kind: ServiceAccount
     name: {{ $serviceAccountName }}
     namespace: {{ .Release.Namespace }}
+ 
 {{- end }}
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: {{ $serviceAccountName }}-{{ $releaseName }}-e2sim-access
+  namespace: {{ $e2simNamespace }}
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/log", "pods/exec", "services"]
+  verbs: ["get", "list"]
+- apiGroups: ["apps"]
+  resources: ["daemonsets", "replicasets", "statefulsets"]
+  verbs: ["get", "list"]
+- apiGroups: ["extensions"]
+  resources: ["daemonsets", "replicasets"]
+  verbs: ["get", "list"]
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "patch"]
+- apiGroups: ["extensions"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: {{ $serviceAccountName }}-{{ $releaseName }}-e2sim-access
+  namespace: {{ $e2simNamespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ $serviceAccountName }}-{{ $releaseName }}-e2sim-access
+subjects:
+  - kind: ServiceAccount
+    name: {{ $serviceAccountName }}
+    namespace: {{ .Release.Namespace }}
 {{- end }}
 ---
 apiVersion: batch/v1
@@ -153,6 +192,10 @@ spec:
           imagePullPolicy: {{ default "IfNotPresent" .pullPolicy }}
           {{- end }}
           env:
+            - name: DBAAS_SERVICE_HOST
+              value: "service-ricplt-dbaas-tcp.ricplt.svc.cluster.local"
+            - name: DBAAS_SERVICE_PORT
+              value: "6379"
             - name: RICPLT_NAMESPACE
               value: {{ $platformNamespace }}
             - name: RICPLT_RELEASE_NAME
@@ -161,11 +204,13 @@ spec:
               value: {{ keys .Values.ric.platform.components | join " " }}
             - name: RICXAPP_NAMESPACE
               value: {{ $xappNamespace }}
+            - name: E2SIM_NAMESPACE
+              value: {{ $e2simNamespace }}
             - name: KUBECONFIG
               value: /robot/etc/ric-robot-kubeconfig.conf
           command: ["robot"]
           args:
-            - "-T"
+           - "-T"
             {{- if not .Values.ric.robot.job.failOnTestFail }}
             - "--NoStatusRC"
             {{- end }}
@@ -226,7 +271,7 @@ spec:
               subPath: {{ base $map }}
               readOnly: true
 {{- end }}
-{{- range $map, $ignore := $.Files.Glob "configmap-src/*/resources/*.robot" }}
+{{- range $map, $ignore := $.Files.Glob "configmap-src/*/resources/*" }}
             - name: robot-resources
               mountPath: /robot/resources/{{ base $map }}
               subPath: {{ base $map }}
@@ -257,3 +302,4 @@ spec:
           configMap:
            name: robot-resources
            defaultMode: 0644
+
