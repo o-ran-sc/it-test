@@ -1,6 +1,6 @@
 #   Copyright (c) 2019 AT&T Intellectual Property.
 #   Copyright (c) 2019 Nokia.
-#
+#   Copyright (c) 2020 HCL Technologies Limited.
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #   You may obtain a copy of the License at
@@ -29,9 +29,10 @@ images:
     run:
      repository: nexus3.o-ran-sc.org:10004
      name: o-ran-sc/it-test-nanobot
-     tag: 0.0.2
+     tag: 0.0.3
+
      # note: the helm chart does not create repository credential secrets.
-     # If your repository requires authentication, create a docker-registry 
+     # If your repository requires authentication, create a docker-registry
      # secret with
      #
      #   kubectl create secret docker-registry --namespace <robot-job-namespace> ...
@@ -61,14 +62,16 @@ ric:
     password: test
    dbaas:
     controller:
+     type: statefulset
+     suffix: server
      # the type of k8s controller for this entity
      # (ie, statefulset, daemonset, deployment..)
      # if unspecified, the default is "deployment".
-     type: statefulset
+     #type: statefulset
      # the suffix, if any, to append to the name
      # of the controller entity.  The chart will
      # prepend a hyphen to this string.
-     suffix: server
+     # suffix: server
    e2mgr:
     user: test
     password: test
@@ -79,6 +82,9 @@ ric:
     user: test
     password: test
    submgr:
+    user: test
+    password: test
+    port: 8080
    o1mediator:
     user: test
     password: test
@@ -98,19 +104,37 @@ ric:
     - throughput_gnb
     - throughput_rollup
     - throughput_ue
+ rbac:
+  # If true, create & use RBAC resources
+  #
+  create: true
+  clusterAdminRole: true
+  rules:
+    cluster:
+     - apiGroups:
+         - ""
+       resources:
+         - ["pods", "pods/log", "pods/exec", "services"]
+       verbs:
+         - get
+         - list
+         - watch
+         - patch
+         - update
  robot:
   release: r1
   #
   # If specified, a host filesystem
-  # path where robot output will be stored 
+  # path where robot output will be stored
   log: /opt/ric/robot/log
   #
   # Active testsuites can be chosen by
   # tag, testuite names, or both.  leaving
   # either unspecified will cause all to run.
   testsuites:
-  # - ricdeployment
-  # - healthcheck
+  - ricdeployment
+  - health-check
+  - ete
   tags:
    enabled:
    # - etetests
@@ -137,22 +161,27 @@ ric:
     create: true
     # ... and specify the serviceaccount here:
     # name: nanobot
-  #    
+  #
   environment:
     # the name of a test xapp; the appmgr testsuite
     # will attempt to deploy and undeploy this app;
     # This should be an xapp which is "onboarded" to
     # the appmgr but not deployed at the time the test
     # is initiated.
-    xapp: robot-xapp
+    xapp: bouncerauto-xapp
     gNodeB:
      # the details of a test gNodeB, for [E/X]2 tests.
      # This can be either a real gnodeb or a simulator,
      # but in either case should exist prior to test
      # initiation.
+     # added deployment name and deployment namespace,
+     # for Ran elements.
      name: AAAA456789
      address: 10.0.0.3
      port: 36421
+     ran_deployment: e2sim
+     ran_namespace: test
     dashboard:
      address: 10.1.0.1
      port: 31080
+
