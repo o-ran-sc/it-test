@@ -1,5 +1,5 @@
 #   Copyright (c) 2019 AT&T Intellectual Property.
-#
+#   Copyright (c) 2020 HCL Technologies Limited.
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #   You may obtain a copy of the License at
@@ -19,6 +19,7 @@
 {{- $release := default "r1" .Values.ric.robot.release }}
 {{- $testxapp := default "robot-xapp" .Values.ric.robot.environment.xapp }}
 {{- $dt := "deployment" }}
+{{- $e2_suff := "alpha" }}
 {{- $ds := "" }}
 #
 *** Settings ***
@@ -28,6 +29,8 @@ Documentation        store all properties that can change or are used in multipl
 
 
 *** Variables ***
+#{{ printf "%s.%s" (include "common.servicename.a1mediator.http" .) $ricplt }}
+# {{ printf "%s-alpha.%s" (include "common.servicename.e2term.rmr" .) $ricplt}}
 &{GLOBAL_RICPLT_COMPONENTS}           {{- range $k, $v := .Values.ric.platform.components }}
                                       {{- if $v }}
                                       {{- $ct := index $v "controller" }}
@@ -70,13 +73,20 @@ ${GLOBAL_INJECTED_E2MGR_USER}         {{ .Values.ric.platform.components.e2mgr.u
 ${GLOBAL_INJECTED_E2MGR_PASSWORD}     {{ .Values.ric.platform.components.e2mgr.password  }}
 {{- end }}
 #
+{{- if .Values.ric.platform.components.e2term }}
+${GLOBAL_INJECTED_E2TERM_IP_ADDR}           {{ printf "%s-alpha.%s" (include "common.servicename.e2term.rmr" .) $ricplt}}
+${GLOBAL_E2TERM_SERVER_PORT}           {{ include "common.serviceport.e2term.rmr.data" .  }}
+{{- end }}
+#
 {{- if .Values.ric.platform.components.rtmgr }}
 ${GLOBAL_RTMGR_SERVER_PROTOCOL}       {{ default "http" .Values.ric.platform.components.rtmgr.protocol  }}
 ${GLOBAL_INJECTED_RTMGR_IP_ADDR}      {{ printf "%s.%s" (include "common.servicename.rtmgr.http" .) $ricplt  }}
-${GLOBAL_RTMGR_SERVER_PORT}           {{ include "common.serviceport.e2mgr.http" .  }}
+${GLOBAL_RTMGR_SERVER_PORT}           {{ include "common.serviceport.rtmgr.http" .  }}
+${GLOBAL_RTMGR_SERVER_HTTP_PORT}      {{ default "8080" }}
 ${GLOBAL_INJECTED_RTMGR_USER}         {{ .Values.ric.platform.components.rtmgr.user  }}
 ${GLOBAL_INJECTED_RTMGR_PASSWORD}     {{ .Values.ric.platform.components.rtmgr.password  }}
 {{- end }}
+#
 #
 {{- if .Values.ric.platform.components.a1mediator }}
 ${GLOBAL_A1MEDIATOR_SERVER_PROTOCOL}       {{ default "http" .Values.ric.platform.components.a1mediator.protocol }}
@@ -87,6 +97,9 @@ ${GLOBAL_A1MEDIATOR_TARGET_XAPP}           {{ default $testxapp .Values.ric.plat
 {{- end }}
 #
 {{- if .Values.ric.platform.components.o1mediator }}
+${GLOBAL_O1MEDIATOR_SERVER_PROTOCOL}    {{ default "http" .Values.ric.platform.components.o1mediator.protocol }}
+${GLOBAL_O1MEDIATOR_HTTP_SERVER}        {{ printf "%s.%s" (include "common.servicename.o1mediator.http" .) $ricplt }}
+${GLOBAL_O1MEDIATOR_SERVER_PORT}        {{ include "common.serviceport.o1mediator.http" . }}
 ${GLOBAL_O1MEDIATOR_HOST}               {{ printf "%s.%s" (include "common.servicename.o1mediator.tcp.netconf" .) $ricplt }}
 ${GLOBAL_O1MEDIATOR_PORT}               {{ include "common.serviceport.o1mediator.tcp.netconf" .  }}
 ${GLOBAL_O1MEDIATOR_USER}               {{ .Values.ric.platform.components.o1mediator.user }}
@@ -96,8 +109,18 @@ ${GLOBAL_O1MEDIATOR_XAPP_VERSION}       {{ default "1.0" .Values.ric.platform.co
 ${GLOBAL_O1MEDIATOR_DEPLOYMENT_WAIT}    {{ default "180" .Values.ric.platform.components.o1mediator.xapp.wait }}
 {{- end }}
 #
+{{- if .Values.ric.platform.components.submgr }}
+${GLOBAL_SUBMGR_SERVER_PROTOCOL}      {{ default "http" .Values.ric.platform.components.submgr.protocol }}
+${GLOBAL_SUBMGR_HTTP_SERVER}          {{ printf "%s.%s" (include "common.servicename.submgr.http" .) $ricplt }}
+${GLOBAL_SUBMGR_SERVER_PORT}          {{ include "common.serviceport.submgr.http" . }}
+${GLOBAL_SUBMGR_SERVER_PROTOCOL}      {{ default "http" .Values.ric.platform.components.submgr.protocol  }}
+${GLOBAL_INJECTED_SUBMGR_IP_ADDR}     {{ printf "%s.%s" (include "common.servicename.submgr.http" .) $ricplt  }}
+${GLOBAL_INJECTED_SUBMGR_USER}        {{ .Values.ric.platform.components.submgr.user  }}
+${GLOBAL_INJECTED_SUBMGR_PASSWORD}    {{ .Values.ric.platform.components.submgr.password  }}
+{{- end }}
 #
 ${GLOBAL_TEST_XAPP}                   {{ default "xapp-std" .Values.ric.robot.environment.xapp }}
+${GLOBAL_TEST_XAPP_ONBOARDER}         {{ default "deployment|deployment-ricplt-xapp-onboarder" }}
 #
 ${GLOBAL_TEST_NODEB_NAME}             {{ default "AAAA456789" .Values.ric.robot.environment.gNodeB.name }}
 ${GLOBAL_TEST_NODEB_ADDRESS}          {{ default "10.0.0.3"   .Values.ric.robot.environment.gNodeB.address }}
@@ -106,3 +129,8 @@ ${GLOBAL_TEST_NODEB_PORT}             {{ default "36421"      .Values.ric.robot.
 ${GLOBAL_DASH_SERVER_PROTOCOL}        {{ default "http"       .Values.ric.robot.environment.dashboard.protocol }}
 ${GLOBAL_DASH_SERVER_PORT}            {{ default "31080"      .Values.ric.robot.environment.dashboard.port }}
 ${GLOBAL_INJECTED_DASH_IP_ADDR}       {{ default "127.0.0.1"  .Values.ric.robot.environment.dashboard.port }}
+${GLOBAL_XAPP}                        {{ .Values.ric.robot.environment.xapp }}
+${Global_RAN_NAMESPACE}               {{ .Values.ric.robot.environment.gNodeB.ran_namespace }}
+${Global_RAN_DEPLOYMENT}              {{ .Values.ric.robot.environment.gNodeB.ran_deployment }}
+
+
