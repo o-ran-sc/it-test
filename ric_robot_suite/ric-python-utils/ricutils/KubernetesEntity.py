@@ -63,7 +63,7 @@ class KubernetesEntity(object):
   return self._k8sCore.read_namespaced_service(namespace=namespace or self._ns,
                                                name=name)
 
- def Pod(self, name, namepsace=None):
+ def Pod(self, name, namespace=None):
   return self._k8sCore.read_namespaced_pod(namespace=namespace or self._ns,
                                            name=name)
 

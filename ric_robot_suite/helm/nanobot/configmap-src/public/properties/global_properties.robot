@@ -1,4 +1,5 @@
 #   Copyright (c) 2019 AT&T Intellectual Property.
+#   Copyright (c) 2020 HCL Technologies Ltd.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -62,6 +63,17 @@ ${GLOBAL_INJECTED_APPMGR_USER}        {{ .Values.ric.platform.components.appmgr.
 ${GLOBAL_INJECTED_APPMGR_PASSWORD}    {{ .Values.ric.platform.components.appmgr.password  }}
 {{- end }}
 #
+{{- if .Values.ric.platform.components.submgr }}
+${GLOBAL_SUBMGR_SERVER_PROTOCOL}      {{ default "http" .Values.ric.platform.components.submgr.protocol }}
+${GLOBAL_SUBMGR_HTTP_SERVER}          {{ printf "%s.%s" (include "common.servicename.submgr.http" .) $ricplt }}
+${GLOBAL_SUBMGR_SERVER_PORT}          {{ include "common.serviceport.submgr.http" . }}
+${GLOBAL_SUBMGR_SERVER_PROTOCOL}      {{ default "http" .Values.ric.platform.components.submgr.protocol  }}
+${GLOBAL_INJECTED_SUBMGR_IP_ADDR}     {{ printf "%s.%s" (include "common.servicename.submgr.http" .) $ricplt  }}
+${GLOBAL_SUBMGR_SERVER_PORT}          {{ include "common.serviceport.submgr.http" .  }}
+${GLOBAL_INJECTED_SUBMGR_USER}        {{ .Values.ric.platform.components.submgr.user  }}
+${GLOBAL_INJECTED_SUBMGR_PASSWORD}    {{ .Values.ric.platform.components.submgr.password  }}
+{{- end }}
+#
 {{- if .Values.ric.platform.components.e2mgr }}
 ${GLOBAL_E2MGR_SERVER_PROTOCOL}       {{ default "http" .Values.ric.platform.components.e2mgr.protocol  }}
 ${GLOBAL_INJECTED_E2MGR_IP_ADDR}      {{ printf "%s.%s" (include "common.servicename.e2mgr.http" .) $ricplt  }}
@@ -87,6 +99,9 @@ ${GLOBAL_A1MEDIATOR_TARGET_XAPP}           {{ default $testxapp .Values.ric.plat
 {{- end }}
 #
 {{- if .Values.ric.platform.components.o1mediator }}
+${GLOBAL_O1MEDIATOR_SERVER_PROTOCOL}    {{ default "http" .Values.ric.platform.components.o1mediator.protocol }}
+${GLOBAL_O1MEDIATOR_HTTP_SERVER}        {{ printf "%s.%s" (include "common.servicename.o1mediator.http" .) $ricplt }}
+${GLOBAL_O1MEDIATOR_SERVER_PORT}        {{ include "common.serviceport.o1mediator.http" . }}
 ${GLOBAL_O1MEDIATOR_HOST}               {{ printf "%s.%s" (include "common.servicename.o1mediator.tcp.netconf" .) $ricplt }}
 ${GLOBAL_O1MEDIATOR_PORT}               {{ include "common.serviceport.o1mediator.tcp.netconf" .  }}
 ${GLOBAL_O1MEDIATOR_USER}               {{ .Values.ric.platform.components.o1mediator.user }}
@@ -96,6 +111,10 @@ ${GLOBAL_O1MEDIATOR_XAPP_VERSION}       {{ default "1.0" .Values.ric.platform.co
 ${GLOBAL_O1MEDIATOR_DEPLOYMENT_WAIT}    {{ default "180" .Values.ric.platform.components.o1mediator.xapp.wait }}
 {{- end }}
 #
+{{- if .Values.ric.platform.components.e2term }}
+${GLOBAL_INJECTED_E2TERM_IP_ADDR}           {{ printf "%s-alpha.%s" (include "common.servicename.e2term.rmr" .) $ricplt}}
+${GLOBAL_E2TERM_SERVER_PORT}           {{ include "common.serviceport.e2term.rmr.data" .  }}
+{{- end }}
 #
 ${GLOBAL_TEST_XAPP}                   {{ default "xapp-std" .Values.ric.robot.environment.xapp }}
 #
