@@ -87,6 +87,9 @@ ${GLOBAL_A1MEDIATOR_TARGET_XAPP}           {{ default $testxapp .Values.ric.plat
 {{- end }}
 #
 {{- if .Values.ric.platform.components.o1mediator }}
+${GLOBAL_O1MEDIATOR_SERVER_PROTOCOL}    {{ default "http" .Values.ric.platform.components.o1mediator.protocol }}
+${GLOBAL_O1MEDIATOR_HTTP_SERVER}        {{ printf "%s.%s" (include "common.servicename.o1mediator.http" .) $ricplt }}
+${GLOBAL_O1MEDIATOR_SERVER_PORT}        {{ include "common.serviceport.o1mediator.http" . }}
 ${GLOBAL_O1MEDIATOR_HOST}               {{ printf "%s.%s" (include "common.servicename.o1mediator.tcp.netconf" .) $ricplt }}
 ${GLOBAL_O1MEDIATOR_PORT}               {{ include "common.serviceport.o1mediator.tcp.netconf" .  }}
 ${GLOBAL_O1MEDIATOR_USER}               {{ .Values.ric.platform.components.o1mediator.user }}
