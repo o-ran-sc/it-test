@@ -232,6 +232,12 @@ spec:
               subPath: {{ base $map }}
               readOnly: true
 {{- end }}
+{{- range $map, $ignore := $.Files.Glob "configmap-src/*/lib/*.py" }}
+            - name: robot-lib
+              mountPath: /robot/lib/python/{{ base $map }}
+              subPath: {{ base $map }}
+              readOnly: true
+{{- end }}
       volumes:
         - name: robot-etc
           emptyDir: {}
@@ -257,3 +263,7 @@ spec:
           configMap:
            name: robot-resources
            defaultMode: 0644
+        - name: robot-lib
+          configMap:
+           name: robot-lib
+           defaultMode: 0755
