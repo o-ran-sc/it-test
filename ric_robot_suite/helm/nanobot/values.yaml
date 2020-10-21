@@ -79,6 +79,9 @@ ric:
     user: test
     password: test
    submgr:
+    user: test
+    password: test
+    port: 8080
    o1mediator:
     user: test
     password: test
