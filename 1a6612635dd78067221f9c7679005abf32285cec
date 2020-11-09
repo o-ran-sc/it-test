@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe65da91_132817d8",
+        "filename": "ric_robot_suite/helm/nanobot/configmap-src/public/lib/SDLWrapper.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2020-11-09T16:00:54Z",
+      "side": 1,
+      "message": "Could this file live in the docker image tree, rather than here?  It seems like SDL is more a platform thing than a RIC thing.  I could be convinced otherwise, though.\n\nI _think_ we might need to bump the docker container version as part of this process as well, but I\u0027m not sure.",
+      "revId": "1a6612635dd78067221f9c7679005abf32285cec",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ca964e6_08d8cf56",
+        "filename": "ric_robot_suite/helm/nanobot/configmap-src/public/testsuites/health-check.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2020-11-09T16:00:54Z",
+      "side": 1,
+      "message": "I\u0027m very uncomfortable with shell scripts as part of the tests.  If this is installing the python library, please do that as part of building the docker image.  If it\u0027s doing more than that, please implement that as a combination of python libraries and robot framework code.",
+      "revId": "1a6612635dd78067221f9c7679005abf32285cec",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "985da590_3bef7c71",
+        "filename": "ric_robot_suite/helm/nanobot/configmap-src/public/testsuites/ricdeployment.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2020-11-09T16:00:54Z",
+      "side": 1,
+      "message": "I\u0027d like to see this handle things other than deployments  I believe it did so before, right?",
+      "revId": "1a6612635dd78067221f9c7679005abf32285cec",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}
