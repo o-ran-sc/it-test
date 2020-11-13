@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0273869a_5d1d745b",
+        "filename": "ric_robot_suite/docker/nanobot/Dockerfile",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2020-11-13T21:08:11Z",
+      "side": 1,
+      "message": "this stuff should all happen in the build container above and the output objects copied into the runtime container to keep container size down.  Move all of this (lines 57-78 at least) up there.",
+      "revId": "991c00ef36304eda5182e07e738c061137ae5cf6",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3568650a_4815a215",
+        "filename": "ric_robot_suite/docker/nanobot/Dockerfile",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2020-11-13T21:08:11Z",
+      "side": 1,
+      "message": "is kubectl actually necessary in the container?  the point of the kubernetesentity library is that we use the kubernetes API and avoid exec\u0027ing kubectl.  please eliminate this if you can.",
+      "revId": "991c00ef36304eda5182e07e738c061137ae5cf6",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}
