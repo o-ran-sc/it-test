@@ -1,0 +1,43 @@
+# ==================================================================================
+# Copyright (c) 2020 HCL Technologies Limited.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ==================================================================================
+
+
+This repository consists of Bouncer Xapp developed in C++. Its envisioned to do simple RIC Benchmarking example Xapp. 
+It is required to have following features:
+
+1) E2 Subscription Handling
+2) DB Access: SDL and RNIB
+3) RMR Message handling
+4) Bouncer E2SM
+5) RIC Indication
+
+Steps for installation/running Bouncer Xapp.
+$ cd init
+$ source ./xapp_env.sh
+$cd ../src
+$ make
+$ ./b_xapp_main
+
+Testing:
+========
+
+To test the bouncer xapp, E2simulator is required to be build and run.
+1. Take the E2simulator code under RIC-Benchmarking/E2-interface.
+2. Run/Restart the Near RT RIC Platform pods.
+3. Run E2sim Pod using helm chart( build e2sim using docker file available in e2-interface/e2sim/e2sm_examples/kpm_e2sm/Dockerfile)
+4. Deploy bouncer xapp by following the xapp onboarding steps
+
+Login to the bouncer xapp and E2sim Pods using kubectl exec to see the benchmarking timestamp.
