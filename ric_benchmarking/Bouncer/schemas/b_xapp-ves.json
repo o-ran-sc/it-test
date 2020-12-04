@@ -1,0 +1,30 @@
+{
+    
+    "metrics": {
+	"event": {
+	    "commonEventHeader": {
+		"startEpochMicrosec": 1542231546086613,
+		"eventId": "Bouncer Requests",
+		"eventType": "Bouncer Request Rate",
+		"priority": "Normal",
+		"version": "4.0.1",
+		"reportingEntityName": "Bouncer xAPP",
+		"sequence": 0,
+		"domain": "measurement",
+		"lastEpochMicrosec": 1542231556086613,
+		"eventName": "Measurement_vGMUX",
+		"sourceName": "bouncer-xapp",
+		"vesEventListenerVersion": "7.0.1"
+	    },
+	    "measurementFields": {
+		"additionalFields":{
+		    "Class Id":1,
+		    "Bouncer Request Count":"100",
+                    "Bouncer Accept Count":"10"
+		},
+		"measurementInterval":60,
+		"measurementFieldsVersion":"4.0"
+	    }
+	}
+    }
+}
