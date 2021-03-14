@@ -23,6 +23,24 @@ ric_robot_suite/helm/nanobot/charts.  Then, edit
 ric_robot_suite/helm/nanobot/values.yaml to reflect your
 environment and desired tests and run
 
+Deploy E2sim using helm install by entering inside the path
+/test/ric_benchmarking/E2-interface/e2sim/e2sm_examples/kpm_e2sm/helm/
+
+$ helm install --name <name of deployment> --namespace <namespace>
+
+Update E2sim PLMID, GNBID to values.yaml(.Values.ric.robot.environment.gNodeB)
+
+Deploy bouncer xapp using xapp onboarder steps(as mentioned below 2 steps)
+
+Copy the config-file.json schema file in to the vm where you are deploying and make URL
+$ echo '{"config-file.json_url": "http://<RIC Server IP>/config-file.json" }' > onboard.<xappname>.url
+
+Onboard the xapp using below command
+$ curl --location --request POST "http://<RIC Server IP>:32080/onboard/api/v1/onboard/download"  --header 'Content-Type: application/json' --data-binary "@./onboard.<xappname>.url"
+
+Provide the xapp name which will be available in config-file.json in to values.yaml (.Values.ric.robot.environment.xapp)
+
+Deploy nanobot using below helm install
 $ helm install [--values <override-file> ] --namespace <namespace> nanobot
 
 ... in the ric_robot_suite/helm directory, where <override-file>
