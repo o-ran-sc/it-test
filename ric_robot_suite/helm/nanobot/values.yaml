@@ -168,7 +168,7 @@ ric:
     # This should be an xapp which is "onboarded" to
     # the appmgr but not deployed at the time the test
     # is initiated.
-    xapp: bouncerauto-xapp
+    xapp: bouncer-xapp
     gNodeB:
      # the details of a test gNodeB, for [E/X]2 tests.
      # This can be either a real gnodeb or a simulator,
@@ -181,6 +181,8 @@ ric:
      port: 36421
      ran_deployment: e2sim
      ran_namespace: test
+     plmnid: 373437
+     gnbid: gnb_734_733_b5c67788
     dashboard:
      address: 10.1.0.1
      port: 31080

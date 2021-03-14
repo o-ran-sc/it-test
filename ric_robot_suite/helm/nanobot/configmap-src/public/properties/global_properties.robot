@@ -52,6 +52,11 @@ Documentation        store all properties that can change or are used in multipl
                                       {{- end }}
 
 #
+${GLOBAL_PLMNID}              {{ .Values.ric.robot.environment.gNodeB.plmnid }}
+${GLOBAL_GNBID}               {{ .Values.ric.robot.environment.gNodeB.gnbid }}
+#
+
+#
 ${GLOBAL_APPLICATION_ID}              {{ default "r0" .Values.ric.robot.release | printf "nanobot-%s" }}
 ${GLOBAL_BUILD_NUMBER}                {{ default "0" .Values.ric.platform.build  }}
 ${GLOBAL_RICPLT_NAMESPACE}            {{ $ricpltNS  }}
@@ -130,6 +135,7 @@ ${GLOBAL_DASH_SERVER_PROTOCOL}        {{ default "http"       .Values.ric.robot.
 ${GLOBAL_DASH_SERVER_PORT}            {{ default "31080"      .Values.ric.robot.environment.dashboard.port }}
 ${GLOBAL_INJECTED_DASH_IP_ADDR}       {{ default "127.0.0.1"  .Values.ric.robot.environment.dashboard.port }}
 ${GLOBAL_XAPP}                        {{ .Values.ric.robot.environment.xapp }}
+${GLOBAL_XAPP_DEPLOYMENT}             {{ printf "ricxapp-%s" .Values.ric.robot.environment.xapp }}
 ${Global_RAN_NAMESPACE}               {{ .Values.ric.robot.environment.gNodeB.ran_namespace }}
 ${Global_RAN_DEPLOYMENT}              {{ .Values.ric.robot.environment.gNodeB.ran_deployment }}
 
