@@ -30,6 +30,6 @@ Run E2Term RMR Probe Check
 
      ${resp} =  Run     /bin/sh -c "/opt/e2/rmr_probe -h ${data_path} -v verbose" 
      Log To Console     Received response from E2term ${resp} 
-     ${ret} =   Should Match Regexp     ${resp} got.*OK.*state=0 
+     ${ret} =   Should Match Regexp     ${resp} OK 
      Log To Console     ${ret} 
      [Return]    ${ret} 
