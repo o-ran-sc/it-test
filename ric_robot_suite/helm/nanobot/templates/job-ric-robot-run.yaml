@@ -210,7 +210,7 @@ spec:
               value: /robot/etc/ric-robot-kubeconfig.conf
           command: ["robot"]
           args:
-           - "-T"
+            - "-T"
             {{- if not .Values.ric.robot.job.failOnTestFail }}
             - "--NoStatusRC"
             {{- end }}
