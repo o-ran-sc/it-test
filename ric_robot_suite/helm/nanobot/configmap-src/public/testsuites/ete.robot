@@ -29,6 +29,7 @@ Library   OperatingSystem
 Library   RequestsLibrary
 Library   KubernetesEntity  ${GLOBAL_RICPLT_NAMESPACE}
 Library   String
+
 *** Variables ***
 ${TEST_XAPPNAME}      ${GLOBAL_TEST_XAPP}
 ${TEST_NODE_B_NAME}   ${GLOBAL_TEST_NODEB_NAME}
@@ -36,11 +37,77 @@ ${TEST_NODE_B_IP}     ${GLOBAL_TEST_NODEB_ADDRESS}
 ${TEST_NODE_B_PORT}   ${GLOBAL_TEST_NODEB_PORT}
 ${ricxapp_POD_NAME}   ${GLOBAL_XAPP_NAMESPACE}-${GLOBAL_XAPP}
 ${TEST_XAPP_ONBOARDER}  ${GLOBAL_TEST_XAPP_ONBOARDER}
+
+*** Keywords ***
+Keyword Check subreq
+        [Arguments]     ${linematch}
+        ${result_subreq} =      Set variable    1
+        Set Global Variable     ${result_subreq}
+        ${messages} =       Split String     ${linematch}     ,
+        Log To Console      ${messages}
+        ${ts} =             Get From List    ${messages}     0
+        Log To Console      ${ts}
+        ${timestamp1} =      Split String    ${ts}    :
+        ${timestampval1} =   Get From List   ${timestamp1}   1
+        Log To Console       ${timestampval1}
+        Set Global Variable     ${timestampval1}
+
+Keyword Check No subreq
+        ${aaa} =        Set Variable    1
+
+
+Keyword Check subres
+        [Arguments]     ${linematch}
+        ${result_subres} =      Set variable    1
+        Set Global Variable     ${result_subres}
+        ${messages1} =      Split String     ${linematch}     ,
+        Log To Console      ${messages1}
+        ${ts1} =            Get From List    ${messages1}    0
+        Log To Console      ${ts1}
+        ${timestamp2} =      Split String    ${ts1}   :
+        ${timestampval2} =   Get From List   ${timestamp2}   1
+        Log To Console       ${timestampval2}
+        Set Global Variable     ${timestampval2}
+
+Keyword Check No subres
+        ${aaa} =        Set Variable    1
+
+
+Keyword Check IndMessage
+        [Arguments]     ${linematch}
+        ${result_Ind1} =        Set Variable    1
+        Set Global Variable     ${result_Ind1}
+        ${messages} =       Split String     ${linematch}       :
+        Log To Console      ${messages}
+        ${timestampval_ind1} =             Get From List    ${messages}     1
+        Log To Console       ${timestampval_ind1}
+        Set Global Variable     ${timestampval_ind1}
+        Append To List    ${IndMessgList}    ${timestampval_ind1}
+
+Keyword Check No IndMsg
+        ${aaa} =        Set Variable    1
+
+Keyword Check ControlMsg
+        [Arguments]     ${linematch}
+        ${result_ctrl1} =       Set Variable    1
+        Set Global Variable     ${result_ctrl1}
+        ${messages1} =      Split String     ${linematch}       :
+        Log To Console      ${messages1}
+        ${timestampval_ctrl1} =            Get From List    ${messages1}    1
+        Log To Console       ${timestampval_ctrl1}
+        Set Global Variable     ${timestampval_ctrl1}
+        Append To List    ${ContMessgList}    ${timestampval_ctrl1}
+
+Keyword Check No CtrlMsg
+        ${aaa} =        Set Variable    1
+
+
 *** Test Cases ***
 Test XApp Manager Health
     [Tags]  etetests  xapptests
     Run AppMgr Health Check
  
+
 Ensure RIC Xapp Onboarder is deployed and available
     [Tags]  etetests  xapptests
     ${controllerName} = Set Variable    ${GLOBAL_TEST_XAPP_ONBOARDER}
@@ -48,13 +115,14 @@ Ensure RIC Xapp Onboarder is deployed and available
     ${ctrl} =  Run Keyword      ${cType}        ${name}
     Should Be Equal      ${ctrl.status.replicas}          ${ctrl.status.ready_replicas}
 
+#Before doing this, Deploy E2sim, keep bouncer xapp config-file.json in to shared path and create url
+#onboard the xapp using onboard link
+
 Ensure E2Sim is deployed and available
     [Tags]  etetests  xapptests
     ${ctrl} =   Run Keyword     deployment      ${Global_RAN_DEPLOYMENT}        ${Global_RAN_NAMESPACE}
     Should Be Equal      ${ctrl.status.replicas}          ${ctrl.status.ready_replicas}
  
-#Before doing this kept configfile.json in to shared path and create url
-#onboard the xapp using onboard link
 Deploy An XApp
     [Tags]  etetests  xapptests  intrusive
     Deploy XApp       ${TEST_XAPPNAME}
@@ -75,9 +143,6 @@ Attempt To Request A Nonexistent XApp
     [Tags]  etetests  xapptests  intrusive
     Request Nonexistent XApp And Expect Error
  
-Get All NodeBs Via E2Mgr
-    [Tags]   e2mgrtest   etetests   e2setup   x2setup   ci_tests
-    Run E2Mgr Get All NodeBs Request
 
 # disabled below 3 testcases due to x2 setup related APIs deprecated
 # webservices interface specification deprecated
@@ -114,50 +179,150 @@ Get NodeB via Dashboard
 Get All NodeBs via Dashboard
     [Tags]   e2setup_dash   x2setup_dash    ci_tests
     Run Dashboard Get All NodeBs Request
-###############
-Verifying E2setup Request From E2sim
-    [Tags]  etetests  xapptests
-    ${ric_xapp_pod} =   Run Keyword     RetrievePodsForDeployment       ${ricxapp_POD_NAME}     ${GLOBAL_XAPP_NAMESPACE}
-    ${ric_xapp_pod1} =  Set Variable    ${ric_xapp_pod[0]}
-    Set Global Variable ${ric_xapp_pod1}
-    ${e2simpod} =       Run Keyword     RetrievePodsForDeployment       ${Global_RAN_DEPLOYMENT}        ${Global_RAN_NAMESPACE}
-    ${e2simpod1} =      Set Variable    ${e2simpod[0]}
-    Set Global Variable ${e2simpod1}
-    ${setupres_recv} =  Run     kubectl logs ${e2simpod1} -n ${Global_RAN_NAMESPACE} | grep "SETUP"
-    Log To Console      Subscription Received: ${setupres_recv}
-    Should Match Regexp         ${setupres_recv}       Received SETUP-RESPONSE-SUCCESS
+
+
+
+##### E2setup Verification using E2MGR API
+Get All NodeBs Via E2Mgr
+    [Tags]   e2mgrtest   etetests   e2setup   x2setup
+    ${log} =    Run E2Mgr Get All NodeBs Request
+    FOR ${item} IN      @{log.json()}
+        Log To Console  ${item}
+        ${json}=  Set variable    ${item['globalNbId']["plmnId"]}
+        Should Be Equal ${json} ${GLOBAL_PLMNID}
+    END
+
+Get All E2T Via E2Mgr
+    [Tags]   e2mgrtests   etetests   e2setup   x2setup
+    ${log} =    Run E2Mgr Get All E2T Request
+    Log To Console      ${log}
+
+Get NodeB Request Via E2Mgr
+    [Tags]   e2mgrtests   etetests   e2setup   x2setup
+    Run E2Mgr Get NodeB Request ${GLOBAL_GNBID}
+
+
+#######Subscription verification between Bouncer Xapp and E2sim
+RetriveLog From XAPP
+    [Tags]  etetests  xapptests  intrusive
+    ${podname} =        Run Keyword     RetrievePodsForDeployment       ricxapp-bouncercommit-xapp      namespace=ricxapp
+    Log To Console      ${podname}
+    ${ric_xapp_pod1} =  Set Variable    ${podname[0]}
+    Log To Console      ${ric_xapp_pod1}
+    ${log1} =           Run keyword     RetrieveLogForPod       ${ric_xapp_pod1}       namespace=ricxapp
+    ${stringLog}        Convert To String       ${log1}
+    Set Global Variable         ${stringLog}
+    Set Global Variable         ${log1}
 
 Verifying Subscription Request From Xapp
    [Tags]  etetests  xapptests
-   sleep        100
+   Sleep	80
    Log To Console      "Sending Subscription Message from Xapp"
-   ${subname} =        Run     kubectl logs ${ric_xapp_pod1} -n ${GLOBAL_XAPP_NAMESPACE} | grep "Subscription SUCCESSFUL"
-   Should Match Regexp         ${subname}      Subscription.*SUCCESSFUL
-   ${sub_sent} =       Run     kubectl logs ${ric_xapp_pod1} -n ${GLOBAL_XAPP_NAMESPACE} | grep "Message Sent: RMR State = RMR_OK"
-   Log To Console      Subscription Sent: ${sub_sent}
-   Should Match Regexp         ${sub_sent}     RMR_OK
- 
+   Should Match Regexp   ${stringLog}    Transmitted subscription request
+
 Verifying Subscription Response From E2sim
    [Tags]  etetests  xapptests
-   Log To Console      "Receiving Subscription Message from RAN"
-   ${subrcv} =  Run     kubectl logs ${ric_xapp_pod1} -n ${GLOBAL_XAPP_NAMESPACE} | grep "Received subscription message of type"
-   Log To Console       Subscription Received: ${subrcv}
-   Should Match Regexp         ${subrcv}       Received subscription message
- 
-Verifying Ric Indication From E2sim
+    Log To Console      "Received Subscription Message from RAN"
+    Should Match Regexp  ${stringLog}    Received subscription message of type = 12011
+
+#######RIC Indication and Control flow verification betwwen Bouncer xapp and E2sim
+Verifying RIC Indication on Xapp
    [Tags]  etetests  xapptests
-   Log To Console      "Sending Indication Message from E2sim"
-   ${indication_sent} =        Run      kubectl logs ${e2simpod1} -n ${Global_RAN_NAMESPACE} | grep "Indication"
-   Log To Console       Sending Indication: ${indication_sent}
-   Should Match Regexp         ${indication_sent}      sending RIC Indication
- 
-Verifying Ric Indication on Xapp
+    Log To Console      "Received Indication Message from RAN"
+    Should Match Regexp  ${stringLog}    Received indication message of type = 12050
+
+Verifying Control message on Xapp
    [Tags]  etetests  xapptests
-   Log To Console      "Received Indication Message from RAN"
-   ${indication_rcv} =  Run     kubectl logs ${ric_xapp_pod1} -n ${GLOBAL_XAPP_NAMESPACE} | grep "Received indication message of type"
-   Log To Console       Received Indication: ${indication_rcv}
-   Should Match Regexp         ${indication_rcv}       Received indication message
- 
+    Log To Console      "Verified Controll message"
+    Should Match Regexp  ${stringLog}   Bouncer Control OK
+
+Calculating Timestamp for subscription request on Xapp
+   [Tags]  etetests  xapptests
+   ${result_subreq} =   Set Variable    0
+   Set Global Variable  ${result_subreq}
+   FOR  ${item} IN      @{log1}
+        ${itemString}   Convert To String       ${item}
+        ${contains}=    Run Keyword And Return Status   Should Contain  ${itemString}   Transmitted subscription request
+        ${status}=      Run Keyword If  ${contains}     Keyword Check subreq        ${itemString}       ELSE    Keyword Check No subreq
+   END
+   Log To Console       ${result_subreq}
+   Should Match ${result_subreq}        1
+
+Calculating Timestamp for subscription response on Xapp
+   [Tags]  etetests  xapptests
+   ${result_subres} =   Set Variable    0
+   Set Global Variable  ${result_subres}
+   FOR  ${item} IN      @{log1}
+        ${itemString}   Convert To String       ${item}
+        ${contains}=    Run Keyword And Return Status   Should Contain  ${itemString}   Received subscription message of type = 12011
+        ${status}=      Run Keyword If  ${contains}     Keyword Check subres    ${itemString}   ELSE    Keyword Check No subres
+
+   END
+   Log To Console       ${result_subres}
+   Should Match ${result_subres}        1
+
+
+Latecncy Check on RoundTripTime Subscription Request and Response
+   [Tags]  etetests  xapptests
+   ${timediff} =        Evaluate        ${timestampval2} - ${timestampval1}
+   Log To Console       ${timediff}
+
+
+RetriveLog From GNB
+    [Tags]  etetests  xapptests  intrusive
+    ${e2simpodname} =   Run Keyword     RetrievePodsForDeployment       e2sim   namespace=test
+    Log To Console      ${e2simpodname}
+    ${e2sim_pod1} =  Set Variable       ${e2simpodname[0]}
+    Log To Console      ${e2sim_pod1}
+    ${e2sim_log} =      Run keyword     RetrieveLogForPod       ${e2sim_pod1}   namespace=test
+    ${e2simstringLog}        Convert To String       ${e2sim_log}
+    Set Global Variable         ${e2simstringLog}
+    Set Global Variable         ${e2sim_log}
+
+Calculating Timestamp for Indication Messagae from E2SIM
+   [Tags]  etetests  xapptests
+   ${result_ind1} =     Set Variable    0
+   Set Global Variable  ${result_ind1}
+   @{IndMessgList}=    Create List
+   Set Global Variable  ${IndMessgList}
+   FOR  ${item} IN      @{e2sim_log}
+        ${itemString}   Convert To String       ${item}
+        ${contains}=    Run Keyword And Return Status   Should Contain  ${itemString}   Sent RIC Indication at time
+        ${status}=      Run Keyword If  ${contains}     Keyword Check IndMessage        ${itemString}   ELSE    Keyword Check No IndMsg
+   END
+   Log To Console       ${result_Ind1}
+   Log To Console       ${IndMessgList}
+   Should Match ${result_Ind1}  1
+
+Calculating Timestamp for Control Messages From Xapp to E2sim
+   [Tags]  etetests  xapptests
+   ${result_ctrl1} =    Set Variable    0
+   Set Global Variable  ${result_ctrl1}
+   @{ContMessgList}=    Create List
+   Set Global Variable  ${ContMessgList}
+   FOR  ${item} IN      @{e2sim_log}
+        ${itemString}   Convert To String       ${item}
+        ${contains}=    Run Keyword And Return Status   Should Contain  ${itemString}   Received RIC Control Msg at time
+        ${status}=      Run Keyword If  ${contains}     Keyword Check ControlMsg        ${itemString}   ELSE    Keyword Check No CtrlMsg
+
+   END
+   Log To Console       ${result_ctrl1}
+   Log To Console       ${ContMessgList}
+   Should Match ${result_ctrl1} 1
+
+
+Latecncy Check on RoundTripTime Indication message and Control message
+   [Tags]  etetests  xapptests
+   ${index} =   Set Variable    0
+   @{Timediff1}=        Create List
+   FOR  ${item} IN      @{ContMessgList}
+        ${timediff} =        Evaluate        ${ContMessgList}[${index}] - ${IndMessgList}[${index}]
+        Append To List  ${Timediff1}    ${timediff}
+        ${index}=       Evaluate        ${index} + 1
+   END
+   Log To Console       ${Timediff1}
+
+
 Undeploy The Deployed XApp
     [Tags]  etetests  xapptests  intrusive
     Undeploy XApp     ${TEST_XAPPNAME}

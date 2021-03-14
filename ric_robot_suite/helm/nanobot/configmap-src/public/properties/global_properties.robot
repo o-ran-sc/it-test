@@ -52,6 +52,11 @@ Documentation        store all properties that can change or are used in multipl
                                       {{- end }}
 
 #
+${GLOBAL_PLMNID}              {{ .Values.ric.robot.environment.gNodeB.plmnid }}
+${GLOBAL_GNBID}               {{ .Values.ric.robot.environment.gNodeB.gnbid }}
+#
+
+#
 ${GLOBAL_APPLICATION_ID}              {{ default "r0" .Values.ric.robot.release | printf "nanobot-%s" }}
 ${GLOBAL_BUILD_NUMBER}                {{ default "0" .Values.ric.platform.build  }}
 ${GLOBAL_RICPLT_NAMESPACE}            {{ $ricpltNS  }}
