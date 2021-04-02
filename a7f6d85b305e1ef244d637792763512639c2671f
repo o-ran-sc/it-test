@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e03c8189_40d2e451",
+        "filename": "ric_robot_suite/helm/nanobot/configmap-src/public/properties/global_properties.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2021-04-02T18:56:59Z",
+      "side": 1,
+      "message": "I think the \"ricxapp\" prefix here could come out of the ric recipe file, right?  it\u0027d be better not to have the explicit string baked in here if it\u0027s possible to avoid it.",
+      "revId": "a7f6d85b305e1ef244d637792763512639c2671f",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}
