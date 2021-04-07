@@ -16,6 +16,24 @@
       "revId": "1295f1fb49534e7f4c8f49ee3ba1d5bb830ca6bb",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99889003_61601595",
+        "filename": "ric_robot_suite/helm/nanobot/configmap-src/public/testsuites/ete.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000466
+      },
+      "writtenOn": "2021-04-07T05:39:45Z",
+      "side": 1,
+      "message": "Done.\nFixed this variables with descriptive names.",
+      "parentUuid": "0212b8ea_9ee0c581",
+      "revId": "1295f1fb49534e7f4c8f49ee3ba1d5bb830ca6bb",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }
