@@ -15,6 +15,77 @@
 This directory contains a Helm chart for the minimal robot container
 and Kubernetes job.
 
+Before executing the nanobot test please do the following procedures
+Deploy E2sim:
+============
+
+1. Deploy RIC platform
+
+2. kubectl rollout restart deployment --namespace ricplt deployment-ricplt-e2mgr deployment-ricplt-e2term-alpha (The e2mgr and e2term need to be restarted; this is due to some issues with health check; I don’t know whether it has been resolved by that team)
+
+3. clone sim/e2-interface
+
+4. In the root directory of e2sim: Follow directions in README to produce the deb files
+
+5. Since the deb files are not yet pushed to package cloud, we need to copy them
+
+6. cp e2sim*deb ../e2sm_examples/kpm_e2sm
+
+7. cd ../e2sm_examples/kpm_e2sm
+
+8. Edit the Dockerfile at the bottom to have IP address of service-ricplt-e2term-sctp-alpha service
+
+9. docker build .
+
+10. docker tag <tag just built> e2simul:0.0.2
+
+11. Once deployed, kubectl logs will show:
+
+An E2 Setup Request from E2 Simulator to E2 Term
+An E2 Setup Response from E2 Term to E2 Simulator
+
+Deploy Bouncer Xapp in common way:
+==================================
+
+Follow the link to deploy xapps
+https://wiki.o-ran-sc.org/display/IAT/AD+xApp+Flows
+
+1.Preparing an xApp for onboarding:
+
+echo '{"config-file.json_url": "https://gerrit.o-ran-sc.org/r/gitweb?p=ric-app/ts.git;a=blob_plain;f=xapp-descriptor/config.json;hb=HEAD" }' > onboard.ts.url
+
+
+2. Onboarding xApps:
+Invoke the API calls into the xApp On-boarder, providing it the locations of the xApp descripters.
+curl --location --request POST "http://$(hostname):32080/onboard/api/v1/onboard/download" --header 'Content-Type: application/json' --data-binary "@./onboard.ts.url"
+
+3. Checking the on-boarded charts:
+curl --location --request GET "http://$(hostname):32080/onboard/api/v1/charts"
+
+4. Deploying Xapp:
+curl --location --request POST "http://$(hostname):32080/appmgr/ric/v1/xapps" --header 'Content-Type: application/json' --data-raw '{"xappName": "trafficxapp"}'
+
+Deploy KPIMONXapp:
+==================
+currently KPIMON deployment must be done in the following way:
+
+https://wiki.o-ran-sc.org/display/IAT/Traffic+Steering+Flows
+
+
+1. clone scp/ric-app/kpimon (note it is different than the ric-app/kpimon repo)
+2. docker build .
+3. docker tag <image tag just created> nexus3.o-ran-sc.org:10002/ric-app-kpimon:1.0.0
+4 .curl -X POST --data-binary @xappkpimon-0.2.0.tgz http://<vm-name>:32080/helmrepo/api/charts (Push hand-crafted helm chart to appmgr chart museum)
+
+Once Xapp deployed
+
+1.Checkout the it/test repo
+2.Modify Values.yaml based on your Xapp deployment name, Xapp name and E2sim deployment with PLMID, GNBID update.
+ric_robot_suite/helm/nanobot/values.yaml.
+3.Add testsuites name based on our testing.
+Note: Only one xapp to E2sim test is possible.
+
+Follow the below steps for nanobot testing.
 USING THE CHART
 To install the chart (which creates and runs a single Kubernetes job),
 first copy the packaged Common-Template chart (from
@@ -23,24 +94,6 @@ ric_robot_suite/helm/nanobot/charts.  Then, edit
 ric_robot_suite/helm/nanobot/values.yaml to reflect your
 environment and desired tests and run
 
-Deploy E2sim using helm install by entering inside the path
-/test/ric_benchmarking/E2-interface/e2sim/e2sm_examples/kpm_e2sm/helm/
-
-$ helm install --name <name of deployment> --namespace <namespace>
-
-Update E2sim PLMID, GNBID to values.yaml(.Values.ric.robot.environment.gNodeB)
-
-Deploy bouncer xapp using xapp onboarder steps(as mentioned below 2 steps)
-
-Copy the config-file.json schema file in to the vm where you are deploying and make URL
-$ echo '{"config-file.json_url": "http://<RIC Server IP>/config-file.json" }' > onboard.<xappname>.url
-
-Onboard the xapp using below command
-$ curl --location --request POST "http://<RIC Server IP>:32080/onboard/api/v1/onboard/download"  --header 'Content-Type: application/json' --data-binary "@./onboard.<xappname>.url"
-
-Provide the xapp name which will be available in config-file.json in to values.yaml (.Values.ric.robot.environment.xapp)
-
-Deploy nanobot using below helm install
 $ helm install [--values <override-file> ] --namespace <namespace> nanobot
 
 ... in the ric_robot_suite/helm directory, where <override-file>
@@ -92,3 +145,4 @@ The job uses the nanobot docker image built by
 ric_robot_suite/docker/nanobot/Dockerfile; see
 ric_robot_suite/docker/nanobot/README for information about the
 image.
+

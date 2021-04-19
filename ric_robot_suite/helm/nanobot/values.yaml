@@ -131,10 +131,12 @@ ric:
   # Active testsuites can be chosen by
   # tag, testuite names, or both.  leaving
   # either unspecified will cause all to run.
+  # Kpimonxapp testsuite need to be uncomment before testing kpimonxapp
   testsuites:
   - ricdeployment
   - health-check
   - ete
+  #- kpimonxapp
   tags:
    enabled:
    # - etetests
@@ -168,6 +170,8 @@ ric:
     # This should be an xapp which is "onboarded" to
     # the appmgr but not deployed at the time the test
     # is initiated.
+    # Change the Xapp based on your requirement.
+    #xapp: xappkpimon
     xapp: bouncer-xapp
     gNodeB:
      # the details of a test gNodeB, for [E/X]2 tests.
