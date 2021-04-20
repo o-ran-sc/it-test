@@ -131,10 +131,12 @@ ric:
   # Active testsuites can be chosen by
   # tag, testuite names, or both.  leaving
   # either unspecified will cause all to run.
+  # Kpimonxapp testsuite need to be uncomment before testing kpimonxapp
   testsuites:
   - ricdeployment
   - health-check
   - ete
+  #- kpimonxapp
   tags:
    enabled:
    # - etetests
@@ -168,7 +170,9 @@ ric:
     # This should be an xapp which is "onboarded" to
     # the appmgr but not deployed at the time the test
     # is initiated.
-    xapp: bouncerauto-xapp
+    # Change the Xapp based on your requirement.
+    #xapp: xappkpimon
+    xapp: bouncer-xapp
     gNodeB:
      # the details of a test gNodeB, for [E/X]2 tests.
      # This can be either a real gnodeb or a simulator,
@@ -181,6 +185,8 @@ ric:
      port: 36421
      ran_deployment: e2sim
      ran_namespace: test
+     plmnid: 373437
+     gnbid: gnb_734_733_b5c67788
     dashboard:
      address: 10.1.0.1
      port: 31080
