@@ -53,7 +53,7 @@ class KubernetesEntity(object):
   # that the typical check here sfst.replicas == sfst.ready_replicas
   return self._k8sApp.read_namespaced_stateful_set(namespace = namespace or self._ns,
                                                    name=name)
- 
+
  def Service(self, name, namespace=None):
   # as above, we'll rely on this to throw if the svc dne.
 
@@ -98,7 +98,7 @@ class KubernetesEntity(object):
   d = self.Deployment(name, namespace or self._ns)
   labels = d.spec.selector.match_labels
   pods = self._k8sCore.list_namespaced_pod(namespace or self._ns,
-                                           label_selector=",".join(map(lambda k: k + "=" + labels[k], 
+                                           label_selector=",".join(map(lambda k: k + "=" + labels[k],
                                                                        labels)))
   return list(map(lambda i: i.metadata.name, pods.items))
 
@@ -122,7 +122,7 @@ class KubernetesEntity(object):
    # after performance here.
    ctx=ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
    c = client.Configuration()
-   
+
    async def ExecCoroutine():
       # base64.channel.k8s.io is also a valid subprotocol, but i don't see any
       # reason to support it.
@@ -136,12 +136,12 @@ class KubernetesEntity(object):
              # i really don't want to be bothered with asyncio exception handling
              # for that vanishingly improbable case.
              output[channels[message[0]]].extend(message[1:-1].decode('utf-8').split('\n'))
-            
+
    ctx.load_verify_locations(c.ssl_ca_cert)
    if(c.cert_file and c.key_file):
      ctx.load_cert_chain(c.cert_file, c.key_file)
    uri = 'wss://%s%s' % (c.host.lstrip('https://'), path)
 
    asyncio.get_event_loop().run_until_complete(ExecCoroutine())
-  
+
    return(output)

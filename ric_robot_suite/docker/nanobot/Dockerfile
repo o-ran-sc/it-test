@@ -1,17 +1,3 @@
-   #   Copyright (c)  2019 AT&T Intellectual Property.
-   #   Copyright (c)  2020 HCL Technologies.
-   #   Licensed under the Apache License, Version 2.0 (the "License");
-   #   you may not use this file except in compliance with the License.
-   #   You may obtain a copy of the License at
-   #
-   #       http://www.apache.org/licenses/LICENSE-2.0
-   #
-   #   Unless required by applicable law or agreed to in writing, software
-   #   distributed under the License is distributed on an "AS IS" BASIS,
-   #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   #   See the License for the specific language governing permissions and
-   #   limitations under the License.
-
    FROM python:3.8-alpine AS nanobot-build
 
    RUN apk update && apk add --no-cache git build-base libffi-dev libxml2 libxslt libxml2-dev libxslt-dev openssl-dev
@@ -47,8 +33,8 @@
         cd build && \
         cmake -DPACK_EXTERNALS=1 -DDEV_PKG=1 .. && \
         make install
-   RUN  mkdir -p /opt/e2
-   RUN  cp /rmr/build/src/support/rmr_probe /opt/e2/
+   #RUN  mkdir -p /opt/e2
+   #RUN  cp /rmr/build/src/support/rmr_probe /opt/e2/
 
 
 
@@ -70,11 +56,15 @@
    COPY --from=nanobot-build /usr/local/bin/robot /usr/local/bin
 
    RUN apk add wget
-   RUN  mkdir -p /robot/lib/python
-   WORKDIR ric-python-utils/ricutils
-   RUN wget -o SDLWrapper.py "https://gerrit.o-ran-sc.org/r/gitweb?p=ric-plt/xapp-frame-py.git;a=blob_plain;f=ricxappframe/xapp_sdl.py"
+   RUN mkdir -p /robot/lib/python
+   RUN mkdir -p /opt/e2
+   #WORKDIR ric-python-utils/ricutils
+   #RUN wget -o SDLWrapper.py "https://gerrit.o-ran-sc.org/r/gitweb?p=ric-plt/xapp-frame-py.git;a=blob_plain;f=ricxappframe/xapp_sdl.py"
    # ONAP eteutils
    # we only need a few things from this so we won't install the whole thing.
+   COPY ric-python-utils/ricutils/KubernetesEntity.py /robot/lib/python
+   COPY ric-python-utils/ricutils/SDLWrapper.py /robot/lib/python
+   COPY --from=nanobot-build /rmr/build/src/support/rmr_probe /opt/e2
    COPY --from=nanobot-build /tmp/python-testing-utils/eteutils/StringTemplater.py /robot/lib/python
    COPY --from=nanobot-build /tmp/python-testing-utils/eteutils/UUID.py /robot/lib/python
    COPY ric-python-utils/ricutils/*.py /robot/lib/python/
@@ -106,4 +96,3 @@
 
    WORKDIR /
    CMD ["sleep", "9125d"]
-
