@@ -16,6 +16,40 @@
       "message": "Hi Bharath/Matti/Dave,\n           Here I have raised this review for pushing our nanobot image in to nexus repo.\nI have done all those changes for docker file and updating the libraries.\nKindly help me to push this nanobot in to nexus repo",
       "revId": "91e44bfa2b77764a828221e1914fd67b815a569a",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fa738b9_872c9448",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2021-06-01T14:34:32Z",
+      "side": 1,
+      "message": "Thanks for the changes!  I\u0027m ok with this merging but I\u0027m going to 0-score it and let somebody else +1 if ricsdl and msgpack are actually in the base libraries.",
+      "revId": "91e44bfa2b77764a828221e1914fd67b815a569a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21de34a2_f9808941",
+        "filename": "ric_robot_suite/ric-python-utils/ricutils/SDLWrapper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2021-06-01T14:34:32Z",
+      "side": 1,
+      "message": "sorry, bit of a dumb question: do our base images include the msgpack and ricsdl python libraries?  do those need to be in the dockerfile?   i don\u0027t recall them being in there, but I could be wrong. just making sure we\u0027re not including something here without its required base libraries.",
+      "revId": "91e44bfa2b77764a828221e1914fd67b815a569a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
