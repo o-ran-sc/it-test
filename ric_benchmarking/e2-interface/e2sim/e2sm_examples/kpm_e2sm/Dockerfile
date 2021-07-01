@@ -31,7 +31,7 @@
 
 # the builder has: git, wget, cmake, gcc/g++, make, python2/3. v7 dropped nng support
 #
-FROM nexus3.o-ran-sc.org:10004/o-ran-sc/bldr-ubuntu18-c-go:9-u18.04 as buildenv
+FROM nexus3.o-ran-sc.org:10002/o-ran-sc/bldr-ubuntu18-c-go:1.9.0 as buildenv
 
 # spaces to save things in the build image to copy to final image
 RUN mkdir -p /playpen/assets /playpen/src /playpen/bin
@@ -69,6 +69,8 @@ RUN apt-get update \
 	vim \
 	tcpdump \
 	net-tools \
+        libncurses5-dev \
+        libncursesw5-dev \
 	nmap \
   && apt-get clean
 
@@ -101,4 +103,4 @@ RUN cd /playpen/src && \
 	make install
 
 
-CMD kpm_sim 192.168.122.66 32222
+CMD kpm_sim 192.168.122.66 32222 

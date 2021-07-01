@@ -153,9 +153,9 @@ void E2Sim::generate_e2apv1_indication_request_parameterized(E2AP_PDU *e2ap_pdu,
 
 }
 
-int E2Sim::run_loop(int argc, char* argv[]){
+int E2Sim::run_loop(int argc, char* argv[], int plmnId){
 
-  printf("Start E2 Agent (E2 Simulator\n");
+  printf("Start E2 Agent (E2 Simulator)\n");
 
   ifstream simfile;
   string line;
@@ -173,6 +173,8 @@ int E2Sim::run_loop(int argc, char* argv[]){
   }
 
   bool xmlenc = false;
+
+  printf("ip address is:%s\n",argv[1]);
 
   options_t ops = read_input_options(argc, argv);
 
@@ -202,10 +204,15 @@ int E2Sim::run_loop(int argc, char* argv[]){
   }
     
   printf("about to call setup request encode\n");
-  
-  generate_e2apv1_setup_request_parameterized(pdu_setup, all_funcs);
 
-  printf("After generating e2setup req\n");
+  //int plmnid = plmnId; 
+  fprintf(stderr, "plmn id is : %d\n",plmnId);
+
+  generate_e2apv1_setup_request_parameterized(pdu_setup, all_funcs,plmnId);
+ 
+  //generate_e2apv1_setup_request_parameterized(pdu_setup, all_funcs);
+
+  fprintf(stderr,"After generating e2setup req\n");
 
   xer_fprint(stderr, &asn_DEF_E2AP_PDU, pdu_setup);
 

@@ -156,7 +156,7 @@ void encoding::generate_e2apv1_service_update(E2AP_PDU_t *e2ap_pdu, std::vector<
   e2ap_pdu->choice.initiatingMessage = initiatingMessage;
 }
 
-void encoding::generate_e2apv1_setup_request_parameterized(E2AP_PDU_t *e2ap_pdu, std::vector<ran_func_info> all_funcs) {
+void encoding::generate_e2apv1_setup_request_parameterized(E2AP_PDU_t *e2ap_pdu, std::vector<ran_func_info> all_funcs, int plmnId) {
   //						 long ranFunctionId, uint8_t *ranFuncDescEncoded, int ranFuncLength) {
 
   //  uint8_t *buf = (uint8_t *)"gnb1"
@@ -171,7 +171,15 @@ void encoding::generate_e2apv1_setup_request_parameterized(E2AP_PDU_t *e2ap_pdu,
 
   gnb_bstring->bits_unused = 3;
 
-  uint8_t *buf2 = (uint8_t *)"747";
+  //uint8_t *buf2 = (uint8_t *)"747";
+  
+  char buff[16];
+  sprintf(buff,"%d",plmnId);
+  const char* plmnvalue=buff;
+
+  uint8_t *buf2 = (uint8_t *)plmnvalue;//"747";
+
+
   OCTET_STRING_t *plmn = (OCTET_STRING_t*)calloc(1, sizeof(OCTET_STRING_t));
   plmn->buf = (uint8_t*)calloc(1,3);
   memcpy(plmn->buf, buf2, 3);

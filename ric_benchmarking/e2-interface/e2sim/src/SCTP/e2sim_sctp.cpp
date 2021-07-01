@@ -112,7 +112,7 @@ int sctp_start_server(const char *server_ip_str, const int server_port)
   return server_fd;
 }
 
-int sctp_start_client(const char *server_ip_str, const int server_port)
+/*int sctp_start_client(const char *server_ip_str, const int server_port)
 {
   int client_fd, af;
 
@@ -195,6 +195,68 @@ int sctp_start_client(const char *server_ip_str, const int server_port)
 
   return client_fd;
 }
+*/
+int sctp_start_client(const char *server_ip_str, const int server_port)
+{
+  int client_fd, af;
+
+  struct sockaddr* server_addr;
+  size_t addr_len;
+
+  struct sockaddr_in  server4_addr;
+  memset(&server4_addr, 0, sizeof(struct sockaddr_in));
+
+  struct sockaddr_in6 server6_addr;
+  memset(&server6_addr, 0, sizeof(struct sockaddr_in6));
+
+  inet_pton(AF_INET, server_ip_str, &server4_addr.sin_addr); 
+    server4_addr.sin_family = AF_INET;
+    server4_addr.sin_port   = htons(server_port);
+    server_addr = (struct sockaddr*)&server4_addr;
+    addr_len    = sizeof(server4_addr);
+
+  if((client_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_SCTP)) == -1)
+  {
+     perror("socket");
+     exit(1);
+  }
+
+  // int sendbuff = 10000;
+  // socklen_t optlen = sizeof(sendbuff);
+  // if(getsockopt(client_fd, SOL_SOCKET, SO_SNDBUF, &sendbuff, &optlen) == -1) {
+  //   perror("getsockopt send");
+  //   exit(1);
+  // }
+  // else
+  //   LOG_D("[SCTP] send buffer size = %d\n", sendbuff);
+
+  //--------------------------------
+  //Bind before connect
+  auto optval = 1;
+  if( setsockopt(client_fd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof optval) != 0 ){
+    perror("setsockopt port");
+    exit(1);
+  }
+
+  if( setsockopt(client_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval) != 0 ){
+    perror("setsockopt addr");
+    exit(1);
+  }
+
+  // end binding ---------------------
+
+  LOG_I("[SCTP] Connecting to server at %s:%d ...", server_ip_str, server_port);
+  if(connect(client_fd, server_addr, addr_len) == -1) {
+    perror("connect");
+    exit(1);
+  }
+  assert(client_fd != 0);
+
+  LOG_I("[SCTP] Connection established");
+
+  return client_fd;
+}
+
 
 int sctp_accept_connection(const char *server_ip_str, const int server_fd)
 {

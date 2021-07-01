@@ -38,7 +38,9 @@ Testing:
 To test the bouncer xapp, E2simulator is required to be build and run.
 1. Take the E2simulator code under RIC-Benchmarking/E2-interface.
 2. Run/Restart the Near RT RIC Platform pods.
-3. Run E2sim Pod using helm chart( build e2sim using docker file available in e2-interface/e2sim/e2sm_examples/kpm_e2sm/Dockerfile)
+3. Run E2sim Pod using helm chart( build e2sim using docker file available in e2-interface/e2sim/e2sm_examples/kpm_e2sm/Dockerfile). For Multiple E2sim instances update the Dockerfile(e2-interface/e2sim/e2sm_examples/kpm_e2sm/Dockerfile) with the number of instances.
+  For example: ./kpm_sim 192.168.122.66 32222 10 
+  where 10 = no of instances of E2sim     
 4. Deploy bouncer xapp by following the xapp onboarding steps
 
 Login to the bouncer xapp and E2sim Pods using kubectl exec to see the benchmarking timestamp.

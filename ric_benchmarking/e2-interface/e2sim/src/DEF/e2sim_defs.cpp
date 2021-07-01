@@ -95,11 +95,26 @@ options_t read_input_options(int argc, char *argv[])
 
   options.server_ip         = (char*)DEFAULT_SCTP_IP;
   options.server_port       = X2AP_SCTP_PORT;
+  options.num_of_e2sim      = 1;
 
-  if(argc == 3) //user provided IP and PORT
+  if(argc == 4) //user provided IP, PORT and number of e2sim
+  {
+    options.server_ip    = argv[1];
+    options.server_port  = atoi(argv[2]);
+    options.num_of_e2sim = atoi(argv[3]);
+    printf("options.server_ip:%s\n", options.server_ip);
+    if(options.server_port < 1 || options.server_port > 65535) {
+      LOG_E("Invalid port number (%d). Valid values are between 1 and 65535.\n",
+                                  options.server_port);
+      exit(1);
+    }
+  }
+  else if(argc == 3) //user provided IP and PORT
   {
     options.server_ip = argv[1];
     options.server_port = atoi(argv[2]);
+    printf("options.server_ip:%s\n", options.server_ip);
+    
     if(options.server_port < 1 || options.server_port > 65535) {
       LOG_E("Invalid port number (%d). Valid values are between 1 and 65535.\n",
                                   options.server_port);

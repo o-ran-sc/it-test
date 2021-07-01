@@ -28,7 +28,7 @@ using namespace std;
 
 void encode_kpm_function_description(E2SM_KPM_RANfunction_Description_t* ranfunc_desc) {
 
-  printf("kpm0\n");
+ // printf("kpm0\n");
 
   uint8_t *buf = (uint8_t*)"ORAN-E2SM-KPM";
   uint8_t *buf2 = (uint8_t*)"KPM monitor";
@@ -51,14 +51,14 @@ void encode_kpm_function_description(E2SM_KPM_RANfunction_Description_t* ranfunc
   ranfunc_desc->ranFunction_Name.ranFunction_Description.size = strlen((char*)buf2);
   ranfunc_desc->ranFunction_Name.ranFunction_Instance = &inst;
 
-  printf("kpm0.9\n");
+  //printf("kpm0.9\n");
 
   //  ranfunc_desc->ranFunction_Name.ranFunction_E2SM_OID = (OCTET_STRING_t*)calloc(1, sizeof(OCTET_STRING_t));
   ranfunc_desc->ranFunction_Name.ranFunction_E2SM_OID.buf = (uint8_t*)calloc(1,strlen((char*)buf3));
   memcpy(ranfunc_desc->ranFunction_Name.ranFunction_E2SM_OID.buf, buf3, strlen((char*)buf3));
   ranfunc_desc->ranFunction_Name.ranFunction_E2SM_OID.size = strlen((char*)buf3);
 
-  printf("kpm2\n");
+ // printf("kpm2\n");
   
 
   RIC_EventTriggerStyle_List_t *trigger_style =
@@ -71,20 +71,20 @@ void encode_kpm_function_description(E2SM_KPM_RANfunction_Description_t* ranfunc
   trigger_style->ric_EventTriggerStyle_Name.size = strlen((char*)buf4);
   trigger_style->ric_EventTriggerFormat_Type = 5;
 
-  printf("kpm3\n");
+  //printf("kpm3\n");
 
   ranfunc_desc->e2SM_KPM_RANfunction_Item.ric_EventTriggerStyle_List =
     (E2SM_KPM_RANfunction_Description::E2SM_KPM_RANfunction_Description__e2SM_KPM_RANfunction_Item::E2SM_KPM_RANfunction_Description__e2SM_KPM_RANfunction_Item__ric_EventTriggerStyle_List*)calloc(1,sizeof(E2SM_KPM_RANfunction_Description::E2SM_KPM_RANfunction_Description__e2SM_KPM_RANfunction_Item::E2SM_KPM_RANfunction_Description__e2SM_KPM_RANfunction_Item__ric_EventTriggerStyle_List));
 
   int ret = ASN_SEQUENCE_ADD(&ranfunc_desc->e2SM_KPM_RANfunction_Item.ric_EventTriggerStyle_List->list , trigger_style);
-  printf("ret is %d\n", ret);
+  //printf("ret is %d\n", ret);
 
   RIC_ReportStyle_List_t *report_style1 = (RIC_ReportStyle_List_t*)calloc(1, sizeof(RIC_ReportStyle_List_t));
   report_style1->ric_ReportStyle_Type = 1;
 
   uint8_t *buf5 = (uint8_t*)"O-DU Measurement Container for the 5GC connected deployment";
 
-  printf("kpm4\n");  
+ // printf("kpm4\n");  
   
   //  report_style1->ric_ReportStyle_Name = (OCTET_STRING_t*)calloc(1, sizeof(OCTET_STRING_t));
   report_style1->ric_ReportStyle_Name.buf = (uint8_t*)calloc(1,strlen((char*)buf5));
@@ -93,7 +93,7 @@ void encode_kpm_function_description(E2SM_KPM_RANfunction_Description_t* ranfunc
   report_style1->ric_IndicationHeaderFormat_Type = 1;
   report_style1->ric_IndicationMessageFormat_Type = 1;
   
-  printf("kpm5\n");  
+ // printf("kpm5\n");  
 
   RIC_ReportStyle_List_t *report_style2 = (RIC_ReportStyle_List_t*)calloc(1, sizeof(RIC_ReportStyle_List_t));
   report_style2->ric_ReportStyle_Type = 2;
@@ -109,7 +109,7 @@ void encode_kpm_function_description(E2SM_KPM_RANfunction_Description_t* ranfunc
   report_style2->ric_IndicationHeaderFormat_Type = 1;
   report_style2->ric_IndicationMessageFormat_Type = 1;
 
-  printf("kpm6\n");  
+ // printf("kpm6\n");  
 
   RIC_ReportStyle_List_t *report_style3 = (RIC_ReportStyle_List_t*)calloc(1, sizeof(RIC_ReportStyle_List_t));
   report_style3->ric_ReportStyle_Type = 3;
@@ -171,7 +171,7 @@ void encode_kpm_function_description(E2SM_KPM_RANfunction_Description_t* ranfunc
   ASN_SEQUENCE_ADD(&ranfunc_desc->e2SM_KPM_RANfunction_Item.ric_ReportStyle_List->list, report_style5);
   ASN_SEQUENCE_ADD(&ranfunc_desc->e2SM_KPM_RANfunction_Item.ric_ReportStyle_List->list, report_style6);
 
-  xer_fprint(stderr, &asn_DEF_E2SM_KPM_RANfunction_Description, ranfunc_desc);
+  //xer_fprint(stderr, &asn_DEF_E2SM_KPM_RANfunction_Description, ranfunc_desc);
 }
 
 void encode_kpm_ocuup_user_level(RAN_Container_t *ranco) {

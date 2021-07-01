@@ -25,9 +25,9 @@ e2sim:
     app: e2simulator
     imagepullpolicy: IfNotPresent
     image:
-      name: oran-ric/e2simul
-      tag: 1.2.2     
-      registry: "oran.nexus:8082"
+      name: oran-ric/e2simulator
+      tag: 2.0.0   
+      registry: "nexus3.o-ran-sc.org:10002"
     port: 36422
 
     privilegedmode: false

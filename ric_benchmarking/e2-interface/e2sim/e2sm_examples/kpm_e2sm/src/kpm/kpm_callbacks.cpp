@@ -22,7 +22,7 @@
 #include <fstream>
 #include <vector>
 #include <unistd.h>
-
+#include <curses.h> 
 
 extern "C" {
   #include "OCUCP-PF-Container.h"
@@ -50,7 +50,7 @@ extern "C" {
 
 #include <nlohmann/json.hpp>
 #include <thread>
-
+#include <pthread.h>
 
 using json = nlohmann::json;
 
@@ -60,9 +60,28 @@ class E2Sim;
 
 E2Sim e2sim;
 
-int main(int argc, char* argv[]) {
+struct args {
 
-  fprintf(stderr, "Starting KPM processor sim");
+    int args1;
+    //char **args2;
+    char** args2;
+    int plmnId;
+
+};
+
+
+//int main(int argc, char* argv[]) {
+
+void *initparam(void *input){	
+  fprintf(stderr, "Starting KPM processor sim\n");
+
+  //struct args *value1 = (struct args *)malloc(sizeof(struct args));
+  //fprintf(stderr,"ip address at initparam :%s port:%s\n",(char *)input->args2[1],(char *)input->args2[2]);
+  //struct args *value1 = (struct args *)input;
+ // value1 = (struct args *)input;
+  struct args *value1 = ( args *) input;
+  //fprintf(stderr,"ip address at initparam :%s port:%s\n",value1->args2[1],value1->args2[2]);
+
 
   asn_codec_ctx_t *opt_cod;
 
@@ -94,7 +113,7 @@ int main(int argc, char* argv[]) {
   memcpy(ranfunc_ostr->buf,e2smbuffer,er.encoded);
 
   printf("!!!lenth of ranfuncdesc is %d\n", strlen((char*)ranfuncdesc));
-  printf("value of this index is %d\n", ranfuncdesc[0]);
+/*  printf("value of this index is %d\n", ranfuncdesc[0]);
   printf("value of this index is %d\n", ranfuncdesc[1]);
   printf("value of this index is %d\n", ranfuncdesc[2]);
   printf("value of this index is %d\n", ranfuncdesc[3]);
@@ -105,12 +124,78 @@ int main(int argc, char* argv[]) {
   printf("value of this index is %d\n", ranfuncdesc[15]);
   printf("value of this index is %d\n", ranfuncdesc[100]);
   printf("value of this index is %d\n", ranfuncdesc[101]);
-  
+  */
   e2sim.register_e2sm(0,ranfunc_ostr);
   e2sim.register_subscription_callback(0,&callback_kpm_subscription_request);
+  
+  fprintf(stderr,"ip address at run loop call:%s port:%s\n",value1->args2[1],value1->args2[2]);
+  e2sim.run_loop(value1->args1,value1->args2,value1->plmnId);//(argc, argv);
 
-  e2sim.run_loop(argc, argv);
+}
 
+
+int main(int argc, char  **argv) {
+	
+        struct args *value = (struct args *)malloc(sizeof(struct args));
+        value->args1  = argc;
+	value->args2  = argv;
+//	printf("Enter number of e2sim\n");
+//	int num_of_e2sim = getch();
+        value->plmnId = 1;
+	//int plmnid = 1;
+
+	int num_of_e2sim;
+	if (value->args2[3] != NULL)
+	{
+		num_of_e2sim = atoi(value->args2[3]);//500;
+		fprintf(stderr,"number of e2sim : %d\n", num_of_e2sim);
+	} 
+
+	else
+	{
+		num_of_e2sim = 1;
+	}
+	//int num_of_e2sim = atoi(value->args2[3]);//500;
+
+	//options_t read_input_options(int argc, char* argv[]);
+
+	fprintf(stderr,"value of thread id is %d\n", num_of_e2sim);
+
+	fprintf(stderr,"argc : %d ,ip address:%s, port:%s\n", value->args1,value->args2[1], value->args2[2]); 
+
+	pthread_t threads[10000];
+	int retvalue;
+  	int i;
+        for( i = 0; i < num_of_e2sim; i++ ) {
+             
+	     //struct args *value = (struct args *)malloc(sizeof(struct args));	
+	     
+	      
+             //struct args *value = (struct args *)malloc(sizeof(struct args));
+             //value->args1  = argc;
+             //value->args2  = argv;
+	     //value->plmnId = plmnid;
+
+		
+	     fprintf(stderr,"\n****************************************************************************************************\n");	
+	     //fprintf(stderr,"argc: %d, argv ip address is:%s,argv  port:%s\n",argc, argv[1],argv[2]);
+
+	     fprintf(stderr,"value of thread id is %d\n", i);
+	     fprintf(stderr,"value of plmn   id is %d\n", value->plmnId);
+	     fprintf(stderr,"ip address is:%s, port:%s\n", value->args2[1],value->args2[2]);
+             retvalue = pthread_create(&threads[i], NULL, initparam, (void *)value);
+	     sleep(2);
+	     value->plmnId++;
+	  //   plmnid++;
+      
+             if (retvalue) {
+                 
+		 fprintf(stderr,"Error:unable to create  thread, %d\n", retvalue);
+                 exit(-1);
+             }
+	     
+     	}
+   pthread_exit(NULL);
 }
 
 /*
@@ -128,7 +213,7 @@ void run_report_loop(long requestorId, long instanceId, long ranFunctionId, long
 
   long seqNum = 1;
 
-  int  maxInd = 1000; //1000 no of indication to  send
+  int  maxInd = 1;//500; //1000 no of indication to  send
   
   simfile.open("simulation.txt", ios::in);
 
