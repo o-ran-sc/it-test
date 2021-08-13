@@ -12,6 +12,8 @@
    RUN pip install robotframework-requests
    RUN pip install robotframework-ncclient
    RUN pip install UUID
+   RUN pip install pynacl
+   RUN pip install pep517
    WORKDIR /tmp/
    RUN git clone -b 3.0.1-ONAP https://gerrit.onap.org/r/testsuite/python-testing-utils.git
 
