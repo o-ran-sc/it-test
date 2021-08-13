@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9b1ef66_e6a97600",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000466
+      },
+      "writtenOn": "2021-08-13T06:39:23Z",
+      "side": 1,
+      "message": "Updated container_tag.yaml for pushing nanobot image again.",
+      "revId": "f1586580cc4e2a739e06e099754edd24405cda15",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
