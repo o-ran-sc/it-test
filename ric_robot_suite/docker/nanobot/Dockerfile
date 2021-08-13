@@ -1,7 +1,9 @@
    FROM python:3.8-alpine AS nanobot-build
 
-   RUN apk update && apk add --no-cache git build-base libffi-dev libxml2 libxslt libxml2-dev libxslt-dev openssl-dev
-   RUN apk update && apk add git gcc linux-headers libc-dev cmake pkgconfig make
+   RUN apk update && apk add git build-base libffi-dev libxml2 libxslt libxml2-dev libxslt-dev openssl-dev
+   RUN apk update && apk add git gcc linux-headers libc-dev pkgconfig
+   RUN apk update && apk add --no-cache make cmake
+   RUN apk add libpython3-dev build-essential
 
    ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
    RUN pip install kubernetes
