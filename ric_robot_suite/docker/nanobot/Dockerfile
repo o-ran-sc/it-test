@@ -8,6 +8,8 @@
    RUN pip install redis
    RUN pip install asyncio
    RUN pip install websockets
+   RUN pip install pynacl
+   RUN pip install pep517
    RUN pip install robotframework
    RUN pip install robotframework-requests
    RUN pip install robotframework-ncclient
