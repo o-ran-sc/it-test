@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc62e1c5_e81a9574",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000458
+      },
+      "writtenOn": "2021-12-08T07:50:44Z",
+      "side": 1,
+      "message": "Adding CC",
+      "revId": "4ef8abb4c6961c876f1c372c6814a8f514eb4465",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
