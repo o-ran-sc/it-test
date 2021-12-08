@@ -136,6 +136,9 @@ ric:
   - ricdeployment
   - health-check
   - ete
+  # Enable if you want to execute Subscription Duplication Scenarios. Check README file for the same.
+  #- Subscription_Duplication_Scen1
+  #- Subscription_Duplication_Scen2
   #- kpimonxapp
   tags:
    enabled:
@@ -173,6 +176,7 @@ ric:
     # Change the Xapp based on your requirement.
     #xapp: xappkpimon
     xapp: bouncer-xapp
+    duplicate_xapp: ricxapp-bouncer1-xapp
     gNodeB:
      # the details of a test gNodeB, for [E/X]2 tests.
      # This can be either a real gnodeb or a simulator,
