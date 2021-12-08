@@ -85,6 +85,94 @@ ric_robot_suite/helm/nanobot/values.yaml.
 3.Add testsuites name based on our testing.
 Note: Only one xapp to E2sim test is possible.
 
+==================================================================================================================================================================================
+Subscription Duplication Deployment
+====================================
+The above E2sim deployment procedures are same. For Bouncer xApp deployment please follow up below steps.
+
+Scenario-1:
+==========
+Deploy 2 bouncer xapps with intermission delay of 2 to 5secs.
+1. Use 2 different paths for 2 xapps configfile and modify xappname based on your requirement in configfile.
+
+2.Use local config file shared path for preparing an xApp onboarding:
+
+examples:
+echo '{"config-file.json_url": "https://${hostname}:8090/config.json" }' > onboard.bouncer.url
+echo '{"config-file.json_url": "https://${hostname}:8090/anotherxapp/config.json" }' > onboard.bouncer_another.url
+
+3. Onboarding xApps:
+Invoke the API calls into the xApp On-boarder, providing it the locations of the xApp descripters.
+curl --location --request POST "http://$(hostname):32080/onboard/api/v1/onboard/download" --header 'Content-Type: application/json' --data-binary "@./onboard.bouncer.url"
+curl --location --request POST "http://$(hostname):32080/onboard/api/v1/onboard/download" --header 'Content-Type: application/json' --data-binary "@./onboard.bouncer_another.url"
+
+4. Checking the on-boarded charts:
+curl --location --request GET "http://$(hostname):32080/onboard/api/v1/charts"
+
+5. Deploying Xapp:
+curl --location --request POST "http://$(hostname):32080/appmgr/ric/v1/xapps" --header 'Content-Type: application/json' --data-raw '{"xappName": "bouncerxapp"}'
+delay 2 to 5secs
+curl --location --request POST "http://$(hostname):32080/appmgr/ric/v1/xapps" --header 'Content-Type: application/json' --data-raw '{"xappName": "bouncerxapp_1"}'
+
+Once Xapp deployed
+
+1.Checkout the it/test repo
+2.Modify Values.yaml based on your Xapp deployment- 2 Xapp names and E2sim deployment with PLMID, GNBID update.
+ric_robot_suite/helm/nanobot/values.yaml.
+3.Add testsuites name "subscription_duplication_scenario1".
+Note: Only bouncer xapps to E2sim test possible.
+
+
+Scenario-2:
+===========
+Deploy 1 bouncer xapp by following the below procedure
+
+1.Use local config file shared path for preparing an xApp onboarding:
+
+examples:
+echo '{"config-file.json_url": "https://${hostname}:8090/config.json" }' > onboard.bouncer.url
+
+2. Onboarding xApps:
+Invoke the API calls into the xApp On-boarder, providing it the locations of the xApp descripters.
+curl --location --request POST "http://$(hostname):32080/onboard/api/v1/onboard/download" --header 'Content-Type: application/json' --data-binary "@./onboard.bouncer.url"
+
+3. Checking the on-boarded charts:
+curl --location --request GET "http://$(hostname):32080/onboard/api/v1/charts"
+
+4. Deploying Xapp:
+curl --location --request POST "http://$(hostname):32080/appmgr/ric/v1/xapps" --header 'Content-Type: application/json' --data-raw '{"xappName": "bouncerxapp"}'
+
+Ensure on bouncer xapp logs to check upto indication packets received from E2sim.
+
+Deploy 2 bouncer xapp
+
+1.Use local config file shared path for preparing an xApp onboarding:
+
+examples:
+echo '{"config-file.json_url": "https://${hostname}:8090/anotherxapp/config.json" }' > onboard.bouncer_another.url
+
+2. Onboarding xApps:
+Invoke the API calls into the xApp On-boarder, providing it the locations of the xApp descripters.
+curl --location --request POST "http://$(hostname):32080/onboard/api/v1/onboard/download" --header 'Content-Type: application/json' --data-binary "@./onboard.bouncer_another.url"
+
+4. Checking the on-boarded charts:
+curl --location --request GET "http://$(hostname):32080/onboard/api/v1/charts"
+
+5. Deploying Xapp:
+curl --location --request POST "http://$(hostname):32080/appmgr/ric/v1/xapps" --header 'Content-Type: application/json' --data-raw '{"xappName": "bouncerxapp_1"}'
+
+
+Once Xapp deployed
+
+1.Checkout the it/test repo
+2.Modify Values.yaml based on your Xapp deployment- 2 Xapp names and E2sim deployment with PLMID, GNBID update.
+ric_robot_suite/helm/nanobot/values.yaml.
+3.Add testsuites name "subscription_duplication_scenario2" .
+Note: Only bouncer xapps to E2sim tests possible.
+
+
+===============================================================================================================================================
+
 Follow the below steps for nanobot testing.
 USING THE CHART
 To install the chart (which creates and runs a single Kubernetes job),

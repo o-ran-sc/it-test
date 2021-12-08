@@ -133,8 +133,8 @@ ${GLOBAL_DASH_SERVER_PROTOCOL}        {{ default "http"       .Values.ric.robot.
 ${GLOBAL_DASH_SERVER_PORT}            {{ default "31080"      .Values.ric.robot.environment.dashboard.port }}
 ${GLOBAL_INJECTED_DASH_IP_ADDR}       {{ default "127.0.0.1"  .Values.ric.robot.environment.dashboard.port }}
 ${GLOBAL_XAPP}                        {{ .Values.ric.robot.environment.xapp }}
+${GLOBAL_DUPLICATE_XAPP}              {{ .Values.ric.robot.environment.duplicate_xapp }}
 ${GLOBAL_XAPP_DEPLOYMENT}             {{ printf "%s-%s" ($xappNS) .Values.ric.robot.environment.xapp }}
 ${GLOBAL_XAPPKPIMON_DEPLOYMENT}       {{ printf "%s"  .Values.ric.robot.environment.xapp }}
 ${Global_RAN_NAMESPACE}               {{ .Values.ric.robot.environment.gNodeB.ran_namespace }}
 ${Global_RAN_DEPLOYMENT}              {{ .Values.ric.robot.environment.gNodeB.ran_deployment }}
-
