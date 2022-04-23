@@ -22,11 +22,14 @@
 
 //#include <iostream>
 //#include <vector>
-
+//Just to see weather ORAN JOB builder is starting or not.
 #include "encode_e2apv1.hpp"
-
-
 #include <unistd.h>
+#include<deque>
+#include <sys/time.h>
+#include <fstream>
+#include <unordered_map>
+extern std::unordered_map<int, timeval> Time;
 
 void e2ap_handle_sctp_data(int &socket_fd, sctp_buffer_t &data, bool xmlenc, E2Sim *e2sim)
 {
@@ -128,8 +131,8 @@ void e2ap_handle_sctp_data(int &socket_fd, sctp_buffer_t &data, bool xmlenc, E2S
 	  }
 
 	  if (func_exists) {
-	    fprintf(stderr, "Calling callback function\n");
-	    cb(pdu);
+		fprintf(stderr, "Calling callback function\n");
+	    cb(pdu,socket_fd);
 	  } else {
 	    fprintf(stderr, "Error: No RAN Function with this ID exists\n");
 	  }
@@ -146,6 +149,49 @@ void e2ap_handle_sctp_data(int &socket_fd, sctp_buffer_t &data, bool xmlenc, E2S
           LOG_I("[E2AP] Received RIC-SUBSCRIPTION-FAILURE");
           break;
 	  
+        default:
+          LOG_E("[E2AP] Invalid message index=%d in E2AP-PDU", index);
+          break;
+	}
+      break;
+       case ProcedureCode_id_RICsubscriptionDelete: //RIC SUBSCRIPTION = 201
+      switch(index)
+	{
+        case E2AP_PDU_PR_initiatingMessage: { //initiatingMessage
+          LOG_I("[E2AP] Received RIC-SUBSCRIPTION-DELETE-REQUEST");
+	  //          e2ap_handle_RICSubscriptionRequest(pdu, socket_fd);
+	  long func_id = encoding::get_function_id_from_subscriptionDelete(pdu);
+	  fprintf(stderr, "Function Id of message is %d\n", func_id);
+	  SubscriptionCallback cb;
+
+	  bool func_exists = true;
+
+	  try {
+	    cb = e2sim->get_subscription_callback(func_id);
+	  } catch(const std::out_of_range& e) {
+	    func_exists = false;
+	  }
+
+	  if (func_exists) {
+	    fprintf(stderr, "Calling callback function\n");
+	    cb(pdu,socket_fd);
+		//callback_kpm_subscription_delete_request(pdu, socket_fd);
+	  } else {
+	    fprintf(stderr, "Error: No RAN Function with this ID exists\n");
+	  }
+	  	//callback_kpm_subscription_request(pdu, socket_fd);
+
+	}
+          break;
+
+        case E2AP_PDU_PR_successfulOutcome:
+          LOG_I("[E2AP] Received RIC-SUBSCRIPTION-DELETE-RESPONSE");
+          break;
+
+        case E2AP_PDU_PR_unsuccessfulOutcome:
+          LOG_I("[E2AP] Received RIC-SUBSCRIPTION-DELETE-FAILURE");
+          break;
+
         default:
           LOG_E("[E2AP] Invalid message index=%d in E2AP-PDU", index);
           break;
@@ -173,6 +219,31 @@ void e2ap_handle_sctp_data(int &socket_fd, sctp_buffer_t &data, bool xmlenc, E2S
           break;
 	}
       break;
+
+
+
+  case 111:  //Received control procedure code is 111 because bouncer xapp not doing any pdu contraction/encode for control msg and its simply sending the            msg for round trip calculation
+           {
+          LOG_I("[E2AP] Received RIC-CONTROL-FAILURE/RIC-DUMMY-CONTROL");
+	  struct timeval ts_recv;
+        	std::fstream io_file;
+         gettimeofday(&ts_recv, NULL);
+        if (Time.size()>0)
+        {
+        struct timeval ts_sent=Time[socket_fd];
+        fprintf(stderr, "Received Msg procedurecode is: %d\nfull buffer is : %s\n",procedureCode, data.buffer);
+        io_file.open("e2sim_timestamp.txt", std::ios::in|std::ios::out|std::ios::app);
+        io_file << "Sent RIC Indication at time: " << (ts_sent.tv_sec * 1000000) + (ts_sent.tv_usec) << std::endl;
+        fprintf(stderr, "Sent RIC Indication at time: %ld\n" ,((ts_sent.tv_sec * 1000000) + (ts_sent.tv_usec)));
+        io_file << "Received RIC Control Msg at time: " << (ts_recv.tv_sec * 1000000) + (ts_recv.tv_usec) << std::endl;
+        fprintf(stderr,"Received RIC Control Msg at time: %ld\n" ,((ts_recv.tv_sec * 1000000) + (ts_recv.tv_usec)));
+        io_file << "Time diff in Microseconds:" << ((ts_recv.tv_sec - ts_sent.tv_sec)*1000000 + (ts_recv.tv_usec - ts_sent.tv_usec)) << std::endl;
+        fprintf(stderr, "Time diff in Microseconds: %ld\n",(((ts_recv.tv_sec - ts_sent.tv_sec)*1000000 + (ts_recv.tv_usec - ts_sent.tv_usec))));
+        io_file.close();
+        }
+	  }
+      break;
+      
 
     case ProcedureCode_id_RICserviceQuery:
       switch (index)
