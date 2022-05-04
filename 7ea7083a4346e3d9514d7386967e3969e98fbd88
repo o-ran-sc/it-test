@@ -16,6 +16,23 @@
       "message": "Added the functionality to handle subscription delete request.\nAnd solved few issues, that were coming while implementing the subscription delete functionality.",
       "revId": "7ea7083a4346e3d9514d7386967e3969e98fbd88",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ba41ccb_4caa1468",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000050
+      },
+      "writtenOn": "2022-05-04T14:06:14Z",
+      "side": 1,
+      "message": "It seems ORAN JObbuilder did not execute.",
+      "revId": "7ea7083a4346e3d9514d7386967e3969e98fbd88",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
