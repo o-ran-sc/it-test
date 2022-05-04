@@ -33,6 +33,24 @@
       "message": "It seems ORAN JObbuilder did not execute.",
       "revId": "7ea7083a4346e3d9514d7386967e3969e98fbd88",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e2bd590_41ab5114",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001476
+      },
+      "writtenOn": "2022-05-04T17:45:05Z",
+      "side": 1,
+      "message": "What might be the issue?. \nAfter pushing the changes, it should have started automatically.",
+      "parentUuid": "7ba41ccb_4caa1468",
+      "revId": "7ea7083a4346e3d9514d7386967e3969e98fbd88",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
