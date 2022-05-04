@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f233bd2d_e664bd6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001476
+      },
+      "writtenOn": "2022-05-04T10:43:46Z",
+      "side": 1,
+      "message": "Added the functionality to handle subscription delete request.\nAnd solved few issues, that were coming while implementing the subscription delete functionality.",
+      "revId": "7ea7083a4346e3d9514d7386967e3969e98fbd88",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
