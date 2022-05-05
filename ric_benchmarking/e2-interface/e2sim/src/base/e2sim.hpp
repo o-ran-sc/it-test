@@ -19,16 +19,14 @@
 
 #ifndef E2SIM_HPP
 #define E2SIM_HPP
-
 #include <unordered_map>
-
 extern "C" {
 #include "E2AP-PDU.h"
 #include "OCTET_STRING.h"
 }
-
-typedef void (*SubscriptionCallback)(E2AP_PDU_t*);
-
+typedef void (*SubscriptionCallback)(E2AP_PDU_t*&,int);
+#include<deque>
+extern std::unordered_map<int, timeval> Time;
 class E2Sim;
 class E2Sim {
 
@@ -45,6 +43,8 @@ public:
 
   void generate_e2apv1_subscription_response_success(E2AP_PDU *e2ap_pdu, long reqActionIdsAccepted[], long reqActionIdsRejected[], int accept_size, int reject_size, long reqRequestorId, long reqInstanceId);
 
+  void generate_e2apv1_subscription_delete_response_success(E2AP_PDU *e2ap_pdu, long reqRequestorId, long reqInstanceId);
+
   void generate_e2apv1_indication_request_parameterized(E2AP_PDU *e2ap_pdu, long requestorId, long instanceId, long ranFunctionId, long actionId, long seqNum, uint8_t *ind_header_buf, int header_length, uint8_t *ind_message_buf, int message_length);  
 
   SubscriptionCallback get_subscription_callback(long func_id);
@@ -53,7 +53,7 @@ public:
 
   void register_subscription_callback(long func_id, SubscriptionCallback cb);
   
-  void encode_and_send_sctp_data(E2AP_PDU_t* pdu);
+  void encode_and_send_sctp_data(E2AP_PDU_t* pdu,int client_fd);
 
   //int run_loop(int argc, char* argv[]);
   int run_loop(int argc, char* argv[], int plmnId);

@@ -61,6 +61,7 @@ typedef struct {
 
 options_t read_input_options(int argc, char *argv[]);
 
-#define min(a, b) ((a) < (b)) ? (a) : (b)
+#define MIN(a, b) ((a) < (b)) ? (a) : (b)
 
 #endif
+

@@ -96,6 +96,50 @@ long encoding::get_function_id_from_subscription(E2AP_PDU_t *e2ap_pdu) {
 
 }
 
+//will return RANfunctionID for subscription delete request..
+long encoding::get_function_id_from_subscriptionDelete(E2AP_PDU_t *e2ap_pdu) 
+{
+
+	RICsubscriptionDeleteRequest_t orig_req =
+    		e2ap_pdu->choice.initiatingMessage->value.choice.RICsubscriptionDeleteRequest;
+
+	RICsubscriptionDeleteResponse_IEs_t *ricreqid =
+    		(RICsubscriptionDeleteResponse_IEs_t*)calloc(1, sizeof(RICsubscriptionDeleteResponse_IEs_t));
+
+  	int count = orig_req.protocolIEs.list.count;
+  	int size = orig_req.protocolIEs.list.size;
+
+   	RICsubscriptionDeleteRequest_IEs_t **ies = ( RICsubscriptionDeleteRequest_IEs_t**)orig_req.protocolIEs.list.array;
+
+  	fprintf(stderr, "count%d\n", count);
+  	fprintf(stderr, "size%d\n", size);
+
+  	RICsubscriptionDeleteRequest_IEs__value_PR pres;
+
+  	long func_id;
+
+  	for (int i=0; i < count; i++) 
+	{
+    		RICsubscriptionDeleteRequest_IEs_t *next_ie = ies[i];
+    		pres = next_ie->value.present;
+		fprintf(stderr, "next present value %d\n", pres);
+    		fprintf(stderr, "value of pres ranfuncid is %d\n", RICsubscriptionDeleteRequest_IEs__value_PR_RANfunctionID);
+
+    		if (pres == RICsubscriptionDeleteRequest_IEs__value_PR_RANfunctionID) 
+		{
+      			fprintf(stderr, "equal pres to ranfuncid\n");
+      			func_id = next_ie->value.choice.RANfunctionID;
+    		}
+
+  	}
+
+  	fprintf(stderr, "After loop, func_id is %d\n", func_id);
+  	func_id=1;
+	fprintf(stderr, "intentionally returning , func_id to %d\n", func_id);
+  	return func_id;
+
+}
+
 void encoding::generate_e2apv1_service_update(E2AP_PDU_t *e2ap_pdu, std::vector<encoding::ran_func_info> all_funcs) {
   char* ran_function_op_type = getenv("RAN_FUNCTION_OP_TYPE");
   LOG_D("Ran funciton : %s", ran_function_op_type);
@@ -542,6 +586,64 @@ void encoding::generate_e2apv1_subscription_response_success(E2AP_PDU *e2ap_pdu,
 
   
 }
+//genereate the delete response 
+void encoding::generate_e2apv1_subscription_delete_response_success(E2AP_PDU *e2ap_pdu,
+						   long reqRequestorId, long reqInstanceId) 
+{
+
+	RICsubscriptionDeleteResponse_IEs_t *respricreqid =
+    		(RICsubscriptionDeleteResponse_IEs_t*)calloc(1, sizeof(RICsubscriptionDeleteResponse_IEs_t));
+
+  	respricreqid->id = ProtocolIE_ID_id_RICrequestID;
+  	respricreqid->criticality = 0;
+  	respricreqid->value.present = RICsubscriptionDeleteResponse_IEs__value_PR_RICrequestID;
+  	respricreqid->value.choice.RICrequestID.ricRequestorID = reqRequestorId;
+
+  	respricreqid->value.choice.RICrequestID.ricInstanceID = reqInstanceId;
+
+  	RICsubscriptionDeleteResponse_IEs_t *respfuncid =
+    		(RICsubscriptionDeleteResponse_IEs_t*)calloc(1, sizeof(RICsubscriptionDeleteResponse_IEs_t));
+  	respfuncid->id = ProtocolIE_ID_id_RANfunctionID;
+  	respfuncid->criticality = 0;
+  	respfuncid->value.present = RICsubscriptionDeleteResponse_IEs__value_PR_RANfunctionID;
+  	respfuncid->value.choice.RANfunctionID = (long)0;
+
+
+  	RICsubscriptionDeleteResponse_t *ricsubresp = 
+		(RICsubscriptionDeleteResponse_t*)calloc(1,sizeof(RICsubscriptionDeleteResponse_t));
+  	ASN_SEQUENCE_ADD(&ricsubresp->protocolIEs.list, respricreqid);
+  	ASN_SEQUENCE_ADD(&ricsubresp->protocolIEs.list, respfuncid);
+	
+	SuccessfulOutcome__value_PR pres2;
+  	pres2 = SuccessfulOutcome__value_PR_RICsubscriptionDeleteResponse;
+  	SuccessfulOutcome_t *successoutcome = (SuccessfulOutcome_t*)calloc(1, sizeof(SuccessfulOutcome_t));
+  	successoutcome->procedureCode = ProcedureCode_id_RICsubscriptionDelete;
+  	successoutcome->criticality = 0;
+  	successoutcome->value.present = pres2;
+  	successoutcome->value.choice.RICsubscriptionDeleteResponse = *ricsubresp;
+ 
+
+  	E2AP_PDU_PR pres5 = E2AP_PDU_PR_successfulOutcome;
+
+  	e2ap_pdu->present = pres5;
+  	e2ap_pdu->choice.successfulOutcome = successoutcome;
+
+  	char *error_buf = (char*)calloc(300, sizeof(char));
+  	size_t errlen;
+
+  	asn_check_constraints(&asn_DEF_E2AP_PDU, e2ap_pdu, error_buf, &errlen);
+  	printf("error length %d\n", errlen);
+  	printf("error buf %s\n", error_buf);
+
+  	printf("now printing xer of subscription delete response\n");
+  	xer_fprint(stderr, &asn_DEF_E2AP_PDU, e2ap_pdu);
+  	printf("done printing xer of subscription delete response\n");
+
+
+}
+
+
+
 
 void encoding::generate_e2apv1_subscription_response(E2AP_PDU *e2ap_pdu, E2AP_PDU *sub_req_pdu) {
 
