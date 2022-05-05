@@ -17,8 +17,9 @@
 ******************************************************************************/
 
 #include "e2sim.hpp"
-
-void callback_kpm_subscription_request(E2AP_PDU_t *pdu);
-
-void run_report_loop(long requestorId, long instanceId, long ranFunctionId, long actionId);
-
+#include <unordered_map>
+extern std::unordered_map<long, E2AP_PDU_t *> glob_map;
+void callback_kpm_subscription_request(E2AP_PDU_t *&pdu,int client_fd);
+void callback_kpm_subscription_delete_request(E2AP_PDU_t *&pdu,int client_fd);
+void free_subscription_request_resources(E2AP_PDU_t *&pdu,std:: unordered_map<long, E2AP_PDU_t *> &glob_map);
+void run_report_loop(long requestorId, long instanceId, long ranFunctionId, long actionId,int client_fd);

@@ -25,16 +25,14 @@
 #include <fstream>
 #include <vector>
 #include <sys/time.h>
-
 #include "e2sim.hpp"
 #include "e2sim_defs.h"
 #include "e2sim_sctp.hpp"
 #include "e2ap_message_handler.hpp"
 #include "encode_e2apv1.hpp"
-
 using namespace std;
 
-int client_fd = 0;
+//int client_fd = 0;
 
 std::unordered_map<long, OCTET_STRING_t*> E2Sim::getRegistered_ran_functions() {
   return ran_functions_registered;
@@ -71,16 +69,28 @@ void E2Sim::register_e2sm(long func_id, OCTET_STRING_t *ostr) {
 }
 
 
-void E2Sim::encode_and_send_sctp_data(E2AP_PDU_t* pdu)
+void E2Sim::encode_and_send_sctp_data(E2AP_PDU_t* pdu,int client_fd)
 {
   uint8_t       *buf;
   sctp_buffer_t data;
 
   int procedureCodeValue = e2ap_asn1c_get_procedureCode(pdu);
-
+  fprintf(stderr, "RIC Procedurecode in encode_and_send_sctp_data : %d \n",procedureCodeValue);
+  fprintf(stderr, "client_fd value in encode_and_send_sctp_data : %d \n",client_fd);
   data.len = e2ap_asn1c_encode_pdu(pdu, &buf);
   memcpy(data.buffer, buf, min(data.len, MAX_SCTP_BUFFER));
+  struct timeval ts_sent;
+  sctp_send_data(client_fd, data);
+  gettimeofday(&ts_sent, NULL);
 
+  if(procedureCodeValue == ProcedureCode_id_RICindication){
+
+     Time[client_fd]=ts_sent;
+      fprintf(stderr, "pushed in Time map for client_fd=%d\n",client_fd);
+
+
+    }
+/*
   if(procedureCodeValue == ProcedureCode_id_RICindication){
 
        fprintf(stderr, "RIC Indication Procedurecode : %d \n",procedureCodeValue);
@@ -92,7 +102,7 @@ void E2Sim::encode_and_send_sctp_data(E2AP_PDU_t* pdu)
        gettimeofday(&ts_sent, NULL);
 
        sctp_buffer_t recv_buf;
-   
+  
        if(sctp_receive_data(client_fd, recv_buf) > 0){
    
             gettimeofday(&ts_recv, NULL);
@@ -125,15 +135,17 @@ void E2Sim::encode_and_send_sctp_data(E2AP_PDU_t* pdu)
 
          }
     }
+   
   else{
            sctp_send_data(client_fd, data);
   }
-  
+  */
 }
 
 
 void E2Sim::wait_for_sctp_data()
 {
+  int client_fd=3;
   sctp_buffer_t recv_buf;
   if(sctp_receive_data(client_fd, recv_buf) > 0)
   {
@@ -146,6 +158,10 @@ void E2Sim::wait_for_sctp_data()
 
 void E2Sim::generate_e2apv1_subscription_response_success(E2AP_PDU *e2ap_pdu, long reqActionIdsAccepted[], long reqActionIdsRejected[], int accept_size, int reject_size, long reqRequestorId, long reqInstanceId) {
   encoding::generate_e2apv1_subscription_response_success(e2ap_pdu, reqActionIdsAccepted, reqActionIdsRejected, accept_size, reject_size, reqRequestorId, reqInstanceId);
+}
+
+void E2Sim::generate_e2apv1_subscription_delete_response_success(E2AP_PDU *e2ap_pdu, long reqRequestorId, long reqInstanceId) {
+  encoding::generate_e2apv1_subscription_delete_response_success(e2ap_pdu, reqRequestorId, reqInstanceId);
 }
 
 void E2Sim::generate_e2apv1_indication_request_parameterized(E2AP_PDU *e2ap_pdu, long requestorId, long instanceId, long ranFunctionId, long actionId, long seqNum, uint8_t *ind_header_buf, int header_length, uint8_t *ind_message_buf, int message_length) {
@@ -179,12 +195,13 @@ int E2Sim::run_loop(int argc, char* argv[], int plmnId){
   options_t ops = read_input_options(argc, argv);
 
   printf("After reading input options\n");
-
+int client_fd = 0;
   //E2 Agent will automatically restart upon sctp disconnection
-  //  int server_fd = sctp_start_server(ops.server_ip, ops.server_port);
-
+ // int server_fd = sctp_start_server(ops.server_ip, ops.server_port);  
+ printf("before starting client, client_fd value is %d\n", client_fd);
   client_fd = sctp_start_client(ops.server_ip, ops.server_port);
   E2AP_PDU_t* pdu_setup = (E2AP_PDU_t*)calloc(1,sizeof(E2AP_PDU));
+
 
   printf("After starting client\n");
   printf("client_fd value is %d\n", client_fd);
@@ -251,10 +268,14 @@ int E2Sim::run_loop(int argc, char* argv[], int plmnId){
   while(1) //constantly looking for data on SCTP interface
   {
     if(sctp_receive_data(client_fd, recv_buf) <= 0)
+    {
+	    fprintf(stderr, "client_fd in while loop  is : %d\n",client_fd);
+	    LOG_I("breaking while loop");
       break;
+    }
 
     LOG_I("[SCTP] Received new data of size %d", recv_buf.len);
-
+	fprintf(stderr, "client_fd in while loop  is : %d\n",client_fd);
     e2ap_handle_sctp_data(client_fd, recv_buf, xmlenc, this);
     if (xmlenc) xmlenc = false;
   }
