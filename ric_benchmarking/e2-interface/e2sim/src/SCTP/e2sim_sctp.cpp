@@ -233,10 +233,10 @@ int sctp_start_client(const char *server_ip_str, const int server_port)
   //--------------------------------
   //Bind before connect
   auto optval = 1;
-  if( setsockopt(client_fd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof optval) != 0 ){
-    perror("setsockopt port");
-    exit(1);
-  }
+  //if( setsockopt(client_fd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof optval) != 0 ){
+    //perror("setsockopt port");
+    //exit(1);
+  //}
 
   if( setsockopt(client_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval) != 0 ){
     perror("setsockopt addr");
@@ -300,7 +300,9 @@ int sctp_send_data(int &socket_fd, sctp_buffer_t &data)
   //fprintf(stderr,"after getting sent_len\n");
 
   if(sent_len == -1) {
-    perror("[SCTP] sctp_send_data");
+   LOG_E("[SCTP] sctp_send_data ERROR");
+	  perror("[SCTP] sctp_send_data");
+
     exit(1);
   }
 

@@ -23,7 +23,7 @@
 #include <vector>
 #include <unistd.h>
 #include <curses.h> 
-
+#include<deque>
 extern "C" {
   #include "OCUCP-PF-Container.h"
   #include "OCTET_STRING.h"
@@ -51,7 +51,6 @@ extern "C" {
 #include <nlohmann/json.hpp>
 #include <thread>
 #include <pthread.h>
-
 using json = nlohmann::json;
 
 using namespace std;
@@ -69,6 +68,9 @@ struct args {
 
 };
 
+unordered_map<long, E2AP_PDU_t *> glob_map;//will store the object of E2AP_PDU_t created while handdling the  subscription request in e2ap_handle_sctp_data() //key is ricInstanceID
+
+unordered_map<int,timeval> Time;//Global var in kpm_callbacks.cpp
 
 //int main(int argc, char* argv[]) {
 
@@ -127,7 +129,10 @@ void *initparam(void *input){
   */
   e2sim.register_e2sm(0,ranfunc_ostr);
   e2sim.register_subscription_callback(0,&callback_kpm_subscription_request);
+  e2sim.register_e2sm(1,ranfunc_ostr);
   
+  // will register the callback_kpm_subscription_delete_request in SubscriptionCallback corresponding to RANfunctionID=1
+  e2sim.register_subscription_callback(1,&callback_kpm_subscription_delete_request);
   fprintf(stderr,"ip address at run loop call:%s port:%s\n",value1->args2[1],value1->args2[2]);
   e2sim.run_loop(value1->args1,value1->args2,value1->plmnId);//(argc, argv);
 
@@ -195,7 +200,9 @@ int main(int argc, char  **argv) {
              }
 	     
      	}
+	//fprintf(stderr,"main function of e2sim ended 1\n");
    pthread_exit(NULL);
+   //fprintf(stderr,"main function of e2sim ended 2\n");
 }
 
 /*
@@ -204,7 +211,7 @@ void run_report_loop(long requestorId, long instanceId, long ranFunctionId, long
 }
 */
 
-void run_report_loop(long requestorId, long instanceId, long ranFunctionId, long actionId) {
+void run_report_loop(long requestorId, long instanceId, long ranFunctionId, long actionId,int client_fd) {
 
   //Process simulation file
 
@@ -548,7 +555,7 @@ void run_report_loop(long requestorId, long instanceId, long ranFunctionId, long
 								 instanceId, ranFunctionId,
 								 actionId, seqNum0, e2sm_header_buffer, er4.encoded, e2smbuffer2, er2.encoded);
       
-            e2sim.encode_and_send_sctp_data(pdu2);
+            e2sim.encode_and_send_sctp_data(pdu2,client_fd);
 
 	    seqNum0++;
       }	    
@@ -768,9 +775,11 @@ void run_report_loop(long requestorId, long instanceId, long ranFunctionId, long
   */
 
 }
-
-
-void callback_kpm_subscription_request(E2AP_PDU_t *sub_req_pdu) {
+/*
+//Now this function will accept the argument as Reference to pointer . 
+//In order to store the actual address of E2AP_PDU_t object in glob_map created while handling the subscription request in e2ap_handle_sctp_data()
+*/
+void callback_kpm_subscription_request(E2AP_PDU_t *&sub_req_pdu,int client_fd) {
 
   fprintf(stderr, "Calling callback_kpm_subscription_request\n");
 
@@ -810,6 +819,7 @@ void callback_kpm_subscription_request(E2AP_PDU_t *sub_req_pdu) {
     fprintf(stderr, "The next present value %d\n", pres);
 
     switch(pres) {
+	    //will now also add the sub_req_pdu in glob_map corresponding to ricInstanceID
     case RICsubscriptionRequest_IEs__value_PR_RICrequestID:
       {
 	fprintf(stderr,"in case request id\n");	
@@ -818,6 +828,9 @@ void callback_kpm_subscription_request(E2AP_PDU_t *sub_req_pdu) {
 	long instanceId = reqId.ricInstanceID;
 	fprintf(stderr, "requestorId %d\n", requestorId);
 	fprintf(stderr, "instanceId %d\n", instanceId);
+	  fprintf(stderr, "adding E2AP_PDU object in global map having ricinstance id= %d\n",instanceId);
+            glob_map[instanceId]=sub_req_pdu;//adding in map
+             fprintf(stderr, "added succesfully\n");
 	reqRequestorId = requestorId;
 	reqInstanceId = instanceId;
 
@@ -898,7 +911,7 @@ void callback_kpm_subscription_request(E2AP_PDU_t *sub_req_pdu) {
 
   encoding::generate_e2apv1_subscription_response_success(e2ap_pdu, accept_array, reject_array, accept_size, reject_size, reqRequestorId, reqInstanceId);
 
-  e2sim.encode_and_send_sctp_data(e2ap_pdu);
+  e2sim.encode_and_send_sctp_data(e2ap_pdu,client_fd);
 
   //Start thread for sending REPORT messages
 
@@ -906,8 +919,128 @@ void callback_kpm_subscription_request(E2AP_PDU_t *sub_req_pdu) {
 
   long funcId = 1;
 
-  run_report_loop(reqRequestorId, reqInstanceId, funcId, reqActionId);
+  run_report_loop(reqRequestorId, reqInstanceId, funcId, reqActionId,client_fd);
 
   //  loop_thread = std::thread(&run_report_loop);
 
 }
+
+void callback_kpm_subscription_delete_request(E2AP_PDU_t *&sub_del_req_pdu,int client_fd)
+{
+
+	fprintf(stderr, "Calling callback_kpm_subscription_delete_request\n");
+  	//Record RIC Request ID
+  	//Encode subscription delete response
+
+  	RICsubscriptionDeleteRequest_t orig_req =
+    		sub_del_req_pdu->choice.initiatingMessage->value.choice.RICsubscriptionDeleteRequest;
+
+  	RICsubscriptionDeleteResponse_IEs_t *ricreqid =
+    		(RICsubscriptionDeleteResponse_IEs_t*)calloc(1, sizeof(RICsubscriptionDeleteResponse_IEs_t));
+
+  	int count = orig_req.protocolIEs.list.count;
+  	int size = orig_req.protocolIEs.list.size;
+
+  	RICsubscriptionDeleteRequest_IEs_t **ies = (RICsubscriptionDeleteRequest_IEs_t**)orig_req.protocolIEs.list.array;
+
+  	fprintf(stderr, "count%d\n", count);
+  	fprintf(stderr, "size%d\n", size);
+
+  	RICsubscriptionDeleteRequest_IEs__value_PR pres;
+
+  	long reqRequestorId;
+  	long reqInstanceId;
+
+  	for (int i=0; i < count; i++) 
+	{
+    		RICsubscriptionDeleteRequest_IEs_t *next_ie = ies[i];
+    		pres = next_ie->value.present;
+
+    		fprintf(stderr, "The next present value %d\n", pres);
+
+    		switch(pres) 
+		{
+    			case RICsubscriptionDeleteRequest_IEs__value_PR_RICrequestID:
+      			{
+				fprintf(stderr,"in case request id\n");
+				RICrequestID_t reqId = next_ie->value.choice.RICrequestID;
+				long requestorId = reqId.ricRequestorID;
+				long instanceId = reqId.ricInstanceID;
+				fprintf(stderr, "requestorId %d\n", requestorId);
+				fprintf(stderr, "instanceId %d\n", instanceId);
+				reqRequestorId = requestorId;
+				reqInstanceId = instanceId;
+
+				break;
+      			}
+    			case RICsubscriptionDeleteRequest_IEs__value_PR_RANfunctionID:
+      			{
+				fprintf(stderr,"in case ran func id\n");
+				break;
+      			}
+	
+    			default:
+      			{
+				fprintf(stderr,"in case default\n");
+				break;
+      			}
+    		}	
+
+  	}
+
+
+
+  	fprintf(stderr, "After Processing Subscription Delete Request\n");
+
+	fprintf(stderr, "requestorId %d\n", reqRequestorId);
+	fprintf(stderr, "instanceId %d\n", reqInstanceId);
+
+
+	E2AP_PDU *e2ap_pdu = (E2AP_PDU*)calloc(1,sizeof(E2AP_PDU));
+  	encoding::generate_e2apv1_subscription_delete_response_success(e2ap_pdu, reqRequestorId, reqInstanceId);
+  	e2sim.encode_and_send_sctp_data(e2ap_pdu,client_fd);
+	fprintf(stderr, "calling free_subscription_request_resources func after sending delete response\n");
+	free_subscription_request_resources(sub_del_req_pdu, glob_map);
+
+
+}
+
+
+//will free the object of E2AP_PDU_t created while handdling the  subscription request in e2ap_handle_sctp_data()
+void free_subscription_request_resources(E2AP_PDU_t *&pdu, std::unordered_map<long, E2AP_PDU_t *> &glob_map)
+{
+
+	RICsubscriptionDeleteRequest_t orig_req =
+		pdu->choice.initiatingMessage->value.choice.RICsubscriptionDeleteRequest;
+
+
+	RICsubscriptionDeleteRequest_IEs_t **ies = (RICsubscriptionDeleteRequest_IEs_t**)orig_req.protocolIEs.list.array;
+
+
+	RICsubscriptionDeleteRequest_IEs_t *next_ie = ies[0];
+
+	RICrequestID_t reqId = next_ie->value.choice.RICrequestID;
+
+	long instanceId = reqId.ricInstanceID;
+	fprintf(stderr, "instance id of  E2AP_PDU object  =%d \n",instanceId);
+	E2AP_PDU_t* tmp=glob_map[instanceId];
+	fprintf(stderr, "before erasing E2AP_PDU object from map, size of glob_map=%d \n",glob_map.size());
+	glob_map.erase(instanceId);
+	fprintf(stderr, "after erasing E2AP_PDU object  from map, size of glob_map=%d \n",glob_map.size());   
+        if(!tmp)
+   		 {  
+	   		 fprintf(stderr,"E2AP_PDU object cannot freed, as ricinstance id =%d not present\n",instanceId);
+       			 fprintf(stderr,"nullpointer\n");
+   		 }
+	if (tmp)
+    		{  
+	   		fprintf(stderr, "deleting E2AP_PDU object from memory having instance id = %d \n",instanceId); 
+        		free(tmp);
+			fprintf(stderr,"deleted succsessfully \n");
+        
+        		tmp=NULL;
+   		 }	
+}
+
+
+
