@@ -16,6 +16,23 @@
       "message": "Push the code changes again, but the ORAN Job builder didn\u0027t executed this time also.",
       "revId": "e8569fe27d56656a1b9b8048e3410c6c314ff84b",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8df42853_ecf690ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001476
+      },
+      "writtenOn": "2022-05-09T10:05:17Z",
+      "side": 1,
+      "message": "I see whenever any make changes to it/test/ric_benchmarking /e2-interface  directory. oran job builder is not executing.\nFor an instance see the commit id I299822fc8ce00d146068709a983238858c5e7892\n\nBut for any other directory except (it/test/ric_benchmarking /e2-interface)oran job builder is wroking fine.\nSee commit id Icfe7e721e7968fbcfbe52ceebbd81e03350a085b.\n\nI think jjb config needs to be updated for this.",
+      "revId": "e8569fe27d56656a1b9b8048e3410c6c314ff84b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
