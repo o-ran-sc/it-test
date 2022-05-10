@@ -16,6 +16,23 @@
       "message": "I\u0027d still like to see less duplication in the two test cases, but it sounds like that\u0027ll be difficult to achieve, so I\u0027m ok with this merging.",
       "revId": "aa2ab0104a1271f523576b5e0bfbd566ebdce409",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "708133d3_41ad6741",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000125
+      },
+      "writtenOn": "2022-05-10T09:24:55Z",
+      "side": 1,
+      "message": "recheck",
+      "revId": "aa2ab0104a1271f523576b5e0bfbd566ebdce409",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
