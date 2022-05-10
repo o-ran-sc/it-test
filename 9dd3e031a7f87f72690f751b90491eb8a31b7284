@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7f63eba_5a683c60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000125
+      },
+      "writtenOn": "2022-05-10T21:51:54Z",
+      "side": 1,
+      "message": "Some of the review comments were missed, pls change the commit message to the following format. Note the Issue-ID goes to the commit footer and not in the subject line. \n\n\nex: \n\"\n\nFix: Implemented RIC subscription delete functionality in e2sim\n\nAnd fixed the bug related to socket creation and reuse of the port address.\nbug id is :-(SIM-95).\n\nIssue-ID: RIC-853\nSigned-off-by: sandeepindia \u003ckumar.sandeep3@hcl.com\u003e\nChange-Id: I26f2d9d81cdff07b72bfc99c0dfa3cf456e4920f\n\n\n\"\n\nRef:\nhttps://docs.releng.linuxfoundation.org/en/latest/best-practices.html",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 52
+      },
+      "revId": "9dd3e031a7f87f72690f751b90491eb8a31b7284",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
