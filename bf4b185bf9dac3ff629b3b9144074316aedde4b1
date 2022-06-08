@@ -16,6 +16,23 @@
       "message": "Adding the reviewers",
       "revId": "bf4b185bf9dac3ff629b3b9144074316aedde4b1",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "befe3dcf_c6ca3d8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000050
+      },
+      "writtenOn": "2022-06-08T15:44:07Z",
+      "side": 1,
+      "message": "Why did ORAN Jobbuilder fail?",
+      "revId": "bf4b185bf9dac3ff629b3b9144074316aedde4b1",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
