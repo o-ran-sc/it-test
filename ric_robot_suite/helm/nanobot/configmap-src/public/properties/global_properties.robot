@@ -138,3 +138,8 @@ ${GLOBAL_XAPP_DEPLOYMENT}             {{ printf "%s-%s" ($xappNS) .Values.ric.ro
 ${GLOBAL_XAPPKPIMON_DEPLOYMENT}       {{ printf "%s"  .Values.ric.robot.environment.xapp }}
 ${Global_RAN_NAMESPACE}               {{ .Values.ric.robot.environment.gNodeB.ran_namespace }}
 ${Global_RAN_DEPLOYMENT}              {{ .Values.ric.robot.environment.gNodeB.ran_deployment }}
+#
+${GLOBAL_CLUSTER_IP}        {{ .Values.ric.robot.environment.cluster.cluster.ip }}
+${Global_Username}          {{ .Values.ric.robot.environment.cluster.username }}
+${Global_Password}          {{ .Values.ric.robot.environment.cluster.password }}
+

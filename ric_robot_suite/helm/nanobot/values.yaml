@@ -55,8 +55,8 @@ ric:
   releaseName: r0
   components:
    a1mediator:
-    xappName: robot-xapp
-    policyID: "6266268"
+    xappName: hwxapp
+    policyID: "1"
    appmgr:
     user: test
     password: test
@@ -175,8 +175,8 @@ ric:
     # is initiated.
     # Change the Xapp based on your requirement.
     #xapp: xappkpimon
-    xapp: bouncer-xapp
-    duplicate_xapp: ricxapp-bouncer1-xapp
+    xapp: hwxapp
+    #duplicate_xapp: ricxapp-hw1-xapp
     gNodeB:
      # the details of a test gNodeB, for [E/X]2 tests.
      # This can be either a real gnodeb or a simulator,
@@ -194,4 +194,8 @@ ric:
     dashboard:
      address: 10.1.0.1
      port: 31080
+    cluster:
+    cluster_ip: 192.168.122.40
+    username: ubuntu
+    password: ubuntu 
 
