@@ -173,6 +173,29 @@ Note: Only bouncer xapps to E2sim tests possible.
 
 ===============================================================================================================================================
 
+Follow the steps for a1mediator testing in nanobot using HWXAPP:
+---------------------------------------------------------------
+
+For running the almediator testsuite following changes need to be made 
+
+1. Clone the hwxapp repo using git clone git clone "https://gerrit.o-ran-sc.org/r/ric-app/hw"
+2. Edit the following in xapp.cc file under the path hw/src/xapp.cc.
+       Add sleep timings after the line set_rnib_gnblist();
+            eg: sleep(70);
+        Chnage the ricActionType as 0 eg: set_ricActionType(0)
+        Change the ranFunctionId as 0 eg: set_ranFunctionID(0)
+3. Build the hwxapp image after making the above changes 
+
+Once the image is built 
+1. Checkout the it/test repo
+2. Modify the below changes in values.yaml file under the path ric_robot_suite/helm/nanobot/values.yaml.
+        In components under a1mediator change the following 
+                xappName: hwxapp
+                policyID: "1"
+        In environment change the xapp name as hwxapp eg: xapp: hwxapp
+        Add the testsuite name "a1mediator"
+
+===============================================================================================================================================
 Follow the below steps for nanobot testing.
 USING THE CHART
 To install the chart (which creates and runs a single Kubernetes job),

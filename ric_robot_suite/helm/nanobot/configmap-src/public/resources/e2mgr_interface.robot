@@ -51,10 +51,16 @@ Run E2Mgr Get NodeB Request
  
 Run E2Mgr Get All NodeBs Request 
      [Documentation]  Runs E2Mgr Get All NodeBs Request 
-     ${data_path} =  Set Variable           ${E2MGR_BASE_PATH}/ids 
+     ${data_path} =  Set Variable           ${E2MGR_BASE_PATH}/states 
      ${resp} =       Run E2Mgr GET Request  ${data_path} 
      [Return]        ${resp} 
- 
+
+Run E2Mgr Get All E2T Request
+     [Documentation]  Runs E2Mgr Get All E2T Request  
+     ${data_path} =  Set Variable           v1/e2t/list
+     ${resp} =       Run E2Mgr GET Request  ${data_path}
+     [Return]        ${resp}
+
 Run E2Mgr Setup NodeB X2 
      [documentation]  Setup X2 NodeB via E2 Manager 
      [Arguments]      ${ran_name}  ${ran_ip}  ${ran_port} 
