@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51cc8f05_a8fac643",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001476
+      },
+      "writtenOn": "2022-06-27T09:07:30Z",
+      "side": 1,
+      "message": "Hi Matti/Thoralf Kindy review the code ",
+      "revId": "04944580365dc4749825b79d17ade5205cdaff58",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
