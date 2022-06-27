@@ -193,7 +193,7 @@ Once the image is built
                 xappName: hwxapp
                 policyID: "1"
         In environment change the xapp name as hwxapp eg: xapp: hwxapp
-        Add the testsuite name "a1mediator"
+        Add the testsuite name "a1mediator"        
 
 ===============================================================================================================================================
 Follow the below steps for nanobot testing.
