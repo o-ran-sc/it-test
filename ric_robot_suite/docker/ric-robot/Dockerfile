@@ -55,7 +55,7 @@ RUN apt-get update \
             python-dev \
             python-setuptools \
             python3-setuptools \ 
-            python-redis \
+            python3-redis \
             unzip \
             vim   \
             x11-utils \
