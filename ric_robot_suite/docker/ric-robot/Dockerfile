@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM ubuntu:18.04
+FROM ubuntu:18.04  
 ## Be careful of Windows newlines
 
 MAINTAINER "RIC"
