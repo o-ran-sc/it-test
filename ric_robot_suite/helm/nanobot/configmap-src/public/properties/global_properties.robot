@@ -144,3 +144,4 @@ ${Global_Username}          {{ .Values.ric.robot.environment.cluster.username }}
 ${Global_Password}          {{ .Values.ric.robot.environment.cluster.password }}
 
 
+
