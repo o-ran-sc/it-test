@@ -139,6 +139,7 @@ ric:
   # Enable if you want to execute Subscription Duplication Scenarios. Check README file for the same.
   #- Subscription_Duplication_Scen1
   #- Subscription_Duplication_Scen2
+  #- subscription_delete_using_RestAPI 
   #- kpimonxapp
   tags:
    enabled:

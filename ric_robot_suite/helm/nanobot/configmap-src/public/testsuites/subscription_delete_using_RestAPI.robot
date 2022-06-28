@@ -256,3 +256,5 @@ Undeploy Xapp
 Undeploy E2sim
     [Tags]  Functional
     Keyword Undeploy E2SIM
+
+
