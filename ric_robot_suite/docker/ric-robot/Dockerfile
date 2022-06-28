@@ -54,6 +54,7 @@ RUN apt-get update \
             python3-pip \
             python-dev \
             python-setuptools \
+            python3-setuptools \ 
             python-redis \
             unzip \
             vim   \

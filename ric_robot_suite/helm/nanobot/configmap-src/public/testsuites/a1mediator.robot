@@ -234,7 +234,7 @@ RetriveLog From XAPP
 
 Verifying Subscription Request From Xapp
    [Tags]  etetests  xapptests
-   Sleep        11s
+   Sleep        10s
    Log To Console      "Sending Subscription Message from Xapp"
    Should Match Regexp   ${stringLog}    Transmitted subscription request
 
