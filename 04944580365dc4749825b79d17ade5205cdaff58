@@ -33,6 +33,23 @@
       "message": "I have properly formatted the commit message.",
       "revId": "04944580365dc4749825b79d17ade5205cdaff58",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4eb49b5_6271ced3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000108
+      },
+      "writtenOn": "2022-07-14T13:08:13Z",
+      "side": 1,
+      "message": "ok from my side, but eventually (in G) we need to replace this with the REST-based subscritpion interface (replacing RMR) as per https://jira.o-ran-sc.org/browse/RIC-375",
+      "revId": "04944580365dc4749825b79d17ade5205cdaff58",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
