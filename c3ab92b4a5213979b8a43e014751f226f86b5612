@@ -16,6 +16,29 @@
       "message": "Matti and Dave, I have a few AT\u0026T folks added per the 09/21/2021 LF input I received from Thoralf. Please see whether we still need to keep them (the first 3 of Bharath, Zhe and Harry). Please review and advise. Thanks!",
       "revId": "c3ab92b4a5213979b8a43e014751f226f86b5612",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47398e9b_2a29b9c1",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2022-07-20T18:26:14Z",
+      "side": 1,
+      "message": "Neither Bharath nor Felix is with AT\u0026T anymore, so I think they could be removed.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 34
+      },
+      "revId": "c3ab92b4a5213979b8a43e014751f226f86b5612",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
