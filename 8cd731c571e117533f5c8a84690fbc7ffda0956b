@@ -16,6 +16,23 @@
       "message": "Dave, would you please +2 and merge? Thanks!",
       "revId": "8cd731c571e117533f5c8a84690fbc7ffda0956b",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f99335ba_f74dcec1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2022-07-28T20:42:07Z",
+      "side": 1,
+      "message": "ok to merge, i think.",
+      "revId": "8cd731c571e117533f5c8a84690fbc7ffda0956b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
