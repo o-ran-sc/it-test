@@ -33,6 +33,23 @@
       "message": "Kindly, provide the +2 for this request. Thanks",
       "revId": "e6b0c23eb8054697338dabf1d84e54fc6582fc9a",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4522975a_ab9f4eb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2022-08-16T13:17:13Z",
+      "side": 1,
+      "message": "Some of the changes look like just white spaces -- are these intended changes?",
+      "revId": "e6b0c23eb8054697338dabf1d84e54fc6582fc9a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
