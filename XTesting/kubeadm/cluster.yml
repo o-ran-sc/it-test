@@ -1,0 +1,132 @@
+- hosts: all
+  become: true
+  tasks:
+  - name: Install packages that allow apt to be used over HTTPS
+    apt:
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+
+  - name: Add the apt signing key for Docker
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add the apt repository for the stable Docker version
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+      state: present
+
+  - name: Install Docker and its dependencies
+    apt:
+      name: "{{ packages }}"
+      state: present
+      update_cache: yes
+    vars:
+      packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+
+  - name: Ensure user group exists
+    group:
+      name: "{{ ansible_user }}"
+
+  - name: Add user to the docker group
+    user:
+      name: "{{ ansible_user }}"
+      groups: docker,{{ ansible_user }}
+      append: yes
+
+  - name: Remove swapfile from /etc/fstab
+    mount:
+      name: "{{ item }}"
+      fstype: swap
+      state: absent
+    with_items:
+      - swap
+      - none
+
+  - name: Disable swap
+    command: swapoff -a
+    when: ansible_swaptotal_mb > 0
+
+  - name: Add the apt signing key for Kubernetes
+    apt_key:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      state: present
+
+  - name: Add the apt repository for Kubernetes
+    apt_repository:
+      repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+      state: present
+      filename: kubernetes.list
+
+  - name: Install Kubernetes binaries
+    apt:
+      name: "{{ packages }}"
+      update_cache: yes
+    vars:
+      packages:
+        - kubelet=1.19.16-00
+        - kubeadm=1.19.16-00
+        - kubectl=1.19.16-00
+
+  - name: Restart kubelet
+    service:
+      name: kubelet
+      daemon_reload: yes
+      state: restarted
+
+  - name: Making systemd as Cgroup Driver
+    copy:
+      src: daemon.json
+      dest: /etc/docker/daemon.json
+
+  - name: Restaring Docker...
+    service:
+      name: docker
+      state: restarted
+
+  - name: update sysctl param
+    copy:
+      src: k8s.conf
+      dest: /etc/sysctl.d/k8s.conf
+      owner: root
+      group: root
+
+  - name: System reload
+    shell: sysctl --system
+
+  - name: Initialize the Kubernetes cluster
+    become: true
+    command: kubeadm init --pod-network-cidr=10.244.0.0/16
+
+  - name: Setup kubeconfig
+    command: "{{ item }}"
+    with_items:
+     - mkdir -p "$HOME/.kube"
+     - sudo cp /etc/kubernetes/admin.conf "$HOME/.kube/config"
+     - sudo chown "{{ ansible_user }}:{{ ansible_user }}" "$HOME/.kube/config"
+
+  - name: Deploy Flannel
+    become: true
+    command: kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+
+  - name: Remove taints from master node
+    become: true
+    command: kubectl taint nodes --all node-role.kubernetes.io/master-
+
+  - name: Create Tiller service account
+    become: true
+    command: kubectl -n kube-system create serviceaccount tiller
+
+  - name: Setup Tiller ClusterBinding
+    become: true
+    command: kubectl create clusterrolebinding tiller --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
