@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ffe9aac_9467ec48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2022-11-11T00:07:58Z",
+      "side": 1,
+      "message": "Dave and Harry, this is James, the INT PTL. Lately I worked with Sridhar, the Linux Foundation TPM to OSC, to promote the use of the XTesting framework, currently used by other open source communities like ONAP, Anuket, to be the automated testing framework for OSC. We implemented a work flow to demonstrate how to use XTesting to automate the deployment of the OSC RIC platform followed with a health check. Now we\u0027d like to commit the corresponding code to the it/test repo. In the future, further test cases for each OSC projects can follow suite, and checking in either into their own repo or the it/test repo as a centralized place. So please kindly review and approve. Thanks! ",
+      "revId": "1951269eeab2abe2fa8b3816e08530c9ba69bfad",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
