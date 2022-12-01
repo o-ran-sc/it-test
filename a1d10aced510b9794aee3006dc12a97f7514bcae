@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2deab7d4_be10ae3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2022-12-01T23:40:37Z",
+      "side": 1,
+      "message": "Harry, sorry I have to revert the change back to the INFO.yaml file as the O-RAN build doesn\u0027t allow the changes to the INFO.yaml file to be mixed with other changes and the verification build failed for the previous patch, Thanks!",
+      "revId": "a1d10aced510b9794aee3006dc12a97f7514bcae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
