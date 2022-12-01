@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac9c5ddb_fe2f4891",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2022-12-01T23:33:33Z",
+      "side": 1,
+      "message": "Harry, per your request I\u0027ve updated the INFO.yaml file to remove you and Dave. At the same time I\u0027ve added my colleagues Xiaohua Zhang and Weisen Pan as committers who are also committers to the it/dep repo. Thanks a lot!",
+      "revId": "928f24df4fe47d1553f856d8cffa87e03dd1b2fe",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
