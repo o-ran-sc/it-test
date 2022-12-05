@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6dafc42_5be6739c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2022-12-05T18:03:13Z",
+      "side": 1,
+      "message": "Per your request, you and Dave are removed from the INFO.yaml and adding Xiaohua and Weisen, who are also committers to the it/dep repo.",
+      "revId": "62ecc42ef2c0dc3b98957a9c6628a339c7736ede",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
