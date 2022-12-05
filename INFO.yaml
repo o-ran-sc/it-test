@@ -34,16 +34,16 @@ repositories:
     - 'it/test'
 committers:
     - <<: *it-test_ptl
-    - name: 'Harry Tran'
-      email: 'tuyen@research.att.com'
-      company: 'AT&T Labs-Research'
-      id: 'harrytran'
-      timezone: 'America/New_York'
-    - name: 'Dave Korman'
-      email: 'davek@research.att.com'
-      company: 'AT&T Labs-Research'
-      id: 'multics'
-      timezone: 'America/New_York'
+    - name: 'Xiaohua Zhang'
+      email: 'zhangxiaohua@chinamobile.com'
+      company: 'China Mobile'
+      id: 'Xiaohua626'
+      timezone: 'China/Beijing'
+    - name: 'Weisen Pan'
+      email: 'weisenpan@chinamobile.com'
+      company: 'China Mobile Technology (USA) Inc.'
+      id: 'wilson09132'
+      timezone: 'America/Los_Angeles'
 tsc:
     # yamllint disable rule:line-length
     approval: 'https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=47748896#id-2021Q4(Oct,Nov,Dec)-20211020'
