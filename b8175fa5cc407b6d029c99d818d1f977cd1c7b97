@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2f2a6df_ecee920c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2023-03-16T18:00:30Z",
+      "side": 1,
+      "message": "Add David Liu from Wind River to be a committer. Please review.",
+      "revId": "b8175fa5cc407b6d029c99d818d1f977cd1c7b97",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
