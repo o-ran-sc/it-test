@@ -44,6 +44,11 @@ committers:
       company: 'China Mobile Technology (USA) Inc.'
       id: 'wilson09132'
       timezone: 'America/Los_Angeles'
+    - name: 'David Liu'
+      email: 'david.liu@windriver.com'
+      company: 'Wind River China Beijing Office.'
+      id: 'dliu5'
+      timezone: 'China/Bejing(UTC+08:00)’
 tsc:
     # yamllint disable rule:line-length
     approval: 'https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=47748896#id-2021Q4(Oct,Nov,Dec)-20211020'
