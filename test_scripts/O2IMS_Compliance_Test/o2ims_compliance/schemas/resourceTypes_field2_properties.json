@@ -1,0 +1,22 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "resourceTypeId": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "alarmDictionary": {
+                "type": ["null", "object"]
+            }
+        },
+        "required": [
+            "name",
+            "resourceTypeId"
+        ]
+    },
+    "examples": []
+}

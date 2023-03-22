@@ -1,0 +1,47 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "resourceTypeId": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "vendor": {
+                "type": "string"
+            },
+            "version": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "model": {
+                "type": "string"
+            },
+            "alarmDictionary": {
+                "type": ["null", "object"]
+            },
+            "resourceKind": {
+                "type": "string"
+            },
+            "resourceClass": {
+                "type": "string"
+            },
+            "extensions": {
+                "type": "object"
+            }
+        },
+        "required": [
+            "description",
+            "name",
+            "resourceTypeId",
+            "vendor",
+            "version",
+            "model"
+        ]
+    },
+    "examples": []
+}

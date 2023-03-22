@@ -1,0 +1,29 @@
+{
+    "type": "object",
+    "properties": {
+        "detail": {
+            "type": "string",
+            "default": ""
+        },
+        "instance": {
+            "type": "array",
+            "default": []
+        },
+        "status": {
+            "type": "integer",
+            "default": 400
+        },
+        "title": {
+            "type": "string",
+            "default": "Bad Request"
+        },
+        "type": {
+            "type": "string",
+            "default": "/o2ims-infrastructureMonitoring/v1/alarmSubscriptions"
+        }
+    },
+    "required": [
+        "detail",
+        "status"
+    ]
+}

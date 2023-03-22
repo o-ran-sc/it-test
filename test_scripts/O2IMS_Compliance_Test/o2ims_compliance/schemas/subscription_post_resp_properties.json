@@ -1,0 +1,12 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "type": "string",
+            "default": "6367384a-d9cf-43e3-8b18-2ffe31ca07b6"
+        }
+    },
+    "required": [
+        "subscriptionId"
+    ]
+}

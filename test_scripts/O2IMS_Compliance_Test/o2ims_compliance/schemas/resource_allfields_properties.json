@@ -1,0 +1,54 @@
+{
+    "type": "object",
+    "properties": {
+        "resourceId": {
+            "type": "string",
+            "default": "016977ee-c0c3-4e5d-9e53-2bf1d6448aa5"
+        },
+        "resourceTypeId": {
+            "type": "string",
+            "default": "a75dab11-702f-3abd-a93c-47c53ca60295"
+        },
+        "resourcePoolId": {
+            "type": "string",
+            "default": "ce2eec13-24b0-4cca-aa54-548be6cc985b"
+        },
+        "globalAssetId": {
+            "type": "string",
+            "default": ""
+        },
+        "parentId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "description": {
+            "type": "string",
+            "default": ""
+        },
+        "extensions": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "default": null
+        },
+        "elements": {
+            "type": [
+                "null",
+                "array"
+            ],
+            "default": null
+        }
+    },
+    "required": [
+        "description",
+        "elements",
+        "extensions",
+        "globalAssetId",
+        "resourceId",
+        "resourcePoolId",
+        "resourceTypeId"
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "type": "object",
+    "properties": {
+        "resourcePoolId": {
+            "type": "string",
+            "default": "ce2eec13-24b0-4cca-aa54-548be6cc985b"
+        },
+        "name": {
+            "type": "string",
+            "default": "5ffd1c7f-2af7-4dd4-8519-4cab54c561ef"
+        },
+        "globalLocationId": {
+            "type": "string",
+            "default": "ce2eec13-24b0-4cca-aa54-548be6cc985b"
+        },
+        "location": {
+            "type": "string",
+            "default": "location"
+        },
+        "description": {
+            "type": "string",
+            "default": "A Resource Pool"
+        },
+        "oCloudId": {
+            "type": "string",
+            "default": "oCloudId"
+        },
+        "resources": {
+            "type": "array",
+            "default": []
+        },
+        "extensions": {
+            "type": "null",
+            "default": null
+        }
+    },
+    "required": [
+        "description",
+        "globalLocationId",
+        "name",
+        "resourcePoolId",
+        "oCloudId"
+    ]
+}

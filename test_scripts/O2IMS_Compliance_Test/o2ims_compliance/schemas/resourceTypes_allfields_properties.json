@@ -1,0 +1,127 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "resourceTypeId": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "vendor": {
+                "type": "string"
+            },
+            "model": {
+                "type": "string"
+            },
+            "version": {
+                "type": "string"
+            },
+            "alarmDictionary": {
+                "type": ["null", "object"],
+                "properties": {
+                    "alarmDictionarySchemaVersion": {
+                        "type": "string"
+                    },
+                    "alarmDictionaryVersion": {
+                        "type": "string"
+                    },
+                    "entityType": {
+                        "type": "string"
+                    },
+                    "vendor": {
+                        "type": "string"
+                    },
+                    "managementInterfaceId": {
+                        "type": "string"
+                    },
+                    "pkNotificationField": {
+                        "type": "string"
+                    },
+                    "alarmDefinition": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "alarmDefinitionId": {
+                                    "type": "string"
+                                },
+                                "alarmName": {
+                                    "type": "string"
+                                },
+                                "alarmLastChange": {
+                                    "type": "string"
+                                },
+                                "alarmChangeType": {
+                                    "type": "string"
+                                },
+                                "alarmDescription": {
+                                    "type": "string"
+                                },
+                                "proposedRepairActions": {
+                                    "type": "string"
+                                },
+                                "clearingType": {
+                                    "type": "string"
+                                },
+                                "managementInterfaceId": {
+                                    "type": "string"
+                                },
+                                "pkNotificationField": {
+                                    "type": "string"
+                                },
+                                "alarmAdditionalFields": {
+                                    "type": [
+                                        "null",
+                                        "object"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "alarmDefinitionId",
+                                "alarmName",
+                                "alarmLastChange",
+                                "alarmChangeType",
+                                "alarmDescription",
+                                "proposedRepairActions",
+                                "clearingType",
+                                "managementInterfaceId",
+                                "pkNotificationField",
+                                "alarmAdditionalFields"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "alarmDictionaryVersion",
+                    "alarmDictionarySchemaVersion",
+                    "entityType",
+                    "vendor",
+                    "managementInterfaceId",
+                    "pkNotificationField",
+                    "alarmDefinition"
+                ]
+            },
+            "extensions": {
+                "type": [
+                    "null",
+                    "object"
+                ]
+            }
+        },
+        "required": [
+            "alarmDictionary",
+            "description",
+            "extensions",
+            "model",
+            "name",
+            "resourceTypeId",
+            "vendor",
+            "version"
+        ]
+    }
+}
