@@ -1,0 +1,19 @@
+{
+    "body": {
+        "type": "object",
+        "properties": {
+            "callback": {
+                "type": "string"
+            },
+            "consumerSubscriptionId": {
+                "type": "string"
+            },
+            "filter": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "callback"
+        ]
+    }
+}

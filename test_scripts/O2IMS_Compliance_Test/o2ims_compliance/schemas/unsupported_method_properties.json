@@ -1,0 +1,33 @@
+{
+    "type": "object",
+    "properties": {
+        "detail": {
+            "type": "string",
+            "default": ""
+        },
+        "instance": {
+            "type": "array",
+            "default": []
+        },
+        "status": {
+            "type": "integer",
+            "default": 405
+        },
+        "title": {
+            "type": "string",
+            "default": ""
+        },
+        "type": {
+            "type": "string",
+            "default": ""
+        },
+        "message": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "required": [
+        "detail",
+        "status"
+    ]
+}

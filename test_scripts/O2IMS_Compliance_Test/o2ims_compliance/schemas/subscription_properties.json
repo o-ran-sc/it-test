@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "type": "string"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "consumerSubscriptionId": {
+            "type": "string"
+        },
+        "filter": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "callback",
+        "subscriptionId"
+    ]
+}

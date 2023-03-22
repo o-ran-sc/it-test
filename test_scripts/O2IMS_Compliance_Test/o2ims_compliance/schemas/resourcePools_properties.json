@@ -1,0 +1,42 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "resourcePoolId": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "globalLocationId": {
+                "type": "string"
+            },
+            "location": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "oCloudId": {
+                "type": "string",
+                "default": "oCloudId"
+            },
+            "resources": {
+                "type": "array",
+                "default": []
+            },
+            "extensions": {
+                "type": "null",
+                "default": null
+            }
+        },
+        "required": [
+            "description",
+            "globalLocationId",
+            "name",
+            "resourcePoolId",
+            "oCloudId"
+        ]
+    }
+}
