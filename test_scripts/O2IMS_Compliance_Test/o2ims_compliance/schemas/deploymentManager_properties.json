@@ -1,0 +1,39 @@
+{
+    "type": "object",
+    "properties": {
+        "deploymentManagerId": {
+            "type": "string",
+            "default": "a6f48e28-0c50-330c-934f-2c355bdaed98"
+        },
+        "name": {
+            "type": "string",
+            "default": ""
+        },
+        "description": {
+            "type": "string",
+            "default": ""
+        },
+        "oCloudId": {
+            "type": "string",
+            "default": ""
+        },
+        "serviceUri": {
+            "type": "string",
+            "default": ""
+        },
+        "extensions": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "default": null
+        }
+    },
+    "required": [
+        "deploymentManagerId",
+        "description",
+        "name",
+        "oCloudId",
+        "serviceUri"
+    ]
+}
