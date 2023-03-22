@@ -1,0 +1,52 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "resourceId": {
+                "type": "string"
+            },
+            "resourceTypeId": {
+                "type": "string"
+            },
+            "resourcePoolId": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "parentId": {
+                "type": [
+                    "null",
+                    "string"
+                ]
+            },
+            "description": {
+                "type": "string"
+            },
+            "globalAssetId": {
+                "type": "string"
+            },
+            "extensions": {
+                "type": [
+                    "null",
+                    "object"
+                ],
+                "default": null
+            },
+            "elements": {
+                "type": [
+                    "null",
+                    "array"
+                ],
+                "default": null
+            }
+        },
+        "required": [
+            "description",
+            "resourceId",
+            "resourcePoolId",
+            "resourceTypeId"
+        ]
+    }
+}

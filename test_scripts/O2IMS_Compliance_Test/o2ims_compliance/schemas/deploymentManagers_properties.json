@@ -1,0 +1,53 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "deploymentManagerId": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "deploymentManagementServiceEndpoint": {
+                "type": "string"
+            },
+            "supportedLocations": {
+                "type": "string"
+            },
+            "capabilities": {
+                "type": "string"
+            },
+            "capacity": {
+                "type": "string"
+            },
+            "profileSupportList": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "oCloudId": {
+                "type": "string"
+            },
+            "serviceUri": {
+                "type": "string"
+            },
+            "extensions": {
+                "type": "null",
+                "default": ""
+            }
+        },
+        "required": [
+            "deploymentManagerId",
+            "description",
+            "name",
+            "profileSupportList",
+            "oCloudId",
+            "serviceUri"
+        ]
+    }
+}

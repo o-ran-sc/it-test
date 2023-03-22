@@ -1,0 +1,67 @@
+{
+    "type": "object",
+    "properties": {
+        "alarmEventRecordId": {
+            "type": "string"
+        },
+        "resourceTypeId": {
+            "type": "string"
+        },
+        "resourceTypeID": {
+            "type": "string"
+        },
+        "resourceId": {
+            "type": "string"
+        },
+        "resourceID": {
+            "type": "string"
+        },
+        "alarmDefinitionId": {
+            "type": "string"
+        },
+        "alarmDefinitionID": {
+            "type": "string"
+        },
+        "probableCauseId": {
+            "type": "string"
+        },
+        "probableCauseID": {
+            "type": "string"
+        },
+        "alarmRaisedTime": {
+            "type": "string"
+        },
+        "alarmChangedTime": {
+            "type": "string"
+        },
+        "alarmAcknowledgeTime": {
+            "type": "string"
+        },
+        "alarmAcknowledged": {
+            "type": "boolean"
+        },
+        "perceivedSeverity": {
+            "type": "string"
+        },
+        "extensions": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "default": null
+        }
+    },
+    "required": [
+        "alarmEventRecordId",
+        "resourceTypeID",
+        "resourceID",
+        "alarmDefinitionID",
+        "probableCauseID",
+        "alarmRaisedTime",
+        "alarmChangedTime",
+        "alarmAcknowledgeTime",
+        "alarmAcknowledged",
+        "perceivedSeverity",
+        "extensions"
+    ]
+}

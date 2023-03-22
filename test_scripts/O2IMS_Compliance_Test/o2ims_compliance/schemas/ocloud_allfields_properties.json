@@ -1,0 +1,37 @@
+{
+    "type": "object",
+    "properties": {
+        "oCloudId": {
+            "type": "string",
+            "default": "ce2eec13-24b0-4cca-aa54-548be6cc985b"
+        },
+        "globalcloudId": {
+            "type": "string",
+            "default": "3F20D850-AF4F-A84F-FB5A-0AD585410361"
+        },
+        "name": {
+            "type": "string",
+            "default": "5ffd1c7f-2af7-4dd4-8519-4cab54c561ef"
+        },
+        "description": {
+            "type": "string",
+            "default": "An ocloud"
+        },
+        "serviceUri": {
+            "type": "string",
+            "default": "http://128.224.115.23:30205"
+        },
+        "extensions": {
+            "type": "null",
+            "default": null
+        }
+    },
+    "required": [
+        "description",
+        "extensions",
+        "globalcloudId",
+        "name",
+        "oCloudId",
+        "serviceUri"
+    ]
+}
