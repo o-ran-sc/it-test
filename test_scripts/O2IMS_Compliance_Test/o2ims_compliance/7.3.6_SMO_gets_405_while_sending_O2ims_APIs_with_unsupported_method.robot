@@ -90,7 +90,7 @@ s1, Operate resourceTypes with unsupported method
 #     [documentation]  This test case verifies Operate resourcePool with unsupported method
 #     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS     ORAN_O2IMS_Unsupported_Method
 
-s5, Operate Ocloud with unsupported method
+s2, Operate Ocloud with unsupported method
     [documentation]  This test case verifies Operate Ocloud with unsupported method
     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS     ORAN_O2IMS_Unsupported_Method
 

@@ -1,6 +1,12 @@
 #!/bin/bash
 # $1 mocker server host
 # $2 mocker server port
+
+if [ "$#" -ne 2 ]; then
+    echo "need 2 arguments"
+    exit 1
+fi
+
 export mockserver_host=$1
 export mockserver_port=$2
 export SMO_ENDPOINT="https://${mockserver_host}:${mockserver_port}/mockserver"
