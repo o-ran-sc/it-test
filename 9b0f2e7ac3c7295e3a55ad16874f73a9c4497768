@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0b80d14_42265c5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2023-04-02T04:48:59Z",
+      "side": 1,
+      "message": "Update to use helm 3.5.4 instead of the previous helm 2.17.0 for RIC installation, to be consistent with the current usage. With helm 3 \"helm init\" is no longer needed. Also remove the un-used tools like kustomize, eksctl, awscli, aws-iam-authenticator and kubeseal.",
+      "revId": "9b0f2e7ac3c7295e3a55ad16874f73a9c4497768",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
