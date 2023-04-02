@@ -1,8 +1,6 @@
 #!/bin/bash
 set -x
 
-# initiate the tiller
-helm init --service-account tiller
 git clone "https://gerrit.o-ran-sc.org/r/ric-plt/ric-dep"
 
 export VERIFY_CHECKSUM=false
