@@ -16,6 +16,23 @@
       "message": "Thank you for review James.",
       "revId": "f537c51d6d61ff59948c4afedf96d617c8ce2102",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34eee245_4ea63d0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000109
+      },
+      "writtenOn": "2023-04-10T02:30:06Z",
+      "side": 1,
+      "message": "We went through the code offline, and checked the result. From code perspective, it is all good for me.\nA suggest, need a simple guide for the user about how to input the parameters in test_config.yaml. If it could be aligned with INF/O2, it will be better.",
+      "revId": "f537c51d6d61ff59948c4afedf96d617c8ce2102",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
