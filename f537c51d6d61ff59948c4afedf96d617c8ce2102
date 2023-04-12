@@ -33,6 +33,24 @@
       "message": "We went through the code offline, and checked the result. From code perspective, it is all good for me.\nA suggest, need a simple guide for the user about how to input the parameters in test_config.yaml. If it could be aligned with INF/O2, it will be better.",
       "revId": "f537c51d6d61ff59948c4afedf96d617c8ce2102",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98c92a2e_0cfe396d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001963
+      },
+      "writtenOn": "2023-04-12T02:36:49Z",
+      "side": 1,
+      "message": "Yes, add the simple user guide with INF/O2 reference guide in readme, please help review, thanks.",
+      "parentUuid": "34eee245_4ea63d0d",
+      "revId": "f537c51d6d61ff59948c4afedf96d617c8ce2102",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
