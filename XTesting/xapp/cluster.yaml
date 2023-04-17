@@ -1,0 +1,6 @@
+- hosts: all
+  become: true
+  tasks:
+  - name: install xApp
+    become: true
+    command: sh /root/deploy.sh

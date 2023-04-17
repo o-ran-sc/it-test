@@ -86,5 +86,16 @@ sudo docker run -ti --rm -w /apps -v ~/.kube:/root/.kube -t richelmlegacy:1.19.1
 sleep 60	
 
 cd $WORKDIR
-###### step 3 run the health check test case to complete the demo
+###### step 3 run the health check test case 
 ansible-playbook healthcheck.robot
+
+###### step 4 onboard/install the kpimon-go xApp on the remote host
+# copy over the deploy.sh to remote
+scp -o StrictHostKeyChecking=no -i $KEYFILE -q $ORIG/../xapp/deploy.sh root@${IP}:~
+
+# copy remote IP to the hosts.yaml file
+cd $ORIG/../xapp
+echo "${IP}" >> hosts.yaml
+
+# onboard/install the kpimon-go xApp on remote
+ansible-playbook -b -v  -i hosts.yaml --become --private-key $KEYFILE cluster.yaml
