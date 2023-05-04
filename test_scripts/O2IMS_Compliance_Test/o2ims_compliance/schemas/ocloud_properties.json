@@ -1,0 +1,36 @@
+{
+    "type": "object",
+    "properties": {
+        "oCloudId": {
+            "type": "string",
+            "default": "ce2eec13-24b0-4cca-aa54-548be6cc985b"
+        },
+        "globalcloudId": {
+            "type": "string",
+            "default": ""
+        },
+        "name": {
+            "type": "string",
+            "default": "5ffd1c7f-2af7-4dd4-8519-4cab54c561ef"
+        },
+        "description": {
+            "type": "string",
+            "default": "An ocloud"
+        },
+        "infrastructureManagementServiceEndpoint": {
+            "type": "null",
+            "default": null
+        },
+        "serviceUri": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "required": [
+        "description",
+        "globalcloudId",
+        "serviceUri",
+        "name",
+        "oCloudId"
+    ]
+}

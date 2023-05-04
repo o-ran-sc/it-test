@@ -1,0 +1,76 @@
+{
+    "type": "object",
+    "properties": {
+        "deploymentManagerId": {
+            "type": "string",
+            "default": "a6f48e28-0c50-330c-934f-2c355bdaed98"
+        },
+        "name": {
+            "type": "string",
+            "default": "5ffd1c7f-2af7-4dd4-8519-4cab54c561ef.kubernetes"
+        },
+        "description": {
+            "type": "string",
+            "default": "A DMS"
+        },
+        "oCloudId": {
+            "type": "string",
+            "default": "ce2eec13-24b0-4cca-aa54-548be6cc985b"
+        },
+        "serviceUri": {
+            "type": "string",
+            "default": "https://128.224.115.23:6443"
+        },
+        "extensions": {
+            "type": "object",
+            "properties": {
+                "profileName": {
+                    "type": "string",
+                    "default": "native_k8sapi"
+                },
+                "profileData": {
+                    "type": "object",
+                    "properties": {
+                        "cluster_api_endpoint": {
+                            "type": "string",
+                            "default": ""
+                        },
+                        "cluster_ca_cert": {
+                            "type": "string",
+                            "default": ""
+                        },
+                        "admin_user": {
+                            "type": "string",
+                            "default": ""
+                        },
+                        "admin_client_cert": {
+                            "type": "string",
+                            "default": ""
+                        },
+                        "admin_client_key": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    },
+                    "required": [
+                        "admin_client_cert",
+                        "admin_client_key",
+                        "admin_user",
+                        "cluster_api_endpoint",
+                        "cluster_ca_cert"
+                    ]
+                }
+            },
+            "required": [
+            ]
+        }
+    },
+    "required": [
+        "deploymentManagerId",
+        "description",
+        "extensions",
+        "name",
+        "oCloudId",
+        "serviceUri"
+    ]
+}

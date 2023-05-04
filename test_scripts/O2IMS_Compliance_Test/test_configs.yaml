@@ -1,0 +1,31 @@
+#olcoud ssh info
+ocloud:
+  ssh:
+    host: 192.168.112.12
+    port: 22
+    username: username
+    password: passwd
+    openrc: /etc/platform/openrc
+  #oran_o2_ims_info 
+  oran_o2_app:
+    g_location_id: testlocation_1
+    g_ocloud_id: 18f2dc90-b375-47dd-b8dc-ae80072e6cdb
+    smo_token_data: put_smo_token_data_here
+    api:
+      host: 192.168.112.15
+      node_port: 30205
+      protocol: https
+#smo mock server ip and callback endpoints
+smo:
+  service:
+    protocol: https
+    host: 192.168.112.16
+    port: 1080
+    verify_endpoint: /mockserver/verify
+  ocloud_observer:
+    path: /mock_smo/v1/ocloud_observer
+  o2ims_inventory_observer:
+    path: /mock_smo/v1/o2ims_inventory_observer
+  o2ims_alarm_observer:
+    path: /mock_smo/v1/o2ims_alarm_observer
+

@@ -1,0 +1,30 @@
+{
+    "type": "object",
+    "properties": {
+        "alarmSubscriptionId": {
+            "type": "string",
+            "default": ""
+        },
+        "callback": {
+            "type": "string",
+            "default": ""
+        },
+        "consumerSubscriptionId": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "filter": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "default": ""
+        }
+    },
+    "required": [
+        "alarmSubscriptionId",
+        "callback"
+    ]
+}

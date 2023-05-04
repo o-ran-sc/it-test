@@ -1,0 +1,40 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "resourceTypeId": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "vendor": {
+                "type": "string"
+            },
+            "model": {
+                "type": "string"
+            },
+            "alarmDictionary": {
+                "type": "object"
+            },
+            "resourceKind": {
+                "type": "string"
+            },
+            "resourceClass": {
+                "type": "string"
+            },
+            "extensions": {
+                "type": "null"
+            }
+        },
+        "required": [
+            "name",
+            "resourceTypeId",
+            "vendor",
+            "model",
+            "alarmDictionary"
+        ]
+    },
+    "examples": []
+}
