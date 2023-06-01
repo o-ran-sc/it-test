@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb997ba3_d1297e8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2023-06-01T23:39:32Z",
+      "side": 1,
+      "message": "The May 2023 license scan of the O-RAN-SC project showed some of the files in the it/test repo are under the GPL-3.0+ license and could contaminate the entire codebase. Double checked on those files and they are not going to be used in our XTesting tests and therefore they can be safely removed.",
+      "revId": "56b43477dd8ae875a5c346f996b1387a733b9fdc",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
