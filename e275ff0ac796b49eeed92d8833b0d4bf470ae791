@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42178732_f5b6d7ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2023-06-27T18:24:56Z",
+      "side": 1,
+      "message": "Some minor change to deploy against the latest stable release for RIC platform. Currently the latest stable release already points to the H release.",
+      "revId": "e275ff0ac796b49eeed92d8833b0d4bf470ae791",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
