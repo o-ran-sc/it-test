@@ -50,5 +50,6 @@ cd ../../../..
 # use dms_cli to install the kpimon-go xApp
 git clone "https://gerrit.o-ran-sc.org/r/ric-app/kpimon-go"
 cd kpimon-go/deploy/
+export XAPP_VERSION=`grep version config.json | cut -f2 -d: | cut -f2 -d\"`
 dms_cli onboard config.json schema.json
-dms_cli install kpimon-go 2.0.1 ricxapp
+dms_cli install kpimon-go ${XAPP_VERSION} ricxapp
