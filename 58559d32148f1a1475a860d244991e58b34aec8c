@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3cadae5_a8ac4195",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2023-10-03T21:04:06Z",
+      "side": 1,
+      "message": "A POWDER profile encapsulates everything needed to run an experiment. It consists of two main parts: a description of the resources (hardware, storage, network, etc.) needed to run the experiment, and the software artifacts that run on those resources. An experiment is an instantiation of a profile. For example, under the osc project we have created a profile called \"\tXTesting-Ubuntu20\" which installs all the software dependencies for running the XTesting framework on server with the Ubuntu-20 OS; Another example is the \"osc-ricplt\" which installs the latest OSC RIC platform with Ubuntu 20.04 on a hardware type of your choice. So by instantiating an instance of a given profile it sets up a stage for an initial test set up, to be further used for integration tests, CI/CD pipeline etc. This code change is to provide a programmable way to instantiate a POWDER experiment. Upon successful instantiation, the node(s) can be used for OSC tests.",
+      "revId": "58559d32148f1a1475a860d244991e58b34aec8c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
