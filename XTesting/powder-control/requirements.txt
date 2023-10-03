@@ -1,0 +1,2 @@
+pexpect==4.6.0
+xmltodict==0.12.0
