@@ -56,6 +56,7 @@ class PowderExperiment:
         self.nodes = dict()
         self._manifests = None
         self._poll_count_max = self.PROVISION_TIMEOUT_S // self.POLL_INTERVAL_S
+        self.ipv4 = None
         logging.info('initialized experiment {} based on profile {} under project {}'.format(experiment_name,
                                                                                              profile_name,
                                                                                              project_name))
@@ -118,8 +119,8 @@ class PowderExperiment:
             logging.info('parsed manifest host:{}'.format(host))
             hostname = host['@name']
             logging.info('parsed manifest hostname:{}'.format(hostname))
-            ipv4 = host['@ipv4']
-            logging.info('parsed manifest ipv4:{}'.format(ipv4))
+            self.ipv4 = host['@ipv4']
+            logging.info('parsed manifest ipv4:{}'.format(self.ipv4))
             for node in nodes:
                 logging.info('parsed manifest node:{}'.format(node))
                 # only need to add nodes with public IP addresses for now
@@ -178,8 +179,9 @@ class Node:
         ssh (SSHConnection): For interacting with the node via ssh through pexpect.
 
     """
-    def __init__(self, client_id, ip_address, hostname):
-        self.client_id = client_id
+    #def __init__(self, client_id, ip_address, hostname):
+    def __init__(self, ip_address):    
+        #self.client_id = client_id
         self.ip_address = ip_address
-        self.hostname = hostname
+        #self.hostname = hostname
         self.ssh = pssh.SSHConnection(ip_address=self.ip_address)
