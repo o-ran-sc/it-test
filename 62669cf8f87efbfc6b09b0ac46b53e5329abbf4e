@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90066772_5ca57c58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2023-11-11T07:18:05Z",
+      "side": 1,
+      "message": "This is to deploy the AI/ML framework training host against a target instance from the XTesting Host. May add additional pieces on top of the training host, such as a full end-to-end use case with Kserve and a QoE xApp on top of in the next steps.",
+      "revId": "62669cf8f87efbfc6b09b0ac46b53e5329abbf4e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
