@@ -1,0 +1,6 @@
+- hosts: all
+  become: true
+  tasks:
+  - name: deploy training host
+    become: true
+    command: bash /root/deploy.sh
