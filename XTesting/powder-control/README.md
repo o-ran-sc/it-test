@@ -22,6 +22,10 @@ so in the drop-down menu accessed by clicking on your username after logging
 into the Powder portal. This will download a file called `cloudlab.pem`, which
 you will need later.
 
+Due to a copyleft license issue, it needs to pull code directly from the repo
+https://gitlab.flux.utah.edu/powder-profiles/powder-control and add the powder/rpc.py
+to the XTesting/powder-control/powder directory from the it/test repo.
+
 You will need to make sure the machine you are using has `python3` installed, as well as
 the packages in [requirements.txt](requirements.txt). You can install the
 packages by doing
