@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5d913e2_bb143cc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2023-11-12T02:25:50Z",
+      "side": 1,
+      "message": "LF license scans detect that the rpc.py file attaches to a AGPL license that may contaminate the code base. Delete the file and update the README.md to instruct user to pull it directly from https://gitlab.flux.utah.edu/powder-profiles/powder-control and add the corresponding file to the XTesting/powder-control/powder directory after pulling the it/test repo.",
+      "revId": "9156905437b53b429d6ee8d2cbf45d44592918b8",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
