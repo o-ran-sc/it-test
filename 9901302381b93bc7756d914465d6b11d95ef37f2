@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe685c65_70b3a5a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2023-11-21T23:36:01Z",
+      "side": 1,
+      "message": "We\u0027ve set up a few POWDER profiles, which is a combination of the underlying hardware require, the base OS image and the additional software dependencies for certain OSC component(s) set up. Keep those in our source control so in the future we can update the profiles as needed when our releases evolve. From POWDER it can reference code from a certain git type repository.",
+      "revId": "9901302381b93bc7756d914465d6b11d95ef37f2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
