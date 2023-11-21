@@ -76,3 +76,8 @@ you'll see a log message that indicates as much and the script will exit; you
 can look at the [Resource Availability](https://www.powderwireless.net/resinfo.php)
 page on the Powder portal to see the status of the required instance. After
 completion, the script will exit with a message about failure/success.
+
+Currently there're a few profiles that are set up for the osc project on POWDER that can be referenced when calling the
+[start-profile.py](start-profile.py) to start with. It's supposed to be a growing list when new profiles
+for certain OSC component(s) setup becomes available and tested on POWDER. To keep it consistent, those
+profiles are checked in under the XTesting/powder-profiles.

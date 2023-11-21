@@ -1,0 +1,27 @@
+"""Install the latest OSC RIC platform with Ubuntu 20.04 on a hardware type of your choice."""
+
+import geni.portal as portal
+# Import the ProtoGENI library.
+import geni.rspec.pg as rspec
+
+pc = portal.Context()
+
+pc.defineParameter('hardware_type', 'Hardware type', portal.ParameterType.NODETYPE, '')
+
+params = pc.bindParameters()
+
+request = pc.makeRequestRSpec()
+
+node = request.RawPC('node-0')
+node.hardware_type = params.hardware_type
+node.disk_image = 'urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD'
+
+node.addService(rspec.Execute(shell="bash", command="sudo git clone \"https://gerrit.o-ran-sc.org/r/ric-plt/ric-dep\" /ric-plt"))
+node.addService(rspec.Execute(shell="bash", command="cd /ric-plt/bin && sudo cat install_k8s_and_helm.sh | sed -e '341d' > /tmp/12"))
+node.addService(rspec.Execute(shell="bash", command="sudo sed '341 i   kubectl apply -f \"https:\/\/raw.githubusercontent.com\/flannel-io\/flannel\/9de10c12c8266b0cfe09bc0d5c969ae28832239f\/Documentation\/kube-flannel.yml\"' /tmp/12 > /tmp/123"))
+
+node.addService(rspec.Execute(shell="bash", command="cd /ric-plt/bin && sudo cp /tmp/123 install_k8s_and_helm.sh && sudo ./install_k8s_and_helm.sh 2>&1 | tee /tmp/k8s.log"))
+node.addService(rspec.Execute(shell="bash", command="cd /ric-plt/bin && sudo ./install_common_templates_to_helm.sh 2>&1 >> /tmp/common.log"))
+node.addService(rspec.Execute(shell="bash", command="cd /ric-plt/RECIPE_EXAMPLE && sudo rm example_recipe_latest_stable.yaml && sudo ln -s example_recipe_oran_f_release.yaml example_recipe_latest_stable.yaml"))
+node.addService(rspec.Execute(shell="bash", command="cd /ric-plt/bin && sudo cat ../RECIPE_EXAMPLE/example_recipe_latest_stable.yaml | sed -e 's/10\.0\.0\.1//g' > /tmp/example_recipe_latest_stable.yaml.overwrite && sudo cp /tmp/example_recipe_latest_stable.yaml.overwrite ../RECIPE_EXAMPLE/example_recipe_latest_stable.yaml.overwrite && sudo ./install -f ../RECIPE_EXAMPLE/example_recipe_latest_stable.yaml.overwrite 2>&1 | tee /tmp/install.log"))
+pc.printRequestRSpec(request)

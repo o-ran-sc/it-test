@@ -1,0 +1,22 @@
+"""Ubuntu 22.04 on a hardware of your choice. This is the base image for the AI/ML framework training host installation"""
+
+import geni.portal as portal
+# Import the ProtoGENI library.
+import geni.rspec.pg as rspec
+
+pc = portal.Context()
+
+pc.defineParameter('hardware_type', 'Hardware type', portal.ParameterType.NODETYPE, '')
+
+params = pc.bindParameters()
+
+request = pc.makeRequestRSpec()
+
+node = request.RawPC('node-0')
+node.hardware_type = params.hardware_type
+node.disk_image = 'urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD'
+
+# add docker group and manipulate certain ssh key access for root
+node.addService(rspec.Execute(shell="bash", command="sudo groupadd docker && sudo usermod -aG docker root && sudo chown osc_int  -R /root && tail -1 ~/.ssh/authorized_keys >> /root/.ssh/authorized_keys && rm /root/.ssh/id_rsa* && sudo chown root -R /root"))
+
+pc.printRequestRSpec(request)
