@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de44b079_32c9a986",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2023-12-18T18:49:05Z",
+      "side": 1,
+      "message": "At the moment it\u0027s not convenient to test with the DME so instead try to use InfluxDB as the data source. Populate the DB with sample cell measurements. Will add training and prediction as a later step(s). This adds on to the AI/ML framework training host deployment.",
+      "revId": "36a86bd3befce25db823fff5cb1d7f440f00444d",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
