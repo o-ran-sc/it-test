@@ -1,7 +1,7 @@
 #! /bin/bash
 set -x
 
-echo "This is to deploy the AI-ML framework training host"
+echo "This is to deploy the AI-ML framework training host and then add a notebook and sample data for a training test"
 
 if [ $# -lt 2 ]
 then 
@@ -15,6 +15,8 @@ KEYFILE=$2
 
 # copy over the deploy.sh to remote
 scp -o StrictHostKeyChecking=no -i $KEYFILE -q deploy.sh root@${IP}:~
+scp -o StrictHostKeyChecking=no -i $KEYFILE -q cell.json root@${IP}:~
+scp -o StrictHostKeyChecking=no -i $KEYFILE -q insert.py root@${IP}:~
 
 # copy remote IP to the hosts.yaml file
 echo "${IP}" >> hosts.yaml
