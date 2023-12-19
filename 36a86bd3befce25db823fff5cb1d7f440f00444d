@@ -1,0 +1,10 @@
+Code-Review+2: James Li <pekwatch746@gmail.com>
+Code-Review+1: Weisen Pan <weisen.pan@gmail.com>
+Code-Review+1: Xiaohua Zhang <zhangxiaohua@chinamobile.com>
+Verified+1: James Li <pekwatch746@gmail.com>
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Submitted-by: James Li <pekwatch746@gmail.com>
+Submitted-at: Tue, 19 Dec 2023 00:54:45 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/test/+/12206
+Project: it/test
+Branch: refs/heads/master
