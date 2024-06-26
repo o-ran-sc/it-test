@@ -638,3 +638,4 @@ s18, query Resource detail of an ethernet port
 Set REST Headers
     Set Headers     {"accept": "application/json"}
     Set Headers     {"Authorization": "Bearer ${SMO_TOKEN_DATA}"}
+    Set Client Cert   ${CURDIR}/../certs/client.pem

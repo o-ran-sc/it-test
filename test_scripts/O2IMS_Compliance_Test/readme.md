@@ -76,6 +76,39 @@ For one example on local test env.
 
 And other test sample expectations are the same way.
 
+### Prepare the client certificates for mTLS
+
+Since mTLS is supported by the O2 IMS API service, you need to add the client certificates when requesting the API.
+
+Here are the steps to generate client certificates using the MockServer CA certificate:
+
+* Generate Client Certificates:
+
+Follow these steps to generate client certificates using the MockServer CA certificate.
+
+```bash
+cd certs
+
+# Get MockServer CA cert and key
+wget -O smo-ca-cert.pem https://raw.githubusercontent.com/mock-server/mockserver/master/mockserver-core/src/main/resources/org/mockserver/socket/CertificateAuthorityCertificate.pem
+
+wget -O smo-ca-key.pem https://raw.githubusercontent.com/mock-server/mockserver/master/mockserver-core/src/main/resources/org/mockserver/socket/CertificateAuthorityPrivateKey.pem
+
+# Generate client CSR (Certificate Signing Request) and key
+openssl genrsa -out client-key.pem 2048
+openssl req -new -key client-key.pem -out client.csr
+
+# Sign the Client CSR with MockServer's CA
+openssl x509 -req -in client.csr -CA smo-ca-cert.pem -CAkey smo-ca-key.pem -CAcreateserial -out client-cert.pem -days 365
+
+# Combine the client cert and private key to one file
+cat client-cert.pem client-key.pem > client.pem
+```
+
+* Ensure Correct CA Certificate:
+
+Make sure you are using the MockServer CA certificate (smo_cert) when setting up the O2 application.
+
 ### Test Configuration File Guide.
 
 The test_configs.yaml is the configuration file for the test script to get environment variables for issuing requests to O2 IMS service, to
