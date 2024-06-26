@@ -1,0 +1,9 @@
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Code-Review+2: James Li <pekwatch746@gmail.com>
+Code-Review+1: Jackie Huang <jackie.huang@windriver.com>
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Submitted-by: James Li <pekwatch746@gmail.com>
+Submitted-at: Wed, 26 Jun 2024 18:37:32 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/test/+/13019
+Project: it/test
+Branch: refs/heads/master
