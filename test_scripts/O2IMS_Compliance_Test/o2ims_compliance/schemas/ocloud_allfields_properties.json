@@ -5,7 +5,7 @@
             "type": "string",
             "default": "ce2eec13-24b0-4cca-aa54-548be6cc985b"
         },
-        "globalcloudId": {
+        "globalCloudId": {
             "type": "string",
             "default": "3F20D850-AF4F-A84F-FB5A-0AD585410361"
         },
@@ -29,7 +29,7 @@
     "required": [
         "description",
         "extensions",
-        "globalcloudId",
+        "globalCloudId",
         "name",
         "oCloudId",
         "serviceUri"
