@@ -31,7 +31,7 @@ s1, query o-cloud detail
     log      ${res}   level=DEBUG
     Integer  response status    200
     # Object   response body
-    String   $.globalcloudId    ${GLOBAL_OCLOUD_ID1}
+    String   $.globalCloudId    ${GLOBAL_OCLOUD_ID1}
     String   $.serviceUri       ${ORAN_O2IMS_ENDPOINT}
 
     # all_fields
