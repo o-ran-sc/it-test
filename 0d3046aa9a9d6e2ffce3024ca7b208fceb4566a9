@@ -33,6 +33,23 @@
       "message": "Looks good to me. Core committers can approve.",
       "revId": "0d3046aa9a9d6e2ffce3024ca7b208fceb4566a9",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2b24f91_ca177ea1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002350
+      },
+      "writtenOn": "2024-11-01T20:22:39Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "0d3046aa9a9d6e2ffce3024ca7b208fceb4566a9",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
