@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5bd5b08_fe394659",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2024-12-18T11:54:18Z",
+      "side": 1,
+      "message": "Please take a look to the code change. Our compliance tests are failing because of this.",
+      "revId": "fcc88dd934eacec80963c1a11a2096de32a682dd",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
