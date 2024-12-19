@@ -34,6 +34,24 @@
       "parentUuid": "e5bd5b08_fe394659",
       "revId": "fcc88dd934eacec80963c1a11a2096de32a682dd",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7508f0f_dd778f2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2024-12-19T10:50:50Z",
+      "side": 1,
+      "message": "Sorry, I meant from the deploymentManager_properties.json. See here https://github.com/o-ran-sc/it-test/blob/master/test_scripts/O2IMS_Compliance_Test/o2ims_compliance/schemas/deploymentManager_properties.json#L24-L29\nor even the deploymentManager_allfields.json describes the extensions attribute as object too (https://github.com/o-ran-sc/it-test/blob/master/test_scripts/O2IMS_Compliance_Test/o2ims_compliance/schemas/deploymentManager_allfields_properties.json#L25)",
+      "parentUuid": "8730142e_961aed3d",
+      "revId": "fcc88dd934eacec80963c1a11a2096de32a682dd",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
