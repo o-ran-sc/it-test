@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "3c631c4d734141c609cee1eac41cb87ecd55d265",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2a9596d_255aec6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001777
+      },
+      "writtenOn": "2024-12-19T09:56:17Z",
+      "side": 1,
+      "message": "A rebase might work, but it looks like the jenkins voting jobs are MIA on this change. The jenkins jobs were not triggering correctly on new changes, because earlier in the week the gerrit/jenkins integration was broken. That should now be resolved. We might need to abandon and re-submit this change. Right now I can\u0027t merge it either due to:\n\nA maximum \u0027Verified\u0027 vote from \u0027ORAN Required GHA\u0027 and one other CI or committer that is required for the \u0027Verified\u0027 label. A minimum vote is blocking.",
+      "revId": "3c631c4d734141c609cee1eac41cb87ecd55d265",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
