@@ -11,6 +11,7 @@ ocloud:
     g_location_id: testlocation_1
     g_ocloud_id: 18f2dc90-b375-47dd-b8dc-ae80072e6cdb
     smo_token_data: put_smo_token_data_here
+    deploymentmanager_name: put_deploymentmanager_name_here
     api:
       host: 192.168.112.15
       node_port: 30205

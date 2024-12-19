@@ -15,7 +15,7 @@ ${globalLocationId}         ${ocloud.oran_o2_app.g_location_id}
 
 ${ORAN_O2IMS_ENDPOINT}  ${ocloud.oran_o2_app.api.protocol}://${ORAN_HOST_EXTERNAL_IP}:${ORAN_SERVICE_NODE_PORT}
 
-${deploymentManagerName}    kubernetes
+${deploymentManagerName}    ${ocloud.oran_o2_app.deploymentmanager_name}
 
 *** Test Cases ***
 s1, query deploymentManager list without filter
