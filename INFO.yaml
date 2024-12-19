@@ -34,21 +34,17 @@ repositories:
     - 'it/test'
 committers:
     - <<: *it-test_ptl
-    - name: 'Xiaohua Zhang'
-      email: 'zhangxiaohua@chinamobile.com'
-      company: 'China Mobile'
-      id: 'Xiaohua626'
-      timezone: 'China/Beijing'
-    - name: 'Weisen Pan'
-      email: 'weisenpan@chinamobile.com'
-      company: 'China Mobile Technology (USA) Inc.'
-      id: 'wilson09132'
-      timezone: 'America/Los_Angeles'
-    - name: 'David Liu'
-      email: 'david.liu@windriver.com'
-      company: 'Wind River China Beijing Office.'
-      id: 'dliu5'
-      timezone: 'China/Bejing'
+    - name: 'Chris Wheeler'
+      email: 'chriswheeler@redhat.com'
+      company: 'Red Hat'
+      id: 'chriswheeler'
+      timezone: 'US PST'
+    - name: 'Alberto Losada Grande'
+      email: 'alosadag@redhat.com'
+      company: 'Red Hat'
+      id: 'AlbertoLosada'
+      timezone: 'Spain CET'
 tsc:
     # yamllint disable rule:line-length
     approval: 'https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=47748896#id-2021Q4(Oct,Nov,Dec)-20211020'
+    
