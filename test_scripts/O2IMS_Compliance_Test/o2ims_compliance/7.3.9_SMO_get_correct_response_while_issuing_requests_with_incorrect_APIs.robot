@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation  Verify SMO get security error response while issuing APIs with incorrect token
+Documentation  Verify SMO gets client error response while issuing requests with incorrect APIs
 # Library  REST       ssl_verify=False    loglevel=DEBUG
 Library  REST       ssl_verify=False
 Variables              ${EXECDIR}${/}test_configs.yaml
@@ -15,11 +15,25 @@ ${SMO_TOKEN_DATA}           ${ocloud.oran_o2_app.smo_token_data}
 ${globalLocationId}         ${ocloud.oran_o2_app.g_location_id}
 
 ${ORAN_O2IMS_ENDPOINT}  ${ocloud.oran_o2_app.api.protocol}://${ORAN_HOST_EXTERNAL_IP}:${ORAN_SERVICE_NODE_PORT}
+# Wrong port number set to 1
+${WRONG_PORT_ORAN_O2IMS_ENDPOINT}  ${ocloud.oran_o2_app.api.protocol}://${ORAN_HOST_EXTERNAL_IP}:1
 
 
 
 *** Test Cases ***
-s1, Verify query with wrong url got error code.
+s1, Verify query with wrong port does not receive API response.
+    [documentation]  Verify query with wrong port does not receive API response.
+    [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS     ORAN_O2IMS_Client_Errors
+
+    Clear Expectations
+    Set Headers     {"Authorization": "Bearer ${SMO_TOKEN_DATA}"}
+    TRY
+       ${res}     GET   ${WRONG_PORT_ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1
+    EXCEPT    ConnectionError: *    type=glob
+       log    PASS:query with wrong port got error code   level=DEBUG
+    END
+
+s2, Verify query with wrong url got error code.
     [documentation]  Verify query with wrong url got error code.
     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS     ORAN_O2IMS_Client_Errors
 
@@ -30,7 +44,7 @@ s1, Verify query with wrong url got error code.
     Integer  response status    404
     # Object   response body
 
-s2, Verify query with wrong api version got error code.
+s3, Verify query with wrong api version got error code.
     [documentation]  Verify query with wrong api version got error code.
     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS     ORAN_O2IMS_Client_Errors
 
@@ -43,8 +57,8 @@ s2, Verify query with wrong api version got error code.
     Integer  response status    404
     # Object   response body
 
-s3, Verify query with wrong deploymentManagersID got error code.
-    [documentation]  Verify query with wrong deploymentManagersID got error code.
+s4, Verify query with wrong deploymentManagerID got error code.
+    [documentation]  Verify query with wrong deploymentManagerID got error code.
     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS     ORAN_O2IMS_Client_Errors
 
     # Clear Expectations
