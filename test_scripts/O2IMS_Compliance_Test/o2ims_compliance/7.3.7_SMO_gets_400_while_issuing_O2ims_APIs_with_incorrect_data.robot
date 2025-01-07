@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation  Verify SMO gets 4xx response while issuing o2ims APIs with incorrect data
+Documentation  Verify SMO gets 400 response while issuing o2ims APIs with incorrect data
 # Library  REST       ssl_verify=False    loglevel=DEBUG
 Library  REST       ssl_verify=False
 Variables              ${EXECDIR}${/}test_configs.yaml
