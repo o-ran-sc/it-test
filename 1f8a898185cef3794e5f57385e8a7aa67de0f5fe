@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fce2076c_725426e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001571
+      },
+      "writtenOn": "2025-01-09T09:48:15Z",
+      "side": 1,
+      "message": "typo here, \"Issue-ID:\"\n\nI believe there is an issue with Gerrit\u0027s integration with JIRA regarding this link. However, we still need to use this \"Issue-ID:\" to associate the commit with the JIRA ticket. Once the issue is resolved, the system will display the link correctly.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "1f8a898185cef3794e5f57385e8a7aa67de0f5fe",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
