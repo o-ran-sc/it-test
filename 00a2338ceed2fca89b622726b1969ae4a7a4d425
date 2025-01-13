@@ -1,0 +1,12 @@
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Code-Review+2: James Li <pekwatch746@gmail.com>
+Code-Review+1: Jon Zhang <rong.zhang@windriver.com>
+Code-Review+2: bimo fransiscus asisi <d11002806@gapps.ntust.edu.tw>
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Code-Review+1: Bart Wensley <bartwensley@gmail.com>
+Submitted-by: bimo fransiscus asisi <d11002806@gapps.ntust.edu.tw>
+Submitted-at: Mon, 13 Jan 2025 14:04:43 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/test/+/13898
+Comments-Total: 5
+Project: it/test
+Branch: refs/heads/master
