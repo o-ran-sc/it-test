@@ -14,6 +14,7 @@ ${SMO_TOKEN_DATA}           ${ocloud.oran_o2_app.smo_token_data}
 ${globalLocationId}         ${ocloud.oran_o2_app.g_location_id}
 
 ${ORAN_O2IMS_ENDPOINT}  ${ocloud.oran_o2_app.api.protocol}://${ORAN_HOST_EXTERNAL_IP}:${ORAN_SERVICE_NODE_PORT}
+${ORAN_O2IMS_ENDPOINT_DEFAULT_PORT}  ${ocloud.oran_o2_app.api.protocol}://${ORAN_HOST_EXTERNAL_IP}
 
 *** Test Cases ***
 s1, query o-cloud detail
@@ -32,7 +33,12 @@ s1, query o-cloud detail
     Integer  response status    200
     # Object   response body
     String   $.globalcloudId    ${GLOBAL_OCLOUD_ID1}
-    String   $.serviceUri       ${ORAN_O2IMS_ENDPOINT}
+    # Sometimes serviceUri might not contain the port number in the json response if it is a well-known port.
+    IF      ${ORAN_SERVICE_NODE_PORT} == 443 or ${ORAN_SERVICE_NODE_PORT} == 80
+        String   $.serviceUri    ${ORAN_O2IMS_ENDPOINT}  ${ORAN_O2IMS_ENDPOINT_DEFAULT_PORT}
+    ELSE
+        String   $.serviceUri    ${ORAN_O2IMS_ENDPOINT}
+    END
 
     # all_fields
     Expect Response Body        ${CURDIR}/schemas/ocloud_allfields_properties.json
