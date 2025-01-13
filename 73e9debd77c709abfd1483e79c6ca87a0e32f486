@@ -16,6 +16,23 @@
       "message": "Looks good",
       "revId": "73e9debd77c709abfd1483e79c6ca87a0e32f486",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9ebf8e2_8c6fea93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-01-13T14:16:11Z",
+      "side": 1,
+      "message": "@rong.zhang@windriver.com should we merge this?",
+      "revId": "73e9debd77c709abfd1483e79c6ca87a0e32f486",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
