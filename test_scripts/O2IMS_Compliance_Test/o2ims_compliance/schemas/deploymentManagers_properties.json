@@ -24,12 +24,6 @@
             "capacity": {
                 "type": "string"
             },
-            "profileSupportList": {
-                "type": "array",
-                "items": {
-                    "type": "string"
-                }
-            },
             "oCloudId": {
                 "type": "string"
             },
@@ -37,15 +31,17 @@
                 "type": "string"
             },
             "extensions": {
-                "type": "null",
-                "default": ""
+                "type": [
+                    "null",
+                    "object"
+                ],
+                "default": null
             }
         },
         "required": [
             "deploymentManagerId",
             "description",
             "name",
-            "profileSupportList",
             "oCloudId",
             "serviceUri"
         ]
