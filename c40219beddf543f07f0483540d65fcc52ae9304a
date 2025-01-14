@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2748db21_fb1a13d9",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.12_SMO_gets_404_when_issuing_APIs_with_wrong_data.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002633
+      },
+      "writtenOn": "2025-01-14T14:46:31Z",
+      "side": 1,
+      "message": "I meant the TC name - I guess I looked at 7.3.9 as an example. I\u0027m not too concerned about the exact wording, but I don\u0027t think \"query inventory subscription\" is accurate for these TCs.",
+      "parentUuid": "4c8f9126_1dabb9df",
+      "revId": "c40219beddf543f07f0483540d65fcc52ae9304a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d317a36_b2b5bf7d",
         "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.12_SMO_gets_404_when_issuing_APIs_with_wrong_data.robot",
         "patchSetId": 2
