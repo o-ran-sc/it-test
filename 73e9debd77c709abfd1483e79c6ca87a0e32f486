@@ -33,6 +33,24 @@
       "message": "@rong.zhang@windriver.com should we merge this?",
       "revId": "73e9debd77c709abfd1483e79c6ca87a0e32f486",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b82cf36_b21b8705",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-01-20T13:45:19Z",
+      "side": 1,
+      "message": "Bumping this PR since there are a couple that depend on this one.\n\nIMHO I do not see why a deployment manager in a test must be set to kubernetes as a name. We can discuss if the ocloud.oran_o2_app.deploymentmanager_name is the proper file (config.yml) or name for the variable.",
+      "parentUuid": "a9ebf8e2_8c6fea93",
+      "revId": "73e9debd77c709abfd1483e79c6ca87a0e32f486",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
