@@ -34,6 +34,74 @@
       "parentUuid": "ff6b869b_e4451141",
       "revId": "302e207a6d71cd2d40c88f1364b529ee0caed4a2",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd661208_8871a1a0",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.11_SMO_gets_400_when_issuing_APIs_with_unsupported_data.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002633
+      },
+      "writtenOn": "2025-01-24T20:19:21Z",
+      "side": 1,
+      "message": "Should probably update o2ims_inventory_observer",
+      "revId": "302e207a6d71cd2d40c88f1364b529ee0caed4a2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3796e931_bb389ff7",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.11_SMO_gets_400_when_issuing_APIs_with_unsupported_data.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002633
+      },
+      "writtenOn": "2025-01-24T20:19:21Z",
+      "side": 1,
+      "message": "This should be o2ims-infrastructureMonitoring",
+      "revId": "302e207a6d71cd2d40c88f1364b529ee0caed4a2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fff38d1e_3c78651d",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.11_SMO_gets_400_when_issuing_APIs_with_unsupported_data.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002633
+      },
+      "writtenOn": "2025-01-24T20:19:21Z",
+      "side": 1,
+      "message": "Should probably update o2ims_inventory_observer",
+      "revId": "302e207a6d71cd2d40c88f1364b529ee0caed4a2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a3a945d_7ff40a92",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.11_SMO_gets_400_when_issuing_APIs_with_unsupported_data.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002633
+      },
+      "writtenOn": "2025-01-24T20:19:21Z",
+      "side": 1,
+      "message": "This should be o2ims-infrastructureMonitoring",
+      "revId": "302e207a6d71cd2d40c88f1364b529ee0caed4a2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
