@@ -33,6 +33,24 @@
       "message": "I think there is an error in the conformance specification - I know it says:\nPOST ${O2ims-endpoint}/o2ims-infrastructureInventory/v1/alarms\" \nbut shouldn\u0027t this be:\nPOST ${O2ims-endpoint}/o2ims-infrastructureMonitoring/v1/alarms\"",
       "revId": "e873c5a3d18ffa21e2a8715ab966a070762446da",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87d1d6d9_75a5f044",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.6_SMO_gets_405_while_sending_O2ims_APIs_with_unsupported_method.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-01-28T14:34:32Z",
+      "side": 1,
+      "message": "I agree, there is a typo in the O-RAN.WG6.O-CLOUD-INTF-CONF-R003-v04.00.pdf spec, concretely in test 7.3.6. It can be verified against the section 3.3.3 REST resources structure and methods from the O-RAN.WG6.O2IMS-INTERFACE-R004-v07.00.pdf specification.\n\nHowever, I left it as it is now in the specification. As I know, this is on the ORAN scope, not OSC, so as @fr.bimo@gmail.com suggested I\u0027ll join a WG6 regular meeting and explain the issue.\n\nShould we wait for the fix in the spec folks to merge that change? Do we merge as it is today? @fr.bimo@gmail.com @bartwensley@gmail.com ?",
+      "parentUuid": "1a835c20_32fc22e7",
+      "revId": "e873c5a3d18ffa21e2a8715ab966a070762446da",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
