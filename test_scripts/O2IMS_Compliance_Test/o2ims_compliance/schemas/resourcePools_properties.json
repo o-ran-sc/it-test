@@ -27,7 +27,10 @@
                 "default": []
             },
             "extensions": {
-                "type": "null",
+                "type": [
+                    "null",
+                    "object"
+                    ],
                 "default": null
             }
         },
