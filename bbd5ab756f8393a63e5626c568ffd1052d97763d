@@ -16,6 +16,23 @@
       "message": "Thanks Alberto - looks good.",
       "revId": "bbd5ab756f8393a63e5626c568ffd1052d97763d",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d95e268_4c4fb0c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-02-06T14:32:04Z",
+      "side": 1,
+      "message": "PTAL @rong.zhang@windriver.com",
+      "revId": "bbd5ab756f8393a63e5626c568ffd1052d97763d",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
