@@ -69,6 +69,24 @@
       "parentUuid": "87d1d6d9_75a5f044",
       "revId": "e873c5a3d18ffa21e2a8715ab966a070762446da",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa735d1_b31e28f8",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.6_SMO_gets_405_while_sending_O2ims_APIs_with_unsupported_method.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1002633
+      },
+      "writtenOn": "2025-02-06T16:11:17Z",
+      "side": 1,
+      "message": "Since this is clearly an error in the conformance specification, I would prefer having the correct URL in the automated test. I have created a CR to address this: https://oranalliance.atlassian.net/wiki/spaces/COWG/pages/3818881025/2025+Test+Specification+Comment+Wiki#O-Cloud-Conformance-Test-spec-Errors",
+      "parentUuid": "87d1d6d9_75a5f044",
+      "revId": "e873c5a3d18ffa21e2a8715ab966a070762446da",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
