@@ -60,11 +60,13 @@ s3, Verify query with wrong api version got error code.
 s4, Verify query with wrong deploymentManagerID got error code.
     [documentation]  Verify query with wrong deploymentManagerID got error code.
     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS     ORAN_O2IMS_Client_Errors
+    ${unknownDeploymentManagerId}    Evaluate    str(__import__('uuid').uuid4())
+    Log    Generated UUID: ${unknownDeploymentManagerId}
 
     # Clear Expectations
     Set Headers     {"Authorization": "Bearer ${SMO_TOKEN_DATA}"}
     Expect Response Body        ${CURDIR}${/}..${/}o2ims_compliance${/}schemas${/}client_errors_properties.json
-    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/deploymentManagers/wrongDeploymentManagerID
+    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/deploymentManagers/${unknownDeploymentManagerId}
     Clear Expectations
     log      ${res}   level=DEBUG
     Integer  response status    404
