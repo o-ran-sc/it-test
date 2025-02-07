@@ -41,10 +41,16 @@
                     "type": "string"
                 },
                 "managementInterfaceId": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "pkNotificationField": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "alarmDefinition": {
                     "type": "array",
@@ -73,10 +79,16 @@
                                 "type": "string"
                             },
                             "managementInterfaceId": {
-                                "type": "string"
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
                             },
                             "pkNotificationField": {
-                                "type": "string"
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
                             },
                             "alarmAdditionalFields": {
                                 "type": [
