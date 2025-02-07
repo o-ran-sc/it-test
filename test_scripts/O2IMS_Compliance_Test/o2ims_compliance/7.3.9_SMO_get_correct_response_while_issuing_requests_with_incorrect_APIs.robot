@@ -64,7 +64,7 @@ s4, Verify query with wrong deploymentManagerID got error code.
     # Clear Expectations
     Set Headers     {"Authorization": "Bearer ${SMO_TOKEN_DATA}"}
     Expect Response Body        ${CURDIR}${/}..${/}o2ims_compliance${/}schemas${/}client_errors_properties.json
-    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/deploymentManagers/wrongDeploymentManagerID
+    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/deploymentManagers/708296a0-fb87-4c60-94fc-74cece8ddf84
     Clear Expectations
     log      ${res}   level=DEBUG
     Integer  response status    404
