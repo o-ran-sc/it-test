@@ -34,6 +34,9 @@
         "description",
         "name",
         "oCloudId",
-        "serviceUri"
+        "serviceUri",
+        "supportedLocations",
+        "capabilities",
+        "capacity"
     ]
 }
