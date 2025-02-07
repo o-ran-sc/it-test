@@ -16,13 +16,16 @@
                 "type": "string"
             },
             "supportedLocations": {
-                "type": "string"
+                "type": "array",
+                "items": {
+                    "type":  "string"
+                }
             },
             "capabilities": {
-                "type": "string"
+                "type": "object"
             },
             "capacity": {
-                "type": "string"
+                "type": "object"
             },
             "oCloudId": {
                 "type": "string"
