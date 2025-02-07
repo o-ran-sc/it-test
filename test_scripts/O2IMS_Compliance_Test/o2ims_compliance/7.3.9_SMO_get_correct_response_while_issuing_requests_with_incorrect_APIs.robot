@@ -57,14 +57,27 @@ s3, Verify query with wrong api version got error code.
     Integer  response status    404
     # Object   response body
 
-s4, Verify query with wrong deploymentManagerID got error code.
-    [documentation]  Verify query with wrong deploymentManagerID got error code.
+s4, Verify query with incorrectly formatted deploymentManagerID results in 400.
+    [documentation]  Verify query with incorrectly formatted deploymentManagerID results in 400.
     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS     ORAN_O2IMS_Client_Errors
 
     # Clear Expectations
     Set Headers     {"Authorization": "Bearer ${SMO_TOKEN_DATA}"}
     Expect Response Body        ${CURDIR}${/}..${/}o2ims_compliance${/}schemas${/}client_errors_properties.json
     ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/deploymentManagers/wrongDeploymentManagerID
+    Clear Expectations
+    log      ${res}   level=DEBUG
+    Integer  response status    400
+    Object   response body
+
+s5, Verify query with unknown deploymentManagerID results in 404.
+    [documentation]  Verify query with unknown deploymentManagerID results in 404.
+    [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS     ORAN_O2IMS_Client_Errors
+
+    # Clear Expectations
+    Set Headers     {"Authorization": "Bearer ${SMO_TOKEN_DATA}"}
+    Expect Response Body        ${CURDIR}${/}..${/}o2ims_compliance${/}schemas${/}client_errors_properties.json
+    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/deploymentManagers/708296a0-fb87-4c60-94fc-74cece8ddf84
     Clear Expectations
     log      ${res}   level=DEBUG
     Integer  response status    404
