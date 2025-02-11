@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d047b92d_19ae9c07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-02-11T02:28:21Z",
+      "side": 1,
+      "message": "@rong.zhang@windriver.com can you +1 here? This will add repo structure into README",
+      "revId": "dcfd0345bb8109b39a1db6d93591750d724e178a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
