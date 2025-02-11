@@ -43,7 +43,7 @@ s1, create alarmSubscription
     Expect Response Body        ${CURDIR}/schemas/alarm_subscription_properties.json
 
     Set Headers     {"Content-Type": "application/json"}
-    ${subscription_data}  input     {"callback": "${SMO_ALARM_OBSERVER_URL}", "consumerSubscriptionId": "${consumerSubscriptionId}", "filter": "" }
+    ${subscription_data}  input     {"callback": "${SMO_ALARM_OBSERVER_URL}", "consumerSubscriptionId": "${consumerSubscriptionId}"}
 
     # ${subscription_data}  input     {"callback": "${SMO_ALARM_OBSERVER_URL}", "consumerSubscriptionId": "${consumerSubscriptionId}", "filter": "(eq,resourceTypeID,typeid1234)" }
 
