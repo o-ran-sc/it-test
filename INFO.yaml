@@ -44,6 +44,11 @@ committers:
       company: 'Red Hat'
       id: 'AlbertoLosada'
       timezone: 'Europe/Madrid'
+    - name: 'Allain Legacy'
+      email: 'alegacy@redhat.com'
+      company: 'Red Hat'
+      id: 'alegacy'
+      timezone: 'Canada/Central'
 tsc:
     # yamllint disable rule:line-length
     approval: 'https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=47748896#id-2021Q4(Oct,Nov,Dec)-20211020'
