@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "812f09b9_39ca1031",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.9_SMO_get_correct_response_while_issuing_requests_with_incorrect_APIs.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002633
+      },
+      "writtenOn": "2025-02-11T21:25:47Z",
+      "side": 1,
+      "message": "My understanding is that the steps here need to match the steps defined in the conformance test specification (i.e. O-RAN.WG6.O-CLOUD-INTF-CONF-R003-v04.00). So... to add a new step, you would first have to update the test specification. Probably the best thing for now is to just update s4 to pass the deploymentManagerID in the correct format, which should result in the expected 404 response.",
+      "revId": "2440508323cdb6a8c503b06d7affe790136d3ff5",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
