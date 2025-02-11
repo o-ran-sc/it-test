@@ -1,0 +1,11 @@
+Code-Review+2: bimo fransiscus asisi <d11002806@gapps.ntust.edu.tw>
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Code-Review+1: Bart Wensley <bartwensley@gmail.com>
+Code-Review+1: Jon Zhang <rong.zhang@windriver.com>
+Submitted-by: bimo fransiscus asisi <d11002806@gapps.ntust.edu.tw>
+Submitted-at: Tue, 11 Feb 2025 03:39:07 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/test/+/14070
+Comments-Total: 11
+Project: it/test
+Branch: refs/heads/master
