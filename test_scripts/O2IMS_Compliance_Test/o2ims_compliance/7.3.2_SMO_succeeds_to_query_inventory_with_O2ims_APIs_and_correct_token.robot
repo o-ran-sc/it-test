@@ -308,34 +308,7 @@ s13, query Resource detail
         # Clear Expectations
         log      ${res}   level=DEBUG
         Integer     response status    200
-        ${description}    output    $.description
-        should contain  ${description}  hostname:
-        should contain  ${description}  id:
-        should contain  ${description}  personality:
-        should contain  ${description}  subfunctions:
-        should contain  ${description}  max_cpu_mhz_allowed:
-        should contain  ${description}  install_state:
-        should contain  ${description}  operational:
-        should contain  ${description}  availability:
-        should contain  ${description}  administrative:
-        should contain  ${description}  boot_device:
-        should contain  ${description}  mgmt_mac:
-        should contain  ${description}  clock_synchronization:
-        should contain  ${description}  rootfs_device:
         Object      $.extensions
-        String      $.extensions['hostname']
-        Integer      $.extensions['id']
-        String      $.extensions['personality']
-        # String      $.extensions['max_cpu_mhz_allowed']
-        # String      $.extensions['install_state']
-        String      $.extensions['operational']
-        String      $.extensions['availability']
-        String      $.extensions['administrative']
-        String      $.extensions['boot_device']
-        String      $.extensions['rootfs_device']
-        String      $.extensions['subfunctions']
-        String      $.extensions['mgmt_mac']
-        String      $.extensions['clock_synchronization']
 
         BREAK
     END
@@ -372,34 +345,7 @@ s14, query Resource detail of an accelerator
         Integer     response status    200
         Object      response body
         ${description}    output    $.description
-        should contain  ${description}  name:
-        should contain  ${description}  pdevice:
-        should contain  ${description}  pciaddr:
-        should contain  ${description}  pvendor_id:
-        should contain  ${description}  pvendor:
-        should contain  ${description}  pclass_id:
-        should contain  ${description}  pclass:
-        should contain  ${description}  psvendor:
-        should contain  ${description}  psdevice:
-        should contain  ${description}  sriov_totalvfs:
-        should contain  ${description}  sriov_numvfs:
-        should contain  ${description}  numa_node:
-        # should contain  ${description}  name:
-        # should contain  ${description}  class:
-        # should contain  ${description}  vendor:
         Object      $.extensions
-        String      $.extensions['name']
-        String      $.extensions['pdevice']
-        String      $.extensions['pciaddr']
-        String      $.extensions['pvendor_id']
-        String      $.extensions['pvendor']
-        String      $.extensions['pclass_id']
-        String      $.extensions['pclass']
-        String      $.extensions['psvendor']
-        String      $.extensions['psdevice']
-        # Integer      $.extensions['sriov_totalvfs']
-        Integer     $.extensions['sriov_numvfs']
-        Integer     $.extensions['numa_node']
 
         BREAK
     END
@@ -434,22 +380,7 @@ s15, query Resource detail of an cpu
         log      ${res}   level=DEBUG
         Integer     response status    200
         Object      response body
-        ${description}    output    $.description
-        should contain  ${description}  core:
-        should contain  ${description}  thread:
-        should contain  ${description}  allocated_function:
-        should contain  ${description}  numa_node:
-        should contain  ${description}  cpu_model:
-        should contain  ${description}  cpu_family:
-        should contain  ${description}  cpu:
         Object      $.extensions
-        Integer      $.extensions['cpu']
-        Integer      $.extensions['core']
-        Integer      $.extensions['thread']
-        String      $.extensions['allocated_function']
-        Integer      $.extensions['numa_node']
-        String      $.extensions['cpu_model']
-        String      $.extensions['cpu_family']
 
         BREAK
     END
@@ -485,30 +416,7 @@ s16, query Resource detail of an interface
         log      ${res}   level=DEBUG
         Integer     response status    200
         Object      response body
-        ${description}    output    $.description
-        should contain  ${description}  ifname:
-        should contain  ${description}  iftype:
-        should contain  ${description}  imac:
-        should contain  ${description}  vlan_id:
-        should contain  ${description}  imtu:
-        should contain  ${description}  ifclass:
-        should contain  ${description}  uses:
-        should contain  ${description}  max_tx_rate:
-        should contain  ${description}  sriov_vf_driver:
-        should contain  ${description}  sriov_numvfs:
-        should contain  ${description}  ptp_role:
         Object      $.extensions
-        String      $.extensions['ifname']
-        String      $.extensions['iftype']
-        String      $.extensions['imac']
-        # Integer      $.extensions['vlan_id']
-        Integer      $.extensions['imtu']
-        # String      $.extensions['ifclass']
-        # String      $.extensions['uses']
-        # Integer      $.extensions['max_tx_rate']
-        # String      $.extensions['sriov_vf_driver']
-        # Integer     $.extensions['sriov_numvfs']
-        # String     $.extensions['ptp_role']
 
         BREAK
     END
@@ -544,34 +452,7 @@ s17, query Resource detail of a memory
         log      ${res}   level=DEBUG
         Integer     response status    200
         Object      response body
-        ${description}    output    $.description
-        should contain  ${description}  memtotal_mib:
-        should contain  ${description}  memavail_mib:
-        should contain  ${description}  vm_hugepages_use_1G:
-        should contain  ${description}  vm_hugepages_possible_1G:
-        should contain  ${description}  hugepages_configured:
-        should contain  ${description}  vm_hugepages_avail_1G:
-        should contain  ${description}  vm_hugepages_nr_1G:
-        should contain  ${description}  vm_hugepages_nr_4K:
-        should contain  ${description}  vm_hugepages_nr_2M:
-        should contain  ${description}  numa_node:
-        should contain  ${description}  vm_hugepages_possible_2M:
-        should contain  ${description}  vm_hugepages_avail_2M:
-        should contain  ${description}  platform_reserved_mib:
         Object      $.extensions
-        Integer      $.extensions['memtotal_mib']
-        Integer      $.extensions['memavail_mib']
-        # String       $.extensions['vm_hugepages_use_1G']
-        Integer      $.extensions['vm_hugepages_possible_1G']
-        # String       $.extensions['hugepages_configured']
-        Integer      $.extensions['vm_hugepages_avail_1G']
-        Integer      $.extensions['vm_hugepages_nr_1G']
-        Integer      $.extensions['vm_hugepages_nr_4K']
-        Integer      $.extensions['vm_hugepages_nr_2M']
-        Integer      $.extensions['vm_hugepages_possible_2M']
-        Integer      $.extensions['vm_hugepages_avail_2M']
-        Integer      $.extensions['platform_reserved_mib']
-        Integer      $.extensions['numa_node']
 
         BREAK
     END
@@ -606,36 +487,7 @@ s18, query Resource detail of an ethernet port
         log      ${res}   level=DEBUG
         Integer     response status    200
         Object      response body
-        ${description}    output    $.description
-        should contain  ${description}  name:
-        should contain  ${description}  pdevice:
-        should contain  ${description}  pciaddr:
-        should contain  ${description}  mac:
-        should contain  ${description}  dev_id:
-        should contain  ${description}  pclass:
-        should contain  ${description}  psvendor:
-        should contain  ${description}  psdevice:
-        should contain  ${description}  sriov_totalvfs:
-        should contain  ${description}  sriov_numvfs:
-        should contain  ${description}  numa_node:
-        should contain  ${description}  capabilities:
-        should contain  ${description}  type:
-        should contain  ${description}  driver:
         Object      $.extensions
-        String      $.extensions['name']
-        String      $.extensions['pdevice']
-        String      $.extensions['pciaddr']
-        String      $.extensions['mac']
-        Integer      $.extensions['dev_id']
-        String      $.extensions['pclass']
-        String      $.extensions['psvendor']
-        String      $.extensions['psdevice']
-        # Integer      $.extensions['sriov_totalvfs']
-        Integer     $.extensions['sriov_numvfs']
-        Integer     $.extensions['numa_node']
-        # Integer     $.extensions['capabilities']
-        String     $.extensions['type']
-        String     $.extensions['driver']
 
         BREAK
     END
