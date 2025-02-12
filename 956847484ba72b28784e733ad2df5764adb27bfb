@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c17886f2_bd84e8ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002633
+      },
+      "writtenOn": "2025-02-12T17:08:20Z",
+      "side": 1,
+      "message": "Update the commit message to match the change.",
+      "revId": "956847484ba72b28784e733ad2df5764adb27bfb",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "283e0cdf_eea0885a",
