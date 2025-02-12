@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b64cbf3_dcd94351",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/schemas/ocloud_allfields_properties.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-02-12T14:24:55Z",
+      "side": 1,
+      "message": "extensions is not a mandatory field per Table 3.2.6.2.6-1 Definition of type CloudInfo in the O-RAN.WG6.O2IMS-INTERFACE-R004-v07 specification",
+      "revId": "37b706cc21183503e0ce6f085e4ed1c22b30e501",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e13678_4b1de1b1",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/schemas/resourcePool_allfields_properties.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-02-12T14:24:55Z",
+      "side": 1,
+      "message": "Location and extensions fields are not mandatory per Table 3.2.6.2.3-1 Definition of type ResourcePoolInfo",
+      "revId": "37b706cc21183503e0ce6f085e4ed1c22b30e501",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bae14f15_1a9ff291",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/schemas/resourceTypes_field3_properties.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-02-12T14:24:55Z",
+      "side": 1,
+      "message": "Missing the version attribute in this schema",
+      "revId": "37b706cc21183503e0ce6f085e4ed1c22b30e501",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d9cb844_3e13297a",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/schemas/resourceTypes_field3_properties.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-02-12T14:24:55Z",
+      "side": 1,
+      "message": "alarmDictionary could be null too. See resourceTypes_field4_properties.json",
+      "revId": "37b706cc21183503e0ce6f085e4ed1c22b30e501",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e636ec18_7af9adc9",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/schemas/resourceTypes_field3_properties.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-02-12T14:24:55Z",
+      "side": 1,
+      "message": "All fields are mandatory per Table 2.1.1.1.3-1: Attributes of the ResourceType and Table 3.2.6.2.2-1 Definition of type ResourceTypeInfo",
+      "revId": "37b706cc21183503e0ce6f085e4ed1c22b30e501",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
