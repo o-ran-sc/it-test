@@ -29,9 +29,7 @@ ${ORAN_O2IMS_ENDPOINT}  ${ocloud.oran_o2_app.api.protocol}://${ORAN_HOST_EXTERNA
 ${SMO_ALARM_OBSERVER_URL}     ${smo.service.protocol}://${smo.service.host}:${smo.service.port}${smo.o2ims_alarm_observer.path}
 ${consumerSubscriptionId}   3F20D850-AF4F-A84F-FB5A-0AD585410361
 
-# ${subscription_data}  {"callback": "${SMO_ALARM_OBSERVER_URL}", "consumerSubscriptionId": "${consumerSubscriptionId}", "filter": "(neq,resourcePools.globalLocationId,${globalLocationId})" }
-
-# ${subscription_data}  {"callback": "${SMO_ALARM_OBSERVER_URL}", "consumerSubscriptionId": "${consumerSubscriptionId}", "filter": "" }
+${subscription_data}  {"callback": "${SMO_ALARM_OBSERVER_URL}", "consumerSubscriptionId": "${consumerSubscriptionId}"}
 
 *** Test Cases ***
 s1, create alarmSubscription
@@ -43,8 +41,6 @@ s1, create alarmSubscription
     Expect Response Body        ${CURDIR}/schemas/alarm_subscription_properties.json
 
     Set Headers     {"Content-Type": "application/json"}
-    ${subscription_data}  input     {"callback": "${SMO_ALARM_OBSERVER_URL}", "consumerSubscriptionId": "${consumerSubscriptionId}"}
-
     # ${subscription_data}  input     {"callback": "${SMO_ALARM_OBSERVER_URL}", "consumerSubscriptionId": "${consumerSubscriptionId}", "filter": "(eq,resourceTypeID,typeid1234)" }
 
     # ${subscription_data}  input     {"callback": "${SMO_ALARM_OBSERVER_URL}", "consumerSubscriptionId": "${consumerSubscriptionId}", "filter": "(neq,resourceTypeID,typeid1234)" }
@@ -59,7 +55,7 @@ s1, create alarmSubscription
     Integer  response status    201
     Object   response body
 
-# s2, query alarmSubscription list
+s2, query alarmSubscription list
     # [documentation]  This test case verifies query alarmSubscription list
     # [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS    ORAN_O2IMS_Alarm_Subscription
 
@@ -83,26 +79,15 @@ s1, create alarmSubscription
     Array       response body
     Array       $   minItems=1  uniqueItems=true
 
-# s?, query alarmSubscription list with filter
-#     [documentation]  This test case verifies Query OCloud resourceTypes with filter
-#     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS    ORAN_O2IMS_Alarm_Subscription
-
-    # Clear Expectations
-    Expect Response Body        ${CURDIR}/schemas/alarm_subscriptions_properties.json
-    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarmSubscriptions?filter=(eq,consumerSubscriptionId,${consumerSubscriptionId})
-    Clear Expectations
-    log      ${res}   level=INFO
-    Integer     response status    200
-    Array       response body
-    Array       $   minItems=1
-
-# s3, query alarmSubscription detail
+s3, query alarmSubscription detail
 #     [documentation]  This test case verifies Query OCloud resourceTypes detail
 #     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS    ORAN_O2IMS_Alarm_Subscription
 
     # Clear Expectations
     # GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarmSubscriptions/${subscriptionId}
     ${subscriptionId}      output   $[0].alarmSubscriptionId
+    Set Global Variable   ${subscriptionId}
+
     # Clear Expectations
     Expect Response Body        ${CURDIR}/schemas/alarm_subscription_properties.json
     ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarmSubscriptions/${subscriptionId}
@@ -131,16 +116,11 @@ s1, create alarmSubscription
     Integer  response status    400
     Object   response body
 
-# s4, Stx/WRCP generates an alarm change event and check SMO succeeds to receive a alarm change notification
-#     [documentation]  This test case verifies Query OCloud resourcePools without filter
-#     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS    ORAN_O2IMS_Alarm_Subscription
+#s4, Trigger alarm on O-Cloud
+# TBD
+#
 
-    # ${stdout}  ${stderr}  ${rc}=    Assert Alarm With Disk Usage
-    # log     ${rc}   level=DEBUG
-    # Should Be Equal     ${rc} 0
-
-
-# s5, query alarm list without filter
+s5, query alarm list without filter
 
     Clear Expectations
     Expect Response Body        ${CURDIR}/schemas/alarms_properties.json
@@ -152,20 +132,11 @@ s1, create alarmSubscription
     Array       response body
     Array       $   minItems=1  uniqueItems=true
 
-    # # query with filter
-    # Expect Response Body        ${CURDIR}/schemas/alarms_properties.json
-    # ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms?all_fields&filter=(eq,perceivedSeverity,1)
-    # # Output Schema   response body   ${CURDIR}/schemas/.output/alarms_properties.json
-    # Clear Expectations
-    # log      ${res}   level=DEBUG
-    # Integer     response status    200
-    # Array       response body
-    # Array       $   minItems=1  uniqueItems=true
-
-    # extract resourceTypeID for query with fitler test
+    # extract resourceTypeID for query with filter test
     ${resourceTypeID}      output   $[0].resourceTypeID
+    Set Global Variable    ${resourceTypeID}
 
-# s6, query alarm list with filter
+s6, query alarm list with filter
     Clear Expectations
     # GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourceTypes?filter=(eq,name,pserver)
     # ${resourceTypeID}      output   $[0].resourceTypeID
@@ -177,15 +148,14 @@ s1, create alarmSubscription
     Array       response body
     Array       $   minItems=1  uniqueItems=true
     Expect Response Body        ${CURDIR}/schemas/alarms_properties.json
-    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms    {"filter": "(eq,resourceTypeID,${resourceTypeID};eq,alarmAcknowledged,false)"}
+    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms    {"filter": "(eq,resourceTypeID,${resourceTypeID});(eq,alarmAcknowledged,false)"}
     Clear Expectations
     log      ${res}   level=DEBUG
     Integer     response status    200
     Array       response body
     Array       $   minItems=1  uniqueItems=true
 
-
-# s7, query alarm detail
+s7, query alarm detail
     Expect Response Body        ${CURDIR}/schemas/alarms_properties.json
     ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms?all_fields
     # Output Schema   response body   ${CURDIR}/schemas/.output/alarms_properties.json
@@ -195,15 +165,19 @@ s1, create alarmSubscription
     Array       response body
     Array       $   minItems=1  uniqueItems=true
 
+s8, query alarm by alarmEventRecordId
+#     [documentation]  This test case verifies querying a specific alarm record
+#     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS    ORAN_O2IMS_Alarm_Subscription
+
     # all fields
     ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms?all_fields
     log      ${res}   level=DEBUG
     Integer     response status    200
     Array       response body
     Array       $   minItems=1  uniqueItems=true
+    ${alarmEventRecordId}      output   $[0].alarmEventRecordId
 
     # alarm detail
-    ${alarmEventRecordId}      output   $[0].alarmEventRecordId
     Expect Response Body        ${CURDIR}/schemas/alarm_properties.json
     ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms/${alarmEventRecordId}
     # Output Schema   response body   ${CURDIR}/schemas/.output/alarm_properties.json
@@ -218,8 +192,39 @@ s1, create alarmSubscription
     Object       response body
     Object      $.extensions
 
-# s8, delete the alarmSubscription
-#     [documentation]  This test case verifies Query OCloud resourcePools with filter
+s9, Acknowledge an alarm
+#     [documentation]  This test case verifies acknowledging a specific alarm record
+#     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS    ORAN_O2IMS_Alarm_Subscription
+
+    # Find an unacknowledged alarm
+    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms?filter=(neq,alarmAcknowledged,true)
+    log      ${res}   level=DEBUG
+    Integer     response status    200
+    Array       response body
+    Array       $   minItems=1  uniqueItems=true
+    ${alarmEventRecordId}      output   $[0].alarmEventRecordId
+    Boolean   $[0].alarmAcknowledged    false
+
+    # Acknowledge it
+    Expect Response Body        ${CURDIR}/schemas/client_errors_properties.json
+    Clear Expectations
+    Set Headers     {"Content-Type": "application/merge-patch+json"}
+    ${res}     PATCH   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms/${alarmEventRecordId}  {"alarmAcknowledged": true}
+    log      ${res}   level=DEBUG
+    Integer  response status    200
+    Object   response body
+
+    # Confirm
+    Expect Response Body        ${CURDIR}/schemas/alarm_properties.json
+    Clear Expectations
+    Set Headers     {"Content-Type": "application/json"}
+    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms/${alarmEventRecordId}
+    log      ${res}   level=DEBUG
+    Integer     response status    200
+    Boolean   $.alarmAcknowledged    true
+
+s10, delete the alarmSubscription
+#     [documentation]  This test case verifies deleting an alarm subscription
 #     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS    ORAN_O2IMS_Alarm_Subscription
 
     # Clear Expectations
@@ -232,24 +237,9 @@ s1, create alarmSubscription
     # Array       response body
     # Array       $   minItems=1  maxItems=1
 
-# s9, Stx/WRCP generates an alarm change event and check SMO cannot receive any alarm change notification
-#     [documentation]  This test case verifies Query OCloud resourcePools detail
-#     [tags]  ORAN_Compliance     ORAN_O2     ORAN_O2IMS    ORAN_O2IMS_Alarm_Subscription
-
-    # # Clear Expectations
-    # Expect Response Body        ${CURDIR}/schemas/alarm_subscriptions_properties.json
-    # ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarmSubscriptions/${subscriptionId}
-    # # Output Schema   response body   ${CURDIR}/schemas/.output/resourcePool_properties.json
-    # Clear Expectations
-    # log      ${res}   level=INFO
-    # Integer     response status    200
-    # Object       response body
-
-# clear the alarm condition
-    ${stdout}  ${stderr}  ${rc}=    Clear Alarm With Disk Usage
-#    log     ${rc}   level=DEBUG
-#    Should Be Equal     ${rc} 0
-
+#s11, Clear alarm on O-Cloud
+# TBD
+#
 
 *** Keywords ***
 Set REST Headers
