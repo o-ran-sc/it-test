@@ -6,25 +6,13 @@
             "alarmEventRecordId": {
                 "type": "string"
             },
-            "resourceTypeId": {
-                "type": "string"
-            },
             "resourceTypeID": {
-                "type": "string"
-            },
-            "resourceId": {
                 "type": "string"
             },
             "resourceID": {
                 "type": "string"
             },
-            "alarmDefinitionId": {
-                "type": "string"
-            },
             "alarmDefinitionID": {
-                "type": "string"
-            },
-            "probableCauseId": {
                 "type": "string"
             },
             "probableCauseID": {
@@ -43,7 +31,7 @@
                 "type": "boolean"
             },
             "perceivedSeverity": {
-                "type": "string"
+                "type": "integer"
             },
             "extensions": {
                 "type": [
@@ -60,8 +48,6 @@
             "alarmDefinitionID",
             "probableCauseID",
             "alarmRaisedTime",
-            "alarmChangedTime",
-            "alarmAcknowledgeTime",
             "alarmAcknowledged",
             "perceivedSeverity",
             "extensions"
