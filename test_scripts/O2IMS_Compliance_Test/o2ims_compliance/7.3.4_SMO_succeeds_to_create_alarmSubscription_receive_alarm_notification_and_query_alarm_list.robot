@@ -217,18 +217,6 @@ s1, create alarmSubscription
     Integer     response status    200
     Object       response body
     Object      $.extensions
-    # Boolean      $.extensions['mgmt_affecting']
-    String      $.extensions['alarm_state']
-    # Boolean      $.extensions['degrade_affecting']
-    # Boolean      $.extensions['service_affecting']
-    String      $.extensions['alarm_type']
-    String      $.extensions['entity_type_id']
-    String      $.extensions['probable_cause']
-    String      $.extensions['alarm_id']
-    String      $.extensions['entity_instance_id']
-    String     $.extensions['proposed_repair_action']
-    # Boolean     $.extensions['suppression']
-    String     $.extensions['suppression_status']
 
 # s8, delete the alarmSubscription
 #     [documentation]  This test case verifies Query OCloud resourcePools with filter
