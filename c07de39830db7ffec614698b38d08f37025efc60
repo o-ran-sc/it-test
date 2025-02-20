@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a059a85b_6f1f0b55",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.2_SMO_succeeds_to_query_inventory_with_O2ims_APIs_and_correct_token.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-02-20T21:09:00Z",
+      "side": 0,
+      "message": "In my opinion, steps 14 to 18 should be removed from the compliance test since they do not exist in the O-RAN.WG6.O-CLOUD-INTF-CONF-R003-v04.00 specification. Also they query very hardware specific resources (accelerator, cpu, interfaces, memory, ethernet) which in the best case are optional properties of the extensions field. As stated in the doc: \"These are unspecified (not standardized) properties (keys) which are tailored by the vendor to extend the information provided about\nthe Resource.\"",
+      "revId": "c07de39830db7ffec614698b38d08f37025efc60",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
