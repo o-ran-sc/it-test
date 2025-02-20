@@ -34,6 +34,24 @@
       "parentUuid": "a059a85b_6f1f0b55",
       "revId": "c07de39830db7ffec614698b38d08f37025efc60",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ab5aa02_a0544a05",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.2_SMO_succeeds_to_query_inventory_with_O2ims_APIs_and_correct_token.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-02-20T21:24:35Z",
+      "side": 0,
+      "message": "See other change",
+      "parentUuid": "0f705d77_a26dd967",
+      "revId": "c07de39830db7ffec614698b38d08f37025efc60",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
