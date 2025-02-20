@@ -14,6 +14,7 @@ ${SMO_TOKEN_DATA}           ${ocloud.oran_o2_app.smo_token_data}
 ${globalLocationId}         ${ocloud.oran_o2_app.g_location_id}
 
 ${ORAN_O2IMS_ENDPOINT}  ${ocloud.oran_o2_app.api.protocol}://${ORAN_HOST_EXTERNAL_IP}:${ORAN_SERVICE_NODE_PORT}
+${RESOURCETYPE_NAME}        ${ocloud.oran_o2_app.resourcetype_name}
 
 
 *** Test Cases ***
@@ -64,7 +65,7 @@ s1, Operate resourceTypes with unsupported method
     Integer  response status    405
     Object   response body
 
-    GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourceTypes?filter=(eq,name,pserver)
+    GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourceTypes?filter=(eq,name,${RESOURCETYPE_NAME})
     ${resourceTypeId}      output   $[0].resourceTypeId
     ${res}     PUT   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourceTypes/${resourceTypeId}
     # Clear Expectations
