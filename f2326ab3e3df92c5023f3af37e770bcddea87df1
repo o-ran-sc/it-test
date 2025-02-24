@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05e5e935_a6c80eb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-02-24T01:36:55Z",
+      "side": 1,
+      "message": "@rong.zhang@windriver.com PTAL",
+      "revId": "f2326ab3e3df92c5023f3af37e770bcddea87df1",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
