@@ -33,6 +33,24 @@
       "message": "any reason why remove alarmChangedTime and alarmAcknowledgeTime?",
       "revId": "0c146492f4e9168164bc08f295d96420c000e4b9",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70ea6334_3f78eb1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-04T12:27:43Z",
+      "side": 1,
+      "message": "because the spec says they are only needed to be present if the alarm was modified or acknowledged.",
+      "parentUuid": "5aaacb44_2d3ccec0",
+      "revId": "0c146492f4e9168164bc08f295d96420c000e4b9",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
