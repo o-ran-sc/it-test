@@ -12,6 +12,8 @@ ${ORAN_SERVICE_NODE_PORT}   ${ocloud.oran_o2_app.api.node_port}
 ${GLOBAL_OCLOUD_ID1}        ${ocloud.oran_o2_app.g_ocloud_id}
 ${SMO_TOKEN_DATA}           ${ocloud.oran_o2_app.smo_token_data}
 ${globalLocationId}         ${ocloud.oran_o2_app.g_location_id}
+${RESOURCETYPE_NAME}        ${ocloud.oran_o2_app.resourcetype_name}
+${DESCRIPTION_SUBSTRING}    ${ocloud.oran_o2_app.resource_description_substring}
 
 ${ORAN_O2IMS_ENDPOINT}  ${ocloud.oran_o2_app.api.protocol}://${ORAN_HOST_EXTERNAL_IP}:${ORAN_SERVICE_NODE_PORT}
 
@@ -78,7 +80,7 @@ s4, query Resources with filters
 
     Clear Expectations
 
-    GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourceTypes?filter=(eq,name,pserver)
+    GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourceTypes?filter=(eq,name,${RESOURCETYPE_NAME})
     ${resourceTypeId}      output   $[0].resourceTypeId
 
     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourcePools
@@ -96,9 +98,8 @@ s4, query Resources with filters
         Should Be Equal  ${resource}[resourceTypeId]  ${resourceTypeId}
     END
 
-    # filter accelerator
-    ${substring1}   input   "Intel Corporation"
-    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourcePools/${resourcePoolId}/resources?filter=(cont,description,${substring1})
+    # filter for description
+    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourcePools/${resourcePoolId}/resources?filter=(cont,description,${DESCRIPTION_SUBSTRING})
     # Clear Expectations
     log      ${res}   level=INFO
     Integer     response status    200
@@ -106,20 +107,18 @@ s4, query Resources with filters
     Array       $   minItems=1  uniqueItems=true
     @{resources}     output  $
     FOR     ${resource}     IN      @{resources}
-        should contain  ${resource}[description]  ${substring1}
+        should contain  ${resource}[description]  ${DESCRIPTION_SUBSTRING}
     END
 
     # filters combination
-    
-    GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourceTypes?filter=(eq,name,pserver_ethernet)
+    GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourceTypes?filter=(eq,name,${RESOURCETYPE_NAME})
     ${resourceTypeId}      output   $[0].resourceTypeId
 
     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourcePools
     ${resourcePoolId}      output   $[0].resourcePoolId
     # Clear Expectations
-    ${substring1}   input   "Intel Corporation"
     # Expect Response Body        ${CURDIR}/schemas/resources_properties.json
-    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourcePools/${resourcePoolId}/resources     {"filter": "(eq,resourceTypeId,${resourceTypeId});(cont,description,${substring1})"}
+    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourcePools/${resourcePoolId}/resources     {"filter": "(eq,resourceTypeId,${resourceTypeId});(cont,description,${DESCRIPTION_SUBSTRING})"}
     # Clear Expectations
     log      ${res}   level=INFO
     Integer     response status    200
@@ -128,7 +127,7 @@ s4, query Resources with filters
     @{resources}     output  $
     FOR     ${resource}     IN      @{resources}
         Should Be Equal  ${resource}[resourceTypeId]  ${resourceTypeId}
-        Should Contain  ${resource}[description]  ${substring1}
+        Should Contain  ${resource}[description]  ${DESCRIPTION_SUBSTRING}
     END
 
 s5, query Resources with attribute selector
