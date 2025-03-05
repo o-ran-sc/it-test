@@ -50,6 +50,24 @@
       "message": "Is \"wrongDeploymentManagerID\" here supposed to be a var? If not, then its lgtm. Ill vote after clarification from @rong.zhang@windriver.com",
       "revId": "e26f42c5597347da822b34ca443d3f94087e9325",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46ba504c_cc3d05e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-05T12:16:02Z",
+      "side": 1,
+      "message": "No, that was meant to be a value that generated a 404, but since it is not formatted as a UUID as is defined in the specs it results in a 400... so updating it to a UUID formatted, but still unknown, value.",
+      "parentUuid": "9b269803_9ec3ee0a",
+      "revId": "e26f42c5597347da822b34ca443d3f94087e9325",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
