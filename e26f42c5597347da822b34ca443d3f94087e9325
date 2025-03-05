@@ -33,6 +33,23 @@
       "message": "@d11002806@gapps.ntust.edu.tw and @rong.zhang@windriver.com PTAL",
       "revId": "e26f42c5597347da822b34ca443d3f94087e9325",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b269803_9ec3ee0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-03-05T07:46:56Z",
+      "side": 1,
+      "message": "Is \"wrongDeploymentManagerID\" here supposed to be a var? If not, then its lgtm. Ill vote after clarification from @rong.zhang@windriver.com",
+      "revId": "e26f42c5597347da822b34ca443d3f94087e9325",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
