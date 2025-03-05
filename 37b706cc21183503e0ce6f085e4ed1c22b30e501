@@ -35,6 +35,23 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83f37fe5_079a5d8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-03-05T07:42:28Z",
+      "side": 1,
+      "message": "lgtm. Waiting for @rong.zhang@windriver.com",
+      "revId": "37b706cc21183503e0ce6f085e4ed1c22b30e501",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b64cbf3_dcd94351",
