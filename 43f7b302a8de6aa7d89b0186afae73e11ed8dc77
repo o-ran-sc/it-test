@@ -33,6 +33,23 @@
       "message": "@d11002806@gapps.ntust.edu.tw you can merge this commit.",
       "revId": "43f7b302a8de6aa7d89b0186afae73e11ed8dc77",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e56c060_02fcc12a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-03-05T03:17:58Z",
+      "side": 1,
+      "message": "@rong.zhang@windriver.com is this removal will",
+      "revId": "43f7b302a8de6aa7d89b0186afae73e11ed8dc77",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
