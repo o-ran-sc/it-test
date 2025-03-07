@@ -13,6 +13,18 @@
             "type": "string",
             "default": "A DMS"
         },
+        "supportedLocations": {
+            "type": "array",
+            "items": {
+                "type":  "string"
+            }
+        },
+        "capabilities": {
+            "type": "object"
+        },
+        "capacity": {
+            "type": "object"
+        },
         "oCloudId": {
             "type": "string",
             "default": "ce2eec13-24b0-4cca-aa54-548be6cc985b"
@@ -68,9 +80,11 @@
     "required": [
         "deploymentManagerId",
         "description",
-        "extensions",
         "name",
         "oCloudId",
-        "serviceUri"
+        "serviceUri",
+        "supportedLocations",
+        "capabilities",
+        "capacity"
     ]
 }

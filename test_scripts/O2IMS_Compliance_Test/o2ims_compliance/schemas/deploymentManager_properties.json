@@ -13,6 +13,18 @@
             "type": "string",
             "default": ""
         },
+        "supportedLocations": {
+            "type": "array",
+            "items": {
+                "type":  "string"
+            }
+        },
+        "capabilities": {
+            "type": "object"
+        },
+        "capacity": {
+            "type": "object"
+        },
         "oCloudId": {
             "type": "string",
             "default": ""
@@ -34,6 +46,9 @@
         "description",
         "name",
         "oCloudId",
-        "serviceUri"
+        "serviceUri",
+        "supportedLocations",
+        "capabilities",
+        "capacity"
     ]
 }
