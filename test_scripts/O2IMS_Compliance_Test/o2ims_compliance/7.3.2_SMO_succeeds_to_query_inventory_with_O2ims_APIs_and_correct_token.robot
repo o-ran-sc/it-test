@@ -124,7 +124,7 @@ s5, query Resource Type detail
     log      ${res}   level=DEBUG
     Integer     response status    200
     Object       response body
-    String   $.alarmDictionary.managementInterfaceId    "O2IMS"
+    Array   $.alarmDictionary.managementInterfaceId    ["O2IMS"]
 
 s6, query Resource Pool list without filter
     [documentation]  This test case verifies Query OCloud resourcePools without filter
