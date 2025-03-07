@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0393e4b8_9c43c2af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002633
+      },
+      "writtenOn": "2025-03-07T15:30:02Z",
+      "side": 1,
+      "message": "@d11002806@gapps.ntust.edu.tw and @rong.zhang@windriver.com - PTAL",
+      "revId": "dba8951634cfc151374e66d421bdc89e23367cd8",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
