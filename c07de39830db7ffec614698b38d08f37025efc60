@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f04d6f1_1c0d84bb",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.4_SMO_succeeds_to_create_alarmSubscription_receive_alarm_notification_and_query_alarm_list.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001571
+      },
+      "writtenOn": "2025-03-07T07:12:49Z",
+      "side": 0,
+      "message": "The filter *Cardinality* is \"0..1\", it can be empty. Accept to remove it.\n\nHowever, the filter is \"String\", it might be empty, if the empty string is not accepted, we need to find more details to explain this sentence\n__\"The absence of a filter means all events are sent\"__\n\nit can be explained as:\n1. The \"filter\" does not exist\n2. The \"filter\" value is empty\n\nLet\u0027s merge this, but it needs further discussion.",
+      "range": {
+        "startLine": 46,
+        "startChar": 131,
+        "endLine": 46,
+        "endChar": 146
+      },
+      "revId": "c07de39830db7ffec614698b38d08f37025efc60",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
