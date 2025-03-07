@@ -68,6 +68,24 @@
       "parentUuid": "9b269803_9ec3ee0a",
       "revId": "e26f42c5597347da822b34ca443d3f94087e9325",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2531ed52_a45a5fe0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001571
+      },
+      "writtenOn": "2025-03-07T06:57:57Z",
+      "side": 1,
+      "message": "Using a fake UUID is a good idea. It\u0027s better than fake string.\n*Question here is*: Does the robot framework have officially way to generate the UUID?\n\nDoes the following way work?\n1. Use the python built-in library\n```\n*** Test Cases ***\nGenerate Random UUID\n    ${uuid}    Evaluate    str(__import__(\u0027uuid\u0027).uuid4())\n    Log    Generated UUID: ${uuid}\n```\n\n2. Use 3rd-party library to generate it  \n\n```\n*** Settings ***\nLibrary    String\n\n*** Test Cases ***\nGenerate Random UUID Using String Library\n    ${uuid}    Generate Random String    36    [LOWER]0123456789-\n    Log    Random UUID-like String: ${uuid}\n```\n\n3. If there is no other way to generate, I will vote for the hardcode UUID here.",
+      "parentUuid": "46ba504c_cc3d05e0",
+      "revId": "e26f42c5597347da822b34ca443d3f94087e9325",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
