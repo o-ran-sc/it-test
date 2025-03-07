@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68a22e10_a5107d65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001571
+      },
+      "writtenOn": "2025-03-07T06:43:48Z",
+      "side": 1,
+      "message": "LGTM, +1 @d11002806@gapps.ntust.edu.tw",
+      "revId": "860cb53939eab2c31f587b77c8e062b88f4dd354",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
