@@ -139,6 +139,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9a55bf9_d441b152",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/schemas/resourcePools_properties.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-07T12:46:49Z",
+      "side": 1,
+      "message": "All of the files in this commit are consistent.  If changes are required in any other files not related to this commit then they should be changed separately as to not pollute this commit with unrelated changes.   I am happy to open a separate commit once I\u0027ve complete my currently open changes.",
+      "parentUuid": "385707be_76029486",
+      "revId": "37b706cc21183503e0ce6f085e4ed1c22b30e501",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bae14f15_1a9ff291",
