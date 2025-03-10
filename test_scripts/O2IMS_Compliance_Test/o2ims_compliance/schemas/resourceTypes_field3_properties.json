@@ -25,7 +25,10 @@
                 "type": "string"
             },
             "extensions": {
-                "type": "null"
+                "type": [
+                    "null",
+                    "object"
+                ]
             }
         },
         "required": [

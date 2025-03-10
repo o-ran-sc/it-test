@@ -31,7 +31,10 @@
                 "type": "string"
             },
             "extensions": {
-                "type": "object"
+                "type": [
+                    "null",
+                    "object"
+                ]
             }
         },
         "required": [

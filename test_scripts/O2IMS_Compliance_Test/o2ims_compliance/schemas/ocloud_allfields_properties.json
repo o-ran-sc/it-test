@@ -22,7 +22,10 @@
             "default": "http://128.224.115.23:30205"
         },
         "extensions": {
-            "type": "null",
+            "type": [
+                "null",
+                "object"
+            ],
             "default": null
         }
     },
