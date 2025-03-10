@@ -17,6 +17,10 @@ ocloud:
       host: 192.168.112.15
       node_port: 30205
       protocol: https
+  oran_o2_notification:
+    endpoint_uri: put_notification_event_endpoint_here
+    resource_address: put_notification_event_resource_address_here
+    publisher_endpoint: put_notification_event_publisher_endpoint
 #smo mock server ip and callback endpoints
 smo:
   service:
