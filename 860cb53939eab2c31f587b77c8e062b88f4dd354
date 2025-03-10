@@ -1,0 +1,12 @@
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Code-Review+1: Alberto Losada <alosadag@redhat.com>
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Code-Review+1: Bart Wensley <bartwensley@gmail.com>
+Code-Review+1: Jon Zhang <rong.zhang@windriver.com>
+Code-Review+2: bimo fransiscus asisi <d11002806@gapps.ntust.edu.tw>
+Submitted-by: Allain Legacy <alegacy@redhat.com>
+Submitted-at: Mon, 10 Mar 2025 11:17:56 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/test/+/14215
+Comments-Total: 1
+Project: it/test
+Branch: refs/heads/master
