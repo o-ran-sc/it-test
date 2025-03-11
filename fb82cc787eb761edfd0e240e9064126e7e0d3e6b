@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "764799ac_b15149df",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.1_Create_a_subscription_resource.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-11T17:58:29Z",
+      "side": 1,
+      "message": "take a look at how it is done in 7.3.3 and 7.3.4.  The explicit test steps assume the subscription doesn\u0027t exist, creates it, reads it, and then deletes it.\n\n...but the test file itself contains a `setup` and `teardown` section which first clears out any existing subscriptions and then at the end clears out any leftover subscriptions that may have been forgotten/left behind.\n\n```\n# Suite Setup            Set REST Headers\nSuite Setup            Set REST Headers And Clear Subscriptions\nSuite Teardown         Clear Subscriptions\n```\n\nBoth `Set REST Headers` and `Clear Subscriptions` are defined at the bottom of those two files (7.3.3, and 7.3.4)",
+      "parentUuid": "7652557e_0e9656e2",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 25,
+        "endChar": 51
+      },
+      "revId": "fb82cc787eb761edfd0e240e9064126e7e0d3e6b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1aff723b_4d3b0f8b",
         "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.1_Create_a_subscription_resource.robot",
         "patchSetId": 2
