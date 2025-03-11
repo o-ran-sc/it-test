@@ -1,0 +1,26 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "SubscriptionId": {
+                "type": "string"
+            },
+            "UriLocation": {
+                "type": "string"
+            },
+            "ResourceAddress": {
+                "type": "string"
+            },
+            "EndpointUri": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "UriLocation",
+            "SubscriptionId",
+            "ResourceAddress",
+            "EndpointUri"
+        ]
+    }
+}
