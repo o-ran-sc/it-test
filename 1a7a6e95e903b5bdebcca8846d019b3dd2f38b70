@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86481d91_abbab957",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-11T14:23:25Z",
+      "side": 1,
+      "message": "looks good, just a minor comment.",
+      "revId": "1a7a6e95e903b5bdebcca8846d019b3dd2f38b70",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d4d3d85_5f9a278e",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.3_Detail_of_individual_subscription_resource.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-11T14:23:25Z",
+      "side": 1,
+      "message": "Should check that the minimum length of the response is 1 to ensure that the POST did in fact work successfully. ...because if the array is 0 length I don\u0027t think the test will fail how it is currently written.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 34
+      },
+      "revId": "1a7a6e95e903b5bdebcca8846d019b3dd2f38b70",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
