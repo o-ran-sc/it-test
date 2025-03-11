@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7652557e_0e9656e2",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.1_Create_a_subscription_resource.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-03-11T15:34:03Z",
+      "side": 1,
+      "message": "Ok, do you think we can just assure that the subscription we are creating is not already t,here so we won\u0027t receive a duplicated one? Or we have to loop all over the exiting subscriptions and delete them just in case?",
+      "parentUuid": "4a87e51c_c80d2b1e",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 25,
+        "endChar": 51
+      },
+      "revId": "fb82cc787eb761edfd0e240e9064126e7e0d3e6b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1aff723b_4d3b0f8b",
         "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.1_Create_a_subscription_resource.robot",
         "patchSetId": 2
