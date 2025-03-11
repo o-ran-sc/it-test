@@ -135,6 +135,30 @@
       },
       "revId": "1a7a6e95e903b5bdebcca8846d019b3dd2f38b70",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a82b53be_a2ec86c2",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.3_Detail_of_individual_subscription_resource.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-11T17:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31140e5c_8e1e4690",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 34
+      },
+      "revId": "1a7a6e95e903b5bdebcca8846d019b3dd2f38b70",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
