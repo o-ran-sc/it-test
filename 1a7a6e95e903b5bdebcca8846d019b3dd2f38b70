@@ -39,6 +39,30 @@
       },
       "revId": "1a7a6e95e903b5bdebcca8846d019b3dd2f38b70",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5312c35_411cb182",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.3_Detail_of_individual_subscription_resource.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-03-11T14:45:46Z",
+      "side": 1,
+      "message": "Now it is checking that the result of creating a new subscription is created (200) or existing (409). If it is not any of those, then the test fails.",
+      "parentUuid": "7d4d3d85_5f9a278e",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 34
+      },
+      "revId": "1a7a6e95e903b5bdebcca8846d019b3dd2f38b70",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
