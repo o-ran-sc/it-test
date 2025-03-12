@@ -24,6 +24,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57461c70_ce2d8f3d",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.1_Create_a_subscription_resource.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-03-12T09:29:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6aacad8_701b7307",
+      "range": {
+        "startLine": 16,
+        "startChar": 78,
+        "endLine": 16,
+        "endChar": 84
+      },
+      "revId": "fb82cc787eb761edfd0e240e9064126e7e0d3e6b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a87e51c_c80d2b1e",
@@ -97,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39008af9_0eecf7cc",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.1_Create_a_subscription_resource.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-03-12T09:29:52Z",
+      "side": 1,
+      "message": "Thanks for the heads up",
+      "parentUuid": "764799ac_b15149df",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 25,
+        "endChar": 51
+      },
+      "revId": "fb82cc787eb761edfd0e240e9064126e7e0d3e6b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1aff723b_4d3b0f8b",
         "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.1_Create_a_subscription_resource.robot",
         "patchSetId": 2
@@ -108,6 +156,30 @@
       "writtenOn": "2025-03-11T11:55:58Z",
       "side": 1,
       "message": "The spec refers to ensuring that the destination of the subscription is not to `localhost` therefore here the endpoint should be reset to something other than `http://localhost...` rather than simply appending `/invalid` to the end of the URI.   e.g., another DNS name, or an IP address other than 127.0.0.1.   This is to ensure that, since there is no security on this endpoint, it is not leaving the Pod.",
+      "range": {
+        "startLine": 40,
+        "startChar": 57,
+        "endLine": 40,
+        "endChar": 80
+      },
+      "revId": "fb82cc787eb761edfd0e240e9064126e7e0d3e6b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37dadc62_b4033039",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.1_Create_a_subscription_resource.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-03-12T09:29:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aff723b_4d3b0f8b",
       "range": {
         "startLine": 40,
         "startChar": 57,
@@ -131,6 +203,30 @@
       "writtenOn": "2025-03-11T11:55:58Z",
       "side": 1,
       "message": "Same as above.  Bulk delete is not a defined API action.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 51
+      },
+      "revId": "fb82cc787eb761edfd0e240e9064126e7e0d3e6b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "352ff0a5_8a44f945",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.1_Create_a_subscription_resource.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-03-12T09:29:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "046ce56e_61cce4bc",
       "range": {
         "startLine": 58,
         "startChar": 0,
