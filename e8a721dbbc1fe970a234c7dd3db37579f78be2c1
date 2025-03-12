@@ -16,6 +16,23 @@
       "message": "LGTM.  @d11002806@gapps.ntust.edu.tw and @rong.zhang@windriver.com PTAL",
       "revId": "e8a721dbbc1fe970a234c7dd3db37579f78be2c1",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b00b537b_8ff3590b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002633
+      },
+      "writtenOn": "2025-03-12T20:22:14Z",
+      "side": 1,
+      "message": "Looks good to me",
+      "revId": "e8a721dbbc1fe970a234c7dd3db37579f78be2c1",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
