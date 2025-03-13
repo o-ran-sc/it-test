@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59d8e561_ef0130c7",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-03-13T12:17:57Z",
+      "side": 1,
+      "message": "Good catch. Actually the specification is wrong. It says \"pulling the event from an event consumer\". I guess it should be addressed, meanwhile, since it is just a cosmetic issue I\u0027ll replace consumer by producer.",
+      "parentUuid": "c82487f8_795e95d1",
+      "range": {
+        "startLine": 23,
+        "startChar": 91,
+        "endLine": 23,
+        "endChar": 119
+      },
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbe7f3fb_e0346b92",
         "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
         "patchSetId": 2
@@ -105,6 +129,54 @@
         "startChar": 21,
         "endLine": 33,
         "endChar": 39
+      },
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e85e898_36a7f3d5",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-03-13T12:17:57Z",
+      "side": 1,
+      "message": "Yes, makes sense. Thanks",
+      "parentUuid": "9e979946_5fa8b186",
+      "range": {
+        "startLine": 33,
+        "startChar": 21,
+        "endLine": 33,
+        "endChar": 39
+      },
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff3e4f1e_f6233afe",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-03-13T12:17:57Z",
+      "side": 1,
+      "message": "No, since the RESOURCE_ADDRESS must start with \u0027/\u0027. I can add an extra \u0027/\u0027 if it improves readability.\n\nLine 42 is fixed now.",
+      "parentUuid": "2cfc29e2_f4794586",
+      "range": {
+        "startLine": 33,
+        "startChar": 21,
+        "endLine": 33,
+        "endChar": 58
       },
       "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
