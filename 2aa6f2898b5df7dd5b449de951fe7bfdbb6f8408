@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "271fa574_3863903e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T11:36:12Z",
+      "side": 1,
+      "message": "LGTM  @d11002806@gapps.ntust.edu.tw and @rong.zhang@windriver.com PTAL.",
+      "revId": "2aa6f2898b5df7dd5b449de951fe7bfdbb6f8408",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ea28dd5_531f4c4a",
@@ -32,6 +49,24 @@
       "side": 1,
       "message": "5.3.2 step 2 has now been removed from the conformance test specification - see https://oranalliance.atlassian.net/wiki/spaces/COWG/pages/3872653351/Mar+2025+Conformance+Test+TS+-+Fix+errors+in+O-Cloud+Interface+Conformance+Test+Specification+Approved",
       "parentUuid": "5ea28dd5_531f4c4a",
+      "revId": "2aa6f2898b5df7dd5b449de951fe7bfdbb6f8408",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a2efcc3_1330686c",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.2_Get_a_list_subscription_resources.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T11:36:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afd61d32_7642f92f",
       "revId": "2aa6f2898b5df7dd5b449de951fe7bfdbb6f8408",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
