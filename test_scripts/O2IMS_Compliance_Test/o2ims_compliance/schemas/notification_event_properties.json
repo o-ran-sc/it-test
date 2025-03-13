@@ -1,0 +1,63 @@
+{
+    "type": "object",
+    "properties": {
+        "specversion": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "source": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        },
+        "time":{
+            "type": "string"
+        },
+        "data": {
+            "type": "object",
+            "properties": {
+                "version": {
+                    "type": "string"
+                },
+                "values": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "ResourceAddress": {
+                                "type": "string"
+                            },
+                            "data_type": {
+                                "type": "string"
+                            },
+                            "value_type": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "ResourceAddress",
+                            "data_type",
+                            "value_type",
+                            "value"
+                        ]
+                    }
+                }
+            }
+
+        }
+    },
+        "required": [
+            "id",
+            "type",
+            "source",
+            "specversion",
+            "time",
+            "data"
+        ]
+}
