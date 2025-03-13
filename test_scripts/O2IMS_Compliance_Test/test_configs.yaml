@@ -18,9 +18,10 @@ ocloud:
       node_port: 30205
       protocol: https
   oran_o2_notification:
-    endpoint_uri: put_notification_event_endpoint_here
-    resource_address: put_notification_event_resource_address_here
-    publisher_endpoint: put_notification_event_publisher_endpoint
+    endpoint_uri: put_notification_event_endpoint_here #http://localhost:9043/api/ocloudNotifications/v2/dummy 
+    resource_address: put_notification_event_resource_address_here #/cluster/hostname/sync/sync-status/os-clock-sync-state
+    publisher_endpoint: put_notification_event_publisher_endpoint_here #http://ptp-event-publisher.com/api/ocloudNotifications/v2/subscriptions
+    consumer_endpoint: put_notification_event_consumer_endpoint_here #http://consumer-events.com/event
 #smo mock server ip and callback endpoints
 smo:
   service:
