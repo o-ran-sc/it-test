@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4907317_19134184",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T11:34:07Z",
+      "side": 1,
+      "message": "extra whitespace",
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c82487f8_795e95d1",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T11:34:07Z",
+      "side": 1,
+      "message": "`from an event consumer`?  Isn\u0027t this pulling an event state from a `producer`?  Same comment on line 38.",
+      "range": {
+        "startLine": 23,
+        "startChar": 91,
+        "endLine": 23,
+        "endChar": 119
+      },
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbe7f3fb_e0346b92",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T11:34:07Z",
+      "side": 1,
+      "message": "Since this creates a subscription there should be a teardown function to make sure it is deleted at the end of the test.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 78
+      },
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cfc29e2_f4794586",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T11:34:07Z",
+      "side": 1,
+      "message": "shouldn\u0027t there be a `/` between `${publisherApi}[0]` and `${RESOURCE_ADDRESS}`?  Same comment on line 42.",
+      "range": {
+        "startLine": 33,
+        "startChar": 21,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e979946_5fa8b186",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T11:34:07Z",
+      "side": 1,
+      "message": "rather than need to index [0] every time you use this variable it would be cleaner if you set did it only once in the setup.\n\nSomething like this (I have not tested this so syntax may need adjusting):\n\n```\nSet Publisher API\n    # Variables setup\n    ${tmpArray} \u003d   Split String   ${PUBLISHER_EVENT_ENDPOINT}   separator\u003d\\/subscriptions\n    ${publisherApi} \u003d ${tmpArray}[0]\n    Set Suite Variable   ${publisherApi}\n```",
+      "range": {
+        "startLine": 33,
+        "startChar": 21,
+        "endLine": 33,
+        "endChar": 39
+      },
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}
