@@ -18,6 +18,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06388f86_22ea4849",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T12:23:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4907317_19134184",
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c82487f8_795e95d1",
@@ -65,6 +83,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6ae5418_8f1c8e78",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T12:23:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59d8e561_ef0130c7",
+      "range": {
+        "startLine": 23,
+        "startChar": 91,
+        "endLine": 23,
+        "endChar": 119
+      },
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbe7f3fb_e0346b92",
@@ -78,6 +120,30 @@
       "writtenOn": "2025-03-13T11:34:07Z",
       "side": 1,
       "message": "Since this creates a subscription there should be a teardown function to make sure it is deleted at the end of the test.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 78
+      },
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06a1ac69_4933854d",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T12:23:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbe7f3fb_e0346b92",
       "range": {
         "startLine": 28,
         "startChar": 0,
@@ -177,6 +243,54 @@
         "startChar": 21,
         "endLine": 33,
         "endChar": 58
+      },
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc638695_34896114",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T12:23:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff3e4f1e_f6233afe",
+      "range": {
+        "startLine": 33,
+        "startChar": 21,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b806883_4b49a033",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/5.3.6_Event_pull_status_notification.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-03-13T12:23:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e85e898_36a7f3d5",
+      "range": {
+        "startLine": 33,
+        "startChar": 21,
+        "endLine": 33,
+        "endChar": 39
       },
       "revId": "be05594b6605bfaae04e180fa8aec17b6598b30b",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
