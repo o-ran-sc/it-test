@@ -33,6 +33,23 @@
       "message": "Looks good - thanks Alberto",
       "revId": "ec021157a448e16aa079332f9d4352851bf3ef70",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16ac444e_570de477",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-03-19T04:23:36Z",
+      "side": 1,
+      "message": "@rong.zhang@windriver.com for final check",
+      "revId": "ec021157a448e16aa079332f9d4352851bf3ef70",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
