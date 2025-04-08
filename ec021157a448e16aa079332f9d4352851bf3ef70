@@ -50,6 +50,24 @@
       "message": "@rong.zhang@windriver.com for final check",
       "revId": "ec021157a448e16aa079332f9d4352851bf3ef70",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7398d9a_6abbc872",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002605
+      },
+      "writtenOn": "2025-04-08T08:42:02Z",
+      "side": 1,
+      "message": "I had to rebase it, could you approve it again?",
+      "parentUuid": "16ac444e_570de477",
+      "revId": "ec021157a448e16aa079332f9d4352851bf3ef70",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
