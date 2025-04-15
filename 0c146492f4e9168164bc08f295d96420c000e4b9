@@ -69,6 +69,24 @@
       "parentUuid": "5aaacb44_2d3ccec0",
       "revId": "0c146492f4e9168164bc08f295d96420c000e4b9",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9620a73d_6a733cfe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-04-15T11:20:10Z",
+      "side": 1,
+      "message": "@d11002806@gapps.ntust.edu.tw Yes, both are present in table 3.3.6.2.2-1, but they have minimum cardinality of 0 and their description states that they shall be present if the alarm is modified or acknowledged.  So, not providing them when the alarm is NOT modified or NOT acknowledged should be valid.",
+      "parentUuid": "366fdabf_ac74ce18",
+      "revId": "0c146492f4e9168164bc08f295d96420c000e4b9",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
