@@ -50,6 +50,23 @@
       "message": "@rong.zhang@windriver.com ptal",
       "revId": "fb3d46f0b6deefe5e09629d855807bfd5e53ee3d",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d87fc07_ac9b78b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-04-16T06:33:13Z",
+      "side": 1,
+      "message": "There is a blocker from gerrit says this mr depend on patch 5 of 14233. @alosadag@redhat.com, can you submit different mr and abandon this?",
+      "revId": "fb3d46f0b6deefe5e09629d855807bfd5e53ee3d",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
