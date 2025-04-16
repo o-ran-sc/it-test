@@ -16,6 +16,23 @@
       "message": "any diff",
       "revId": "0ca033ea50862174ff83f269417dde4bd2ecd9a6",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70dc82fc_d4324127",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-04-16T06:19:53Z",
+      "side": 1,
+      "message": "@rong.zhang@windriver.com waiting for your final vote",
+      "revId": "0ca033ea50862174ff83f269417dde4bd2ecd9a6",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
