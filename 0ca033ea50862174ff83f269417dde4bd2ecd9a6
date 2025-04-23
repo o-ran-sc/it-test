@@ -50,6 +50,24 @@
       "message": "I think this issue still hasnt cleared. I was under assumption that this has been fixed already. Im with @rong.zhang@windriver.com in a sense cardinality 1 means it required and should exists. For temporary i remove my vote until there is a resolution",
       "revId": "0ca033ea50862174ff83f269417dde4bd2ecd9a6",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed363f8b_68f6c1c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002651
+      },
+      "writtenOn": "2025-04-23T11:28:44Z",
+      "side": 1,
+      "message": "@d11002806@gapps.ntust.edu.tw and @rong.zhang@windriver.com Please take a look at the interface specification document version R004-v08.00 table 3.3.6.2.2-1.  The `alarmClearedTime`, `alarmChangedTime` and `alarmAcknowledgedTime` attributes all have a cardinality of `0..1`meaning that they are optional.",
+      "parentUuid": "b9b88cb7_335d9292",
+      "revId": "0ca033ea50862174ff83f269417dde4bd2ecd9a6",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
