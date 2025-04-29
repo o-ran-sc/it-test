@@ -162,22 +162,22 @@ s1, create alarmSubscription
     # Array       response body
     # Array       $   minItems=1  uniqueItems=true
 
-    # extract resourceTypeId for query with fitler test
-    ${resourceTypeId}      output   $[0].resourceTypeId
+    # extract resourceTypeID for query with fitler test
+    ${resourceTypeID}      output   $[0].resourceTypeID
 
 # s6, query alarm list with filter
     Clear Expectations
     # GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureInventory/v1/resourceTypes?filter=(eq,name,pserver)
-    # ${resourceTypeId}      output   $[0].resourceTypeId
+    # ${resourceTypeID}      output   $[0].resourceTypeID
     Expect Response Body        ${CURDIR}/schemas/alarms_properties.json
-    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms?filter=(eq,resourceTypeID,${resourceTypeId})
+    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms?filter=(eq,resourceTypeID,${resourceTypeID})
     Clear Expectations
     log      ${res}   level=DEBUG
     Integer     response status    200
     Array       response body
     Array       $   minItems=1  uniqueItems=true
     Expect Response Body        ${CURDIR}/schemas/alarms_properties.json
-    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms    {"filter": "(eq,resourceTypeID,${resourceTypeId};eq,alarmAcknowledged,false)"}
+    ${res}     GET   ${ORAN_O2IMS_ENDPOINT}/o2ims-infrastructureMonitoring/v1/alarms    {"filter": "(eq,resourceTypeID,${resourceTypeID};eq,alarmAcknowledged,false)"}
     Clear Expectations
     log      ${res}   level=DEBUG
     Integer     response status    200
