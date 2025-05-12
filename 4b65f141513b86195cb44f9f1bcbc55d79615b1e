@@ -16,6 +16,23 @@
       "message": "Issues addressed... @rong.zhang@windriver.com PTAL",
       "revId": "4b65f141513b86195cb44f9f1bcbc55d79615b1e",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fad4bc3_1346c8bc",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.4_SMO_succeeds_to_create_alarmSubscription_receive_alarm_notification_and_query_alarm_list.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002633
+      },
+      "writtenOn": "2025-05-12T18:50:28Z",
+      "side": 1,
+      "message": "Is using the committer in the TODO comment an official O-RAN SC policy? In my opinion, this is a bad idea as committers will eventually move on to other things and then we\u0027re just left with a confusing reference to someone who is no longer around to answer questions. @rong.zhang@windriver.com - what do you think?",
+      "revId": "4b65f141513b86195cb44f9f1bcbc55d79615b1e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
