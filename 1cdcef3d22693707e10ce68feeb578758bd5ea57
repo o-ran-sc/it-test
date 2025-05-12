@@ -33,6 +33,75 @@
       "message": "@rong.zhang@windriver.com ptal",
       "revId": "1cdcef3d22693707e10ce68feeb578758bd5ea57",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b2eedd4_d86535b9",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.4_SMO_succeeds_to_create_alarmSubscription_receive_alarm_notification_and_query_alarm_list.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001571
+      },
+      "writtenOn": "2025-05-12T07:02:00Z",
+      "side": 1,
+      "message": "Consider replacing this hardcoded value with a random UUID for better reliability - though the current implementation is acceptable for this commit.",
+      "range": {
+        "startLine": 30,
+        "startChar": 28,
+        "endLine": 30,
+        "endChar": 64
+      },
+      "revId": "1cdcef3d22693707e10ce68feeb578758bd5ea57",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df084f1c_38e89d0b",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.4_SMO_succeeds_to_create_alarmSubscription_receive_alarm_notification_and_query_alarm_list.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001571
+      },
+      "writtenOn": "2025-05-12T07:02:00Z",
+      "side": 1,
+      "message": "Need more comment here with \"TODO(committer name)\".",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 1
+      },
+      "revId": "1cdcef3d22693707e10ce68feeb578758bd5ea57",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db727035_b4e553f3",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.4_SMO_succeeds_to_create_alarmSubscription_receive_alarm_notification_and_query_alarm_list.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001571
+      },
+      "writtenOn": "2025-05-12T07:02:00Z",
+      "side": 1,
+      "message": "Need more comments here.",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 1
+      },
+      "revId": "1cdcef3d22693707e10ce68feeb578758bd5ea57",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }
