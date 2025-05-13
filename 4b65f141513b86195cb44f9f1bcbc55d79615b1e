@@ -18,6 +18,23 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed89b641_86047de1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001571
+      },
+      "writtenOn": "2025-05-13T03:39:37Z",
+      "side": 1,
+      "message": "@d11002806@gapps.ntust.edu.tw LGTM",
+      "revId": "4b65f141513b86195cb44f9f1bcbc55d79615b1e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fad4bc3_1346c8bc",
@@ -31,6 +48,24 @@
       "writtenOn": "2025-05-12T18:50:28Z",
       "side": 1,
       "message": "Is using the committer in the TODO comment an official O-RAN SC policy? In my opinion, this is a bad idea as committers will eventually move on to other things and then we\u0027re just left with a confusing reference to someone who is no longer around to answer questions. @rong.zhang@windriver.com - what do you think?",
+      "revId": "4b65f141513b86195cb44f9f1bcbc55d79615b1e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f8f0453_9d2dda0a",
+        "filename": "test_scripts/O2IMS_Compliance_Test/o2ims_compliance/7.3.4_SMO_succeeds_to_create_alarmSubscription_receive_alarm_notification_and_query_alarm_list.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001571
+      },
+      "writtenOn": "2025-05-13T03:39:37Z",
+      "side": 1,
+      "message": "Thank you @bartwensley@gmail.com\nCurrently, there is no official O-RAN SC policy for committers as required.\n\n__My suggestion__:\n\n* At a minimum, add a TODO comment explaining what needs to be done.\n* Ideally, include who identified the issue (even if the original reporter is no longer available), so we maintain traceability context when we read the code directly.",
+      "parentUuid": "3fad4bc3_1346c8bc",
       "revId": "4b65f141513b86195cb44f9f1bcbc55d79615b1e",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
