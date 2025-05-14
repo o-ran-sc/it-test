@@ -14,7 +14,7 @@ ocloud:
     deploymentmanager_name: put_deploymentmanager_name_here
     resourcetype_name: put_resourcetype_name_here
     resource_description_substring: put_resource_description_substring_here
-
+    expect_callback_verify: False
     api:
       host: 192.168.112.15
       node_port: 30205
