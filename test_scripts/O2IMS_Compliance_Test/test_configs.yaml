@@ -6,7 +6,7 @@ ocloud:
     username: username
     password: passwd
     openrc: /etc/platform/openrc
-  #oran_o2_ims_info 
+  #oran_o2_ims_info
   oran_o2_app:
     g_location_id: testlocation_1
     g_ocloud_id: 18f2dc90-b375-47dd-b8dc-ae80072e6cdb
@@ -14,6 +14,7 @@ ocloud:
     deploymentmanager_name: put_deploymentmanager_name_here
     resourcetype_name: put_resourcetype_name_here
     resource_description_substring: put_resource_description_substring_here
+    expect_callback_verify: False
 
     api:
       host: 192.168.112.15

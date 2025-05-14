@@ -56,4 +56,11 @@ SMO called by IMS verification
     Set Headers     {"Content-Type": "application/json"}
     ${res}    put   ${SMO_VERIFY_URL}  ${args}
     log       ${res}  level=DEBUG
-    Integer     response status    406
+    # Whether the O-Cloud performs a reachability check (i.e., ETSI GS NFV-SOL 015 V1.1.1, section 5.9) or not is
+    # optional; therefore, here we provide the ability to override the verification based on the support provided by
+    # the O-Cloud.
+    IF   ${ocloud.oran_o2_app.expect_callback_verify}
+        Integer     response status    202
+    ELSE
+        Integer     response status    406
+    END
