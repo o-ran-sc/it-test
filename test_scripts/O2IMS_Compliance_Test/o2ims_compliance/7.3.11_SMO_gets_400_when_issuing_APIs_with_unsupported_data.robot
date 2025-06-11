@@ -12,7 +12,11 @@ ${SMO_TOKEN_DATA}           ${ocloud.oran_o2_app.smo_token_data}
 ${globalLocationId}         ${ocloud.oran_o2_app.g_location_id}
 
 ${ORAN_O2IMS_ENDPOINT}  ${ocloud.oran_o2_app.api.protocol}://${ORAN_HOST_EXTERNAL_IP}:${ORAN_SERVICE_NODE_PORT}
-${o2ims_observer}       https://10.6.85.1:1080/smo/v1/consumer
+${o2ims_observer}     ${smo.service.protocol}://${smo.service.host}:${smo.service.port}${smo.o2ims_inventory_observer.path}
+
+${CLIENT_CERT_PATH}    ${CURDIR}/../certs/client-cert.pem
+${CLIENT_KEY_PATH}     ${CURDIR}/../certs/client-key.pem
+@{CERT_INFO}           ${CLIENT_CERT_PATH}  ${CLIENT_KEY_PATH}
 
 *** Test Cases ***
 s1, Verify create inventory subscription with junk data gets 400 error.
@@ -21,7 +25,7 @@ s1, Verify create inventory subscription with junk data gets 400 error.
 
     ${tokenHeader}=    Create Dictionary    Authorization=Bearer ${SMO_TOKEN_DATA}    Content-Type=application/json
     Set Suite Variable   ${tokenHeader}
-    Create Session    o2ims    ${ORAN_O2IMS_ENDPOINT}    verify=False    debug=1   headers=${tokenHeader}
+    Create Client Cert Session    o2ims    ${ORAN_O2IMS_ENDPOINT}    verify=False    debug=1   headers=${tokenHeader}  client_certs=${CERT_INFO}
 
     # Improperly formatted JSON subscriptionRequest
     ${subscriptionRequest}   Set Variable   {"consumerSubscriptionId" "69253c4b-8398-4602-855d-783865f5f25c","filter" "(eq,extensions/country,US);","callback" ${o2ims_observer}}
